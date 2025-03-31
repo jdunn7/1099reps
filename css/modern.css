@@ -698,6 +698,16 @@ a:hover {
 .bg-gray-200 { background-color: var(--gray-200) !important; }
 .bg-white { background-color: var(--white) !important; }
 
+/* Button Glow Effect */
+.btn-glow {
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.btn-glow:hover,
+.btn-glow:focus {
+    box-shadow: 0 0 15px rgba(var(--primary-rgb), 0.6);
+}
+
 /* Responsive */
 @media (max-width: 1199.98px) {
     .hero-section__title {
