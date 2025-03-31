@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Placeholders for 1099 REPS</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fc;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        .placeholder {
+            width: 100%;
+            aspect-ratio: 1;
+            background-color: #4640DE;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .logo-placeholder {
+            background: linear-gradient(135deg, #4640DE 0%, #322FAF 100%);
+        }
+        .company-placeholder {
+            background: linear-gradient(135deg, #66789C 0%, #4A5578 100%);
+        }
+        .testimonial-placeholder {
+            background: linear-gradient(135deg, #FF9B05 0%, #E58C04 100%);
+        }
+        .hero-placeholder {
+            background: linear-gradient(135deg, #56CDAD 0%, #3AAF90 100%);
+            aspect-ratio: 16/9;
+        }
+        h1 {
+            color: #25324B;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #4E5D78;
+            margin: 30px 0 20px;
+        }
+        .download-btn {
+            display: inline-block;
+            background-color: #4640DE;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Image Placeholders for 1099 REPS</h1>
+        
+        <h2>Logos</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="placeholder logo-placeholder">1099 REPS</div>
+                <p>logo.png</p>
+                <a href="#" class="download-btn" onclick="generateAndDownload('1099 REPS', 'logo.png', '#4640DE', '#322FAF', 200, 50)">Generate Logo</a>
+            </div>
+            <div class="card">
+                <div class="placeholder logo-placeholder" style="color: black; background: white;">1099 REPS</div>
+                <p>logo-white.png</p>
+                <a href="#" class="download-btn" onclick="generateAndDownload('1099 REPS', 'logo-white.png', '#FFFFFF', '#F8F9FC', 200, 50, '#4640DE')">Generate White Logo</a>
+            </div>
+        </div>
+        
+        <h2>Company Logos</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="placeholder company-placeholder">OrthoMed</div>
+                <p>company-1.jpg</p>
+                <a href="#" class="download-btn" onclick="generateAndDownload('OM', 'company-1.jpg', '#66789C', '#4A5578', 100, 100)">Generate</a>
+            </div>
+            <div class="card">
+                <div class="placeholder company-placeholder">NextGen</div>
+                <p>company-2.jpg</p>
+                <a href="#" class="download-btn" onclick="generateAndDownload('NG', 'company-2.jpg', '#56CDAD', '#3AAF90', 100, 100)">Generate</a>
+            </div>
+            <div class="card">
+                <div class="placeholder company-placeholder">GenomeX</div>
+                <p>company-3.jpg</p>
+                <a href="#" class="download-btn" onclick="generateAndDownload('GX', 'company-3.jpg', '#FF9B05', '#E58C04', 100, 100)">Generate</a>
+            </div>
+            <div class="card">
+                <div class="placeholder company-placeholder">SurgTech</div>
+                <p>company-4.jpg</p>
+                <a href="#" class="download-btn" onclick="generateAndDownload('ST', 'company-4.jpg', '#4640DE', '#322FAF', 100, 100)">Generate</a>
+            </div>
+            <div class="card">
+                <div class="placeholder company-placeholder">MedTech</div>
+                <p>company-5.jpg</p>
+                <a href="#" class="download-btn" onclick="generateAndDownload('MT', 'company-5.jpg', '#4E5D78', '#25324B', 100, 100)">Generate</a>
+            </div>
+        </div>
+        
+        <h2>Testimonial Photos</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="placeholder testimonial-placeholder">SJ</div>
+                <p>testimonial-1.jpg</p>
+                <a href="#" class="download-btn" onclick="generateAndDownload('SJ', 'testimonial-1.jpg', '#FF9B05', '#E58C04', 100, 100, '#FFFFFF', true)">Generate</a>
+            </div>
+            <div class="card">
+                <div class="placeholder testimonial-placeholder">MR</div>
+                <p>testimonial-2.jpg</p>
+                <a href="#" class="download-btn" onclick="generateAndDownload('MR', 'testimonial-2.jpg', '#4640DE', '#322FAF', 100, 100, '#FFFFFF', true)">Generate</a>
+            </div>
+            <div class="card">
+                <div class="placeholder testimonial-placeholder">JL</div>
+                <p>testimonial-3.jpg</p>
+                <a href="#" class="download-btn" onclick="generateAndDownload('JL', 'testimonial-3.jpg', '#56CDAD', '#3AAF90', 100, 100, '#FFFFFF', true)">Generate</a>
+            </div>
+        </div>
+        
+        <h2>Hero Images</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="placeholder hero-placeholder">Medical Sales Rep</div>
+                <p>hero-image.jpg</p>
+                <a href="#" class="download-btn" onclick="generateAndDownload('Medical Sales', 'hero-image.jpg', '#F8F9FC', '#E9EBF3', 800, 500, '#4640DE')">Generate</a>
+            </div>
+            <div class="card">
+                <div class="placeholder hero-placeholder">Healthcare Company</div>
+                <p>companies-image.jpg</p>
+                <a href="#" class="download-btn" onclick="generateAndDownload('Healthcare', 'companies-image.jpg', '#F8F9FC', '#E9EBF3', 800, 500, '#4640DE')">Generate</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function generateAndDownload(text, filename, color1, color2, width, height, textColor = '#FFFFFF', isCircle = false) {
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            
+            // Create gradient
+            const gradient = ctx.createLinearGradient(0, 0, width, height);
+            gradient.addColorStop(0, color1);
+            gradient.addColorStop(1, color2);
+            
+            // Fill background
+            ctx.fillStyle = gradient;
+            
+            if (isCircle) {
+                ctx.beginPath();
+                ctx.arc(width/2, height/2, Math.min(width, height)/2, 0, Math.PI * 2);
+                ctx.fill();
+            } else {
+                ctx.fillRect(0, 0, width, height);
+            }
+            
+            // Add text
+            ctx.fillStyle = textColor;
+            ctx.font = `bold ${Math.min(width, height) / 4}px Inter, sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, width/2, height/2);
+            
+            // Create download link
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/jpeg', 0.9);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>

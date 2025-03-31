@@ -1,0 +1,44 @@
+[
+    {
+        "position": "Orthopedic Device Sales Representative",
+        "company": "OrthoMed Solutions",
+        "location": [39.8283, -98.5795],
+        "type": "Medical Device",
+        "status": "Open"
+    },
+    {
+        "position": "Specialty Pharma Sales Representative",
+        "company": "NextGen Pharma",
+        "location": [34.0522, -118.2437],
+        "type": "Pharmaceutical",
+        "status": "Open"
+    },
+    {
+        "position": "Genetic Testing Sales Representative",
+        "company": "GenomeX",
+        "location": [40.7128, -74.0060],
+        "type": "Biotech",
+        "status": "Open"
+    },
+    {
+        "position": "Medical Imaging Sales Specialist",
+        "company": "Imagix Solutions",
+        "location": [41.8781, -87.6298],
+        "type": "Medical Device",
+        "status": "Closed"
+    },
+    {
+        "position": "Pharmaceutical Sales Manager",
+        "company": "PharmaCorp",
+        "location": [32.7157, -117.1611],
+        "type": "Pharmaceutical",
+        "status": "Open"
+    },
+    {
+        "position": "Clinical Trial Sales Representative",
+        "company": "TrialsRUs",
+        "location": [29.7604, -95.3698],
+        "type": "Clinical Research",
+        "status": "Open"
+    }
+]

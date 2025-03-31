@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1099 REPS | Medical Sales Rep Recruiting</title>
+    <meta name="description" content="1099 REPS is the premier site for connecting independent medical sales representatives with healthcare companies.">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/modern.css">
+</head>
+<body>
+    <!-- Header/Navigation -->
+    <header class="header">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">
+                    <img src="images/logo.png" alt="1099 REPS Logo" height="40">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto align-items-center">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="job-search/index.html">Find Jobs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="for-reps/index.html">For Reps</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="for-companies/index.html">For Companies</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="resources/index.html">Resources</a>
+                        </li>
+                        <li class="nav-item ms-lg-2">
+                            <a class="btn btn-outline-primary" href="login.html">Log in</a>
+                        </li>
+                        <li class="nav-item ms-lg-2">
+                            <a class="btn btn-primary" href="signup.html">Sign up</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <h1 class="hero-section__title">Find Your Next <span class="text-primary">1099</span> Medical Sales Opportunity</h1>
+                    <p class="hero-section__subtitle">Connect with healthcare companies looking for independent sales representatives. Take control of your career with flexible 1099 contracts.</p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="signup.html" class="btn btn-primary btn-lg">
+                            <i class="bi bi-person-plus"></i> Sign Up as a Rep
+                        </a>
+                        <a href="employer/signup.html" class="btn btn-outline-primary btn-lg">
+                            <i class="bi bi-building"></i> Post a Job
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="position-relative">
+                        <img src="images/hero-image.jpg" alt="Medical Sales Representative" class="img-fluid rounded-lg shadow-lg">
+                        <div class="position-absolute top-0 end-0 translate-middle-y">
+                            <div class="bg-white p-3 rounded-lg shadow-lg d-flex align-items-center">
+                                <div class="bg-success-light p-2 rounded-circle me-2">
+                                    <i class="bi bi-check-circle-fill text-success"></i>
+                                </div>
+                                <div>
+                                    <p class="mb-0 fw-bold">1,200+ Jobs</p>
+                                    <p class="mb-0 small text-gray-600">Available Now</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="position-absolute bottom-0 start-0 translate-middle-y">
+                            <div class="bg-white p-3 rounded-lg shadow-lg">
+                                <div class="d-flex align-items-center mb-2">
+                                    <div class="bg-primary-light p-2 rounded-circle me-2">
+                                        <i class="bi bi-graph-up-arrow text-primary"></i>
+                                    </div>
+                                    <p class="mb-0 fw-bold">Higher Earnings</p>
+                                </div>
+                                <p class="mb-0 small text-gray-600">Avg. 30% more than W2</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="section-sm">
+        <div class="container">
+            <div class="hero-section__search">
+                <form class="row g-3">
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text bg-white border-end-0">
+                                <i class="bi bi-search text-gray-500"></i>
+                            </span>
+                            <input type="text" class="form-control border-start-0" placeholder="Job title or keyword">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text bg-white border-end-0">
+                                <i class="bi bi-geo-alt text-gray-500"></i>
+                            </span>
+                            <input type="text" class="form-control border-start-0" placeholder="Location">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-select" title="Select job category" aria-label="Job category selection">
+                            <option selected>All Categories</option>
+                            <option>Medical Device</option>
+                            <option>Pharmaceutical</option>
+                            <option>Biotech</option>
+                            <option>Healthcare IT</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="bi bi-search me-2"></i> Search
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="section bg-gray-100">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="mb-2">Explore Opportunities</h2>
+                <p class="text-gray-600">Discover 1099 positions across various medical fields</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-3 col-6">
+                    <a href="job-search/index.html?category=medical-device" class="text-decoration-none">
+                        <div class="category-card">
+                            <div class="category-card__icon">
+                                <i class="bi bi-heart-pulse"></i>
+                            </div>
+                            <div>
+                                <h3 class="category-card__title">Medical Device</h3>
+                                <p class="category-card__count">428 Jobs</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3 col-6">
+                    <a href="job-search/index.html?category=pharmaceutical" class="text-decoration-none">
+                        <div class="category-card">
+                            <div class="category-card__icon">
+                                <i class="bi bi-capsule"></i>
+                            </div>
+                            <div>
+                                <h3 class="category-card__title">Pharmaceutical</h3>
+                                <p class="category-card__count">356 Jobs</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3 col-6">
+                    <a href="job-search/index.html?category=biotech" class="text-decoration-none">
+                        <div class="category-card">
+                            <div class="category-card__icon">
+                                <i class="bi bi-virus"></i>
+                            </div>
+                            <div>
+                                <h3 class="category-card__title">Biotech</h3>
+                                <p class="category-card__count">215 Jobs</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3 col-6">
+                    <a href="job-search/index.html?category=healthcare-it" class="text-decoration-none">
+                        <div class="category-card">
+                            <div class="category-card__icon">
+                                <i class="bi bi-laptop-medical"></i>
+                            </div>
+                            <div>
+                                <h3 class="category-card__title">Healthcare IT</h3>
+                                <p class="category-card__count">189 Jobs</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Jobs Section -->
+    <section class="section">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-5">
+                <div>
+                    <h2 class="mb-2">Featured Opportunities</h2>
+                    <p class="text-gray-600">Handpicked 1099 positions from top healthcare companies</p>
+                </div>
+                <a href="job-search/index.html" class="btn btn-outline-primary">
+                    View All Jobs <i class="bi bi-arrow-right ms-2"></i>
+                </a>
+            </div>
+            <div class="row g-4">
+                <!-- Job Card 1 -->
+                <div class="col-lg-6">
+                    <div class="job-card">
+                        <div class="job-card__header">
+                            <img src="images/company-1.jpg" alt="OrthoMed Solutions" class="job-card__logo">
+                            <div>
+                                <p class="job-card__company">OrthoMed Solutions</p>
+                                <h3 class="job-card__title">Orthopedic Device Sales Representative</h3>
+                                <p class="job-card__location">
+                                    <i class="bi bi-geo-alt"></i> Boston, MA
+                                </p>
+                            </div>
+                        </div>
+                        <div class="job-card__tags">
+                            <span class="job-card__tag">1099 Contract</span>
+                            <span class="job-card__tag">Draw + Commission</span>
+                            <span class="job-card__tag">Senior Level</span>
+                        </div>
+                        <div class="job-card__footer">
+                            <p class="job-card__salary">$150K-$250K</p>
+                            <p class="job-card__posted">Posted 2 days ago</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Job Card 2 -->
+                <div class="col-lg-6">
+                    <div class="job-card">
+                        <div class="job-card__header">
+                            <img src="images/company-2.jpg" alt="NextGen Pharma" class="job-card__logo">
+                            <div>
+                                <p class="job-card__company">NextGen Pharma</p>
+                                <h3 class="job-card__title">Specialty Pharma Sales Representative</h3>
+                                <p class="job-card__location">
+                                    <i class="bi bi-geo-alt"></i> Chicago, IL
+                                </p>
+                            </div>
+                        </div>
+                        <div class="job-card__tags">
+                            <span class="job-card__tag">1099 Contract</span>
+                            <span class="job-card__tag">Base + Commission</span>
+                            <span class="job-card__tag">Mid Level</span>
+                        </div>
+                        <div class="job-card__footer">
+                            <p class="job-card__salary">$120K-$180K</p>
+                            <p class="job-card__posted">Posted 1 day ago</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Job Card 3 -->
+                <div class="col-lg-6">
+                    <div class="job-card">
+                        <div class="job-card__header">
+                            <img src="images/company-3.jpg" alt="GenomeX" class="job-card__logo">
+                            <div>
+                                <p class="job-card__company">GenomeX</p>
+                                <h3 class="job-card__title">Genetic Testing Sales Representative</h3>
+                                <p class="job-card__location">
+                                    <i class="bi bi-geo-alt"></i> Remote (US)
+                                </p>
+                            </div>
+                        </div>
+                        <div class="job-card__tags">
+                            <span class="job-card__tag">1099 Contract</span>
+                            <span class="job-card__tag">Commission Only</span>
+                            <span class="job-card__tag">Senior Level</span>
+                        </div>
+                        <div class="job-card__footer">
+                            <p class="job-card__salary">$100K-$200K</p>
+                            <p class="job-card__posted">Posted 5 days ago</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Job Card 4 -->
+                <div class="col-lg-6">
+                    <div class="job-card">
+                        <div class="job-card__header">
+                            <img src="images/company-4.jpg" alt="SurgTech Innovations" class="job-card__logo">
+                            <div>
+                                <p class="job-card__company">SurgTech Innovations</p>
+                                <h3 class="job-card__title">Surgical Equipment Sales Representative</h3>
+                                <p class="job-card__location">
+                                    <i class="bi bi-geo-alt"></i> Dallas, TX
+                                </p>
+                            </div>
+                        </div>
+                        <div class="job-card__tags">
+                            <span class="job-card__tag">1099 Contract</span>
+                            <span class="job-card__tag">Draw + Commission</span>
+                            <span class="job-card__tag">Mid Level</span>
+                        </div>
+                        <div class="job-card__footer">
+                            <p class="job-card__salary">$130K-$190K</p>
+                            <p class="job-card__posted">Posted 3 days ago</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section bg-gray-100">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="mb-2">Why Choose 1099 REPS?</h2>
+                <p class="text-gray-600">The premier platform for independent medical sales professionals</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 border-0">
+                        <div class="card-body">
+                            <div class="feature-icon">
+                                <i class="bi bi-cash-stack"></i>
+                            </div>
+                            <h3 class="h4 mb-3">Higher Earning Potential</h3>
+                            <p class="text-gray-600">As a 1099 contractor, you can maximize your income with better commission structures and multiple product lines.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0">
+                        <div class="card-body">
+                            <div class="feature-icon">
+                                <i class="bi bi-calendar-check"></i>
+                            </div>
+                            <h3 class="h4 mb-3">Flexible Schedule</h3>
+                            <p class="text-gray-600">Work on your own terms with the freedom to manage your territory and schedule as you see fit.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0">
+                        <div class="card-body">
+                            <div class="feature-icon">
+                                <i class="bi bi-graph-up"></i>
+                            </div>
+                            <h3 class="h4 mb-3">Career Growth</h3>
+                            <p class="text-gray-600">Build your personal brand and expand your network across multiple healthcare companies and product lines.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="mb-2">Success Stories</h2>
+                <p class="text-gray-600">Hear from independent reps who found success through 1099 REPS</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="testimonial-card">
+                        <p class="testimonial-card__quote">"Switching to 1099 work through this platform doubled my income in the first year. I now represent three complementary product lines and have complete control over my schedule."</p>
+                        <div class="testimonial-card__author">
+                            <img src="images/testimonial-1.jpg" alt="Sarah Johnson" class="testimonial-card__avatar">
+                            <div>
+                                <p class="testimonial-card__name">Sarah Johnson</p>
+                                <p class="testimonial-card__role">Medical Device Rep</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="testimonial-card">
+                        <p class="testimonial-card__quote">"After 15 years as a W2 employee, I made the switch to 1099 work. The flexibility allows me to spend more time with my family while actually increasing my earnings."</p>
+                        <div class="testimonial-card__author">
+                            <img src="images/testimonial-2.jpg" alt="Michael Rodriguez" class="testimonial-card__avatar">
+                            <div>
+                                <p class="testimonial-card__name">Michael Rodriguez</p>
+                                <p class="testimonial-card__role">Pharmaceutical Rep</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="testimonial-card">
+                        <p class="testimonial-card__quote">"1099 REPS connected me with three startups that needed part-time sales help. I'm now earning more than my previous full-time position while working fewer hours."</p>
+                        <div class="testimonial-card__author">
+                            <img src="images/testimonial-3.jpg" alt="Jennifer Lee" class="testimonial-card__avatar">
+                            <div>
+                                <p class="testimonial-card__name">Jennifer Lee</p>
+                                <p class="testimonial-card__role">Healthcare IT Rep</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- For Companies Section -->
+    <section class="section bg-gray-100">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <h2 class="mb-3">For Healthcare Companies</h2>
+                    <p class="text-gray-600 mb-4">Access a network of experienced 1099 sales representatives without the overhead of full-time employees.</p>
+                    <ul class="list-unstyled mb-4">
+                        <li class="d-flex align-items-center mb-3">
+                            <div class="bg-success-light p-2 rounded-circle me-3">
+                                <i class="bi bi-check-lg text-success"></i>
+                            </div>
+                            <p class="mb-0">Reduce fixed costs with performance-based compensation</p>
+                        </li>
+                        <li class="d-flex align-items-center mb-3">
+                            <div class="bg-success-light p-2 rounded-circle me-3">
+                                <i class="bi bi-check-lg text-success"></i>
+                            </div>
+                            <p class="mb-0">Scale your sales force up or down based on market needs</p>
+                        </li>
+                        <li class="d-flex align-items-center mb-3">
+                            <div class="bg-success-light p-2 rounded-circle me-3">
+                                <i class="bi bi-check-lg text-success"></i>
+                            </div>
+                            <p class="mb-0">Tap into established relationships in your target market</p>
+                        </li>
+                        <li class="d-flex align-items-center mb-3">
+                            <div class="bg-success-light p-2 rounded-circle me-3">
+                                <i class="bi bi-check-lg text-success"></i>
+                            </div>
+                            <p class="mb-0">Find reps with specific expertise in your niche</p>
+                        </li>
+                    </ul>
+                    <a href="employer/signup.html" class="btn btn-primary">
+                        <i class="bi bi-building me-2"></i> Post a Job
+                    </a>
+                </div>
+                <div class="col-lg-6">
+                    <img src="images/companies-image.jpg" alt="Healthcare Company" class="img-fluid rounded-lg shadow-lg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container text-center">
+            <h2 class="cta-section__title">Ready to Transform Your Medical Sales Career?</h2>
+            <p class="cta-section__subtitle">Join thousands of independent medical sales representatives who have taken control of their careers with 1099 REPS.</p>
+            <div class="d-flex flex-wrap justify-content-center gap-3 mt-4">
+                <a href="signup.html" class="btn btn-light btn-lg">
+                    <i class="bi bi-person-plus me-2"></i> Sign Up Now
+                </a>
+                <a href="contact.html" class="btn btn-outline-light btn-lg">
+                    <i class="bi bi-chat-text me-2"></i> Contact Us
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <img src="images/logo-white.png" alt="1099 REPS Logo" height="40" class="mb-4">
+                    <p>The premier platform connecting independent medical sales representatives with healthcare companies.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#" class="social-icon" title="Follow us on Facebook"><i class="bi bi-facebook" aria-hidden="true"></i><span class="visually-hidden">Facebook</span></a>
+                        <a href="#" class="social-icon" title="Follow us on Twitter"><i class="bi bi-twitter-x" aria-hidden="true"></i><span class="visually-hidden">Twitter</span></a>
+                        <a href="#" class="social-icon" title="Connect with us on LinkedIn"><i class="bi bi-linkedin" aria-hidden="true"></i><span class="visually-hidden">LinkedIn</span></a>
+                        <a href="#" class="social-icon" title="Follow us on Instagram"><i class="bi bi-instagram" aria-hidden="true"></i><span class="visually-hidden">Instagram</span></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="job-search/index.html">Find Jobs</a></li>
+                        <li><a href="for-reps/index.html">For Reps</a></li>
+                        <li><a href="for-companies/index.html">For Companies</a></li>
+                        <li><a href="resources/index.html">Resources</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h5>Resources</h5>
+                    <ul class="footer-links">
+                        <li><a href="blog/index.html">Blog</a></li>
+                        <li><a href="resources/1099-guide.html">1099 Guide</a></li>
+                        <li><a href="resources/contract-templates.html">Contract Templates</a></li>
+                        <li><a href="resources/tax-tips.html">Tax Tips</a></li>
+                        <li><a href="resources/commission-calculator.html">Commission Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <h5>Subscribe to Our Newsletter</h5>
+                    <p>Get the latest 1099 opportunities and industry insights delivered to your inbox.</p>
+                    <form class="mt-3">
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Your email address">
+                            <button class="btn btn-primary" type="submit">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="row">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                        <p class="mb-0">&copy; 2025 1099 REPS. All rights reserved.</p>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <a href="privacy-policy.html" class="me-3">Privacy Policy</a>
+                        <a href="terms-of-service.html">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+</body>
+</html>

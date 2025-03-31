@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Dashboard | 1099 REPS</title>
+    <meta name="description" content="Manage your 1099 REPS account, track job applications, and connect with healthcare companies.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/modern.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Header/Navigation -->
+    <header class="header">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+            <div class="container">
+                <a class="navbar-brand" href="../index.html">
+                    <img src="../images/logo.png" alt="1099 REPS Logo" height="50">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../job-search/index.html">Find Jobs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../for-reps/index.html">For Reps</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../for-companies/index.html">For Companies</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../resources/index.html">Resources</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="../images/avatar-placeholder.jpg" alt="User Avatar" class="rounded-circle me-1" width="28" height="28">
+                                <span>John Doe</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item active" href="index.html">Dashboard</a></li>
+                                <li><a class="dropdown-item" href="profile.html">My Profile</a></li>
+                                <li><a class="dropdown-item" href="applications.html">My Applications</a></li>
+                                <li><a class="dropdown-item" href="saved-jobs.html">Saved Jobs</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="../index.html">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Dashboard Content -->
+    <main class="dashboard-main pt-5 mt-5">
+        <div class="container py-4">
+            <!-- Welcome Banner -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card border-0 bg-primary text-white rounded-4 shadow-lg">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center">
+                                <div>
+                                    <h1 class="h3 fw-bold mb-1">Welcome back, John!</h1>
+                                    <p class="mb-0">Your dashboard has been updated with 3 new job matches.</p>
+                                </div>
+                                <div class="ms-auto d-none d-md-block">
+                                    <a href="../job-search/index.html" class="btn btn-light">View New Jobs</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Dashboard Stats -->
+            <div class="row g-4 mb-4">
+                <div class="col-md-3">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="rounded-circle bg-primary bg-opacity-10 p-3 me-3">
+                                    <i class="bi bi-briefcase text-primary"></i>
+                                </div>
+                                <h2 class="h5 fw-bold mb-0">Applications</h2>
+                            </div>
+                            <h3 class="display-6 fw-bold mb-0">12</h3>
+                            <p class="text-muted small mb-0">2 in last 7 days</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="rounded-circle bg-success bg-opacity-10 p-3 me-3">
+                                    <i class="bi bi-check-circle text-success"></i>
+                                </div>
+                                <h2 class="h5 fw-bold mb-0">Interviews</h2>
+                            </div>
+                            <h3 class="display-6 fw-bold mb-0">4</h3>
+                            <p class="text-muted small mb-0">1 scheduled this week</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="rounded-circle bg-info bg-opacity-10 p-3 me-3">
+                                    <i class="bi bi-bookmark text-info"></i>
+                                </div>
+                                <h2 class="h5 fw-bold mb-0">Saved Jobs</h2>
+                            </div>
+                            <h3 class="display-6 fw-bold mb-0">8</h3>
+                            <p class="text-muted small mb-0">3 new matches</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="rounded-circle bg-warning bg-opacity-10 p-3 me-3">
+                                    <i class="bi bi-eye text-warning"></i>
+                                </div>
+                                <h2 class="h5 fw-bold mb-0">Profile Views</h2>
+                            </div>
+                            <h3 class="display-6 fw-bold mb-0">27</h3>
+                            <p class="text-muted small mb-0">↑ 15% this month</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Application Activity and Job Recommendations -->
+            <div class="row g-4 mb-4">
+                <div class="col-lg-8">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-white py-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h2 class="h5 fw-bold mb-0">Application Activity</h2>
+                                <div class="dropdown">
+                                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="timeRangeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Last 30 Days
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="timeRangeDropdown">
+                                        <li><a class="dropdown-item" href="#">Last 7 Days</a></li>
+                                        <li><a class="dropdown-item active" href="#">Last 30 Days</a></li>
+                                        <li><a class="dropdown-item" href="#">Last 90 Days</a></li>
+                                        <li><a class="dropdown-item" href="#">All Time</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="applicationChart" height="250"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-white py-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h2 class="h5 fw-bold mb-0">Job Recommendations</h2>
+                                <a href="../job-search/index.html" class="btn btn-sm btn-primary">View All</a>
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item px-4 py-3">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-grow-1">
+                                            <h3 class="h6 fw-bold mb-1"><a href="../job-details/job1.html" class="text-decoration-none">Orthopedic Device Sales Representative</a></h3>
+                                            <p class="text-muted small mb-0">OrthoMed Solutions • Boston, MA</p>
+                                        </div>
+                                        <div class="ms-auto">
+                                            <span class="badge bg-success">95% Match</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item px-4 py-3">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-grow-1">
+                                            <h3 class="h6 fw-bold mb-1"><a href="../job-details/job1.html" class="text-decoration-none">Specialty Pharma Sales Representative</a></h3>
+                                            <p class="text-muted small mb-0">NextGen Pharma • Chicago, IL</p>
+                                        </div>
+                                        <div class="ms-auto">
+                                            <span class="badge bg-success">92% Match</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item px-4 py-3">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-grow-1">
+                                            <h3 class="h6 fw-bold mb-1"><a href="../job-details/job1.html" class="text-decoration-none">Genetic Testing Sales Representative</a></h3>
+                                            <p class="text-muted small mb-0">GenomeX • Remote (US)</p>
+                                        </div>
+                                        <div class="ms-auto">
+                                            <span class="badge bg-warning text-dark">85% Match</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent Applications and Upcoming Interviews -->
+            <div class="row g-4">
+                <div class="col-lg-8">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-white py-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h2 class="h5 fw-bold mb-0">Recent Applications</h2>
+                                <a href="applications.html" class="btn btn-sm btn-outline-primary">View All</a>
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col">Job Title</th>
+                                            <th scope="col">Company</th>
+                                            <th scope="col">Applied</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><a href="../job-details/job1.html" class="text-decoration-none">Orthopedic Device Sales Rep</a></td>
+                                            <td>OrthoMed Solutions</td>
+                                            <td>Mar 28, 2025</td>
+                                            <td><span class="badge bg-success">Interview Scheduled</span></td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="dropdownAction1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Actions
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAction1">
+                                                        <li><a class="dropdown-item" href="#">View Application</a></li>
+                                                        <li><a class="dropdown-item" href="#">Contact Recruiter</a></li>
+                                                        <li><a class="dropdown-item" href="#">Withdraw Application</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="../job-details/job1.html" class="text-decoration-none">Specialty Pharma Sales Rep</a></td>
+                                            <td>NextGen Pharma</td>
+                                            <td>Mar 25, 2025</td>
+                                            <td><span class="badge bg-info text-dark">Under Review</span></td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="dropdownAction2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Actions
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAction2">
+                                                        <li><a class="dropdown-item" href="#">View Application</a></li>
+                                                        <li><a class="dropdown-item" href="#">Contact Recruiter</a></li>
+                                                        <li><a class="dropdown-item" href="#">Withdraw Application</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="../job-details/job1.html" class="text-decoration-none">Genetic Testing Sales Rep</a></td>
+                                            <td>GenomeX</td>
+                                            <td>Mar 20, 2025</td>
+                                            <td><span class="badge bg-warning text-dark">Assessment Pending</span></td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="dropdownAction3" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Actions
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAction3">
+                                                        <li><a class="dropdown-item" href="#">View Application</a></li>
+                                                        <li><a class="dropdown-item" href="#">Contact Recruiter</a></li>
+                                                        <li><a class="dropdown-item" href="#">Withdraw Application</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-white py-3">
+                            <h2 class="h5 fw-bold mb-0">Upcoming Interviews</h2>
+                        </div>
+                        <div class="card-body p-0">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item px-4 py-3">
+                                    <div class="d-flex">
+                                        <div class="calendar-date me-3 text-center">
+                                            <div class="bg-primary text-white rounded-top px-2 py-1">APR</div>
+                                            <div class="border border-top-0 rounded-bottom px-2 py-1 fw-bold">02</div>
+                                        </div>
+                                        <div>
+                                            <h3 class="h6 fw-bold mb-1">OrthoMed Solutions</h3>
+                                            <p class="mb-1">Orthopedic Device Sales Rep - First Interview</p>
+                                            <p class="text-muted small mb-0"><i class="bi bi-clock me-1"></i> 10:00 AM - 11:00 AM <i class="bi bi-geo-alt ms-2 me-1"></i> Video Call</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item px-4 py-3">
+                                    <div class="d-flex">
+                                        <div class="calendar-date me-3 text-center">
+                                            <div class="bg-primary text-white rounded-top px-2 py-1">APR</div>
+                                            <div class="border border-top-0 rounded-bottom px-2 py-1 fw-bold">05</div>
+                                        </div>
+                                        <div>
+                                            <h3 class="h6 fw-bold mb-1">MedTech Innovations</h3>
+                                            <p class="mb-1">Medical Device Sales - Second Interview</p>
+                                            <p class="text-muted small mb-0"><i class="bi bi-clock me-1"></i> 2:00 PM - 3:30 PM <i class="bi bi-geo-alt ms-2 me-1"></i> In-Person</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-footer bg-white border-top-0 text-center">
+                            <a href="#" class="btn btn-sm btn-outline-primary">Manage Calendar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer py-5 bg-primary-dark text-white mt-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <img src="../images/logo.png" alt="1099 REPS Logo" height="50" class="mb-4">
+                    <p>The premier platform connecting independent medical sales representatives with healthcare companies.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#" class="text-white me-2" title="Follow us on Facebook"><i class="bi bi-facebook" aria-hidden="true"></i><span class="visually-hidden">Facebook</span></a>
+                        <a href="#" class="text-white me-2" title="Follow us on Twitter"><i class="bi bi-twitter" aria-hidden="true"></i><span class="visually-hidden">Twitter</span></a>
+                        <a href="#" class="text-white me-2" title="Connect with us on LinkedIn"><i class="bi bi-linkedin" aria-hidden="true"></i><span class="visually-hidden">LinkedIn</span></a>
+                        <a href="#" class="text-white" title="Follow us on Instagram"><i class="bi bi-instagram" aria-hidden="true"></i><span class="visually-hidden">Instagram</span></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h5 class="mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="../index.html" class="text-white text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="../job-search/index.html" class="text-white text-decoration-none">Find Jobs</a></li>
+                        <li class="mb-2"><a href="../for-reps/index.html" class="text-white text-decoration-none">For Reps</a></li>
+                        <li class="mb-2"><a href="../for-companies/index.html" class="text-white text-decoration-none">For Companies</a></li>
+                        <li class="mb-2"><a href="../about-us.html" class="text-white text-decoration-none">About Us</a></li>
+                        <li class="mb-2"><a href="../contact.html" class="text-white text-decoration-none">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h5 class="mb-3">For Reps</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="../job-search/index.html" class="text-white text-decoration-none">Browse Jobs</a></li>
+                        <li class="mb-2"><a href="../for-reps/create-profile.html" class="text-white text-decoration-none">Create Profile</a></li>
+                        <li class="mb-2"><a href="../for-reps/success-stories.html" class="text-white text-decoration-none">Success Stories</a></li>
+                        <li class="mb-2"><a href="../for-reps/resources.html" class="text-white text-decoration-none">Resources</a></li>
+                        <li class="mb-2"><a href="../for-reps/faq.html" class="text-white text-decoration-none">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h5 class="mb-3">Resources</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="../blog/index.html" class="text-white text-decoration-none">Blog</a></li>
+                        <li class="mb-2"><a href="../resources/1099-guide.html" class="text-white text-decoration-none">1099 Guide</a></li>
+                        <li class="mb-2"><a href="../resources/contract-templates.html" class="text-white text-decoration-none">Contract Templates</a></li>
+                        <li class="mb-2"><a href="../resources/tax-tips.html" class="text-white text-decoration-none">Tax Tips</a></li>
+                        <li class="mb-2"><a href="../resources/commission-calculator.html" class="text-white text-decoration-none">Commission Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h5 class="mb-3">Contact Us</h5>
+                    <p>Have questions? Reach out to our team.</p>
+                    <p><i class="bi bi-envelope-fill me-2"></i> info@1099reps.com</p>
+                    <p><i class="bi bi-telephone-fill me-2"></i> (800) 555-1099</p>
+                </div>
+            </div>
+            <hr class="my-4 border-secondary">
+            <div class="row">
+                <div class="col-md-6 mb-3 mb-md-0">
+                    <p class="mb-0">&copy; 2025 1099 REPS. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="../privacy-policy.html" class="text-white text-decoration-none me-3">Privacy Policy</a>
+                    <a href="../terms-of-service.html" class="text-white text-decoration-none">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <script>
+        // Chart.js - Application Activity
+        const ctx = document.getElementById('applicationChart').getContext('2d');
+        const applicationChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Mar 1', 'Mar 5', 'Mar 10', 'Mar 15', 'Mar 20', 'Mar 25', 'Mar 30'],
+                datasets: [
+                    {
+                        label: 'Applications',
+                        data: [0, 2, 3, 5, 8, 10, 12],
+                        borderColor: '#4640DE',
+                        backgroundColor: 'rgba(70, 64, 222, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    },
+                    {
+                        label: 'Interviews',
+                        data: [0, 0, 1, 1, 2, 3, 4],
+                        borderColor: '#38CB89',
+                        backgroundColor: 'rgba(56, 203, 137, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false,
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
+                    }
+                },
+                interaction: {
+                    mode: 'nearest',
+                    axis: 'x',
+                    intersect: false
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Territory Map | 1099 REPS</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/modern.css">
+    <!-- Add Leaflet MarkerCluster -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+</head>
+<body>
+    <div class="container-fluid p-0">
+        <div class="filter-controls">
+            <label for="jobTypeFilter">Job Type:</label>
+            <select id="jobTypeFilter" class="form-select form-select-sm">
+                <option value="all" selected>All Job Types</option>
+                <!-- Options will be populated dynamically -->
+            </select>
+            <label for="jobStatusFilter" class="mt-2">Job Status:</label>
+            <select id="jobStatusFilter" class="form-select form-select-sm">
+                <option value="all" selected>All Statuses</option>
+                <option value="Open">Open</option>
+                <option value="Closed">Closed</option>
+            </select>
+        </div>
+        <div class="map-controls">
+            <button id="resetView" class="btn btn-sm btn-primary mb-2">Reset View</button>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="showMarkers" checked>
+                <label class="form-check-label" for="showMarkers">Show Markers</label>
+            </div>
+        </div>
+        <div id="map" style="height: 100vh;"></div>
+    </div>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- Add Leaflet MarkerCluster -->
+    <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize the map
+            const map = L.map('map').setView([37.8, -96], 4);
+
+            // Add custom map tiles
+            const customTiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                subdomains: 'abcd',
+                maxZoom: 19
+            });
+
+            // Remove default tile layer and add custom one
+            map.eachLayer(layer => {
+                if (layer instanceof L.TileLayer) {
+                    map.removeLayer(layer);
+                }
+            });
+            customTiles.addTo(map);
+
+            // Initialize marker cluster group outside fetch
+            const markersCluster = L.markerClusterGroup();
+            map.addLayer(markersCluster); // Add cluster group immediately
+
+            let allJobData = []; // Store all loaded job data
+            let allMarkers = []; // Store all created markers
+
+            // Get filter elements
+            const jobTypeFilter = document.getElementById('jobTypeFilter');
+            const jobStatusFilter = document.getElementById('jobStatusFilter');
+
+            // Function to populate job type filter
+            function populateJobTypeFilter(jobs) {
+                const jobTypes = [...new Set(jobs.map(job => job.type))]; // Get unique types
+                jobTypes.sort();
+                jobTypes.forEach(type => {
+                    const option = document.createElement('option');
+                    option.value = type;
+                    option.textContent = type;
+                    jobTypeFilter.appendChild(option);
+                });
+            }
+
+            // Function to apply filters
+            function applyFilters() {
+                const selectedType = jobTypeFilter.value;
+                const selectedStatus = jobStatusFilter.value;
+
+                const filteredMarkers = allMarkers.filter(marker => {
+                    const job = marker.jobData;
+                    const typeMatch = selectedType === 'all' || job.type === selectedType;
+                    const statusMatch = selectedStatus === 'all' || job.status === selectedStatus;
+                    return typeMatch && statusMatch;
+                });
+
+                markersCluster.clearLayers(); // Remove existing markers from cluster
+                markersCluster.addLayers(filteredMarkers); // Add filtered markers
+            }
+
+            // Load job data
+            fetch('job-data.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    allJobData = data; // Store the data
+                    populateJobTypeFilter(allJobData); // Populate filter dropdown
+
+                    if (!allJobData || allJobData.length === 0) {
+                        return; // Exit if no data
+                    }
+
+                    allJobData.forEach((job, index) => {
+                        if (!job.location || !Array.isArray(job.location) || job.location.length !== 2) {
+                            return; // Skip this job if location is invalid
+                        }
+                        const marker = L.marker(job.location);
+                        marker.bindPopup(`
+                            <b>${job.position}</b><br>
+                            ${job.company}<br>
+                            <small>${job.type}</small>
+                        `);
+                        marker.jobData = job;
+                        allMarkers.push(marker); // Add to the main markers array
+                    });
+
+                    markersCluster.addLayers(allMarkers); // Initial load of all markers
+                })
+                .catch(error => console.error('Error loading or processing job data:', error));
+
+            // Add event listeners for filters
+            jobTypeFilter.addEventListener('change', applyFilters);
+            jobStatusFilter.addEventListener('change', applyFilters);
+
+            // Add map controls functionality
+            document.getElementById('resetView').addEventListener('click', () => {
+                map.setView([37.8, -96], 4);
+            });
+
+            // Re-enable and fix showMarkers toggle
+            document.getElementById('showMarkers').addEventListener('change', (e) => {
+                if (e.target.checked) {
+                   map.addLayer(markersCluster); // Add cluster group back to map
+                } else {
+                    map.removeLayer(markersCluster); // Remove cluster group from map
+                }
+            });
+        });
+    </script>
+</body>
+</html>
