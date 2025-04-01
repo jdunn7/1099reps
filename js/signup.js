@@ -94,45 +94,25 @@ function validateEmail(email) {
 async function handleRepSignupSubmit(event) {
     event.preventDefault();
     console.log('Rep signup form submitted');
+    const emailInputForLogging = document.getElementById('rep-email');
+    console.log(`[DEBUG] Email value at start: ${emailInputForLogging?.value}`);
     
-    // Only clear validation states but preserve input values
+    // Preserve input values but clear validation states
     const form = event.target;
     const inputs = form.querySelectorAll('input, select');
     inputs.forEach(input => {
-        // Remove validation classes but don't reset values
         input.classList.remove('is-invalid');
         input.classList.remove('is-valid');
     });
     
-    console.log('Preserving form values during validation');
-    
-    // Manual validation before submission
-    let isValid = true;
-    
-    // Validate email field directly
-    const emailInput = document.getElementById('rep-email');
-    const emailFeedback = document.getElementById('rep-email-feedback');
-    const email = emailInput ? emailInput.value.trim() : '';
-    
-    console.log('Email value at submission:', email);
-    
-    if (!email) {
-        emailInput.classList.add('is-invalid');
-        if (emailFeedback) emailFeedback.textContent = 'Email is required';
-        isValid = false;
-        console.log('Email validation failed: empty');
-    } else if (!validateEmail(email)) {
-        emailInput.classList.add('is-invalid');
-        if (emailFeedback) emailFeedback.textContent = 'Please enter a valid email address';
-        isValid = false;
-        console.log('Email validation failed: invalid format');
-    }
+    console.log('Form values preserved, proceeding with validation');
+    console.log(`[DEBUG] Email value before getting userData: ${emailInputForLogging?.value}`);
     
     // Get all form values
     const userData = {
         firstName: document.getElementById('first-name').value.trim(),
         lastName: document.getElementById('last-name').value.trim(),
-        email: email,
+        email: document.getElementById('rep-email').value.trim(), // Ensure email is included here
         phone: document.getElementById('phone').value.trim(),
         password: document.getElementById('rep-password').value,
         confirmPassword: document.getElementById('rep-confirm-password').value,
@@ -142,21 +122,23 @@ async function handleRepSignupSubmit(event) {
         termsAccepted: document.getElementById('rep-terms').checked
     };
     
-    // Validate other form inputs
+    console.log(`[DEBUG] Email value after getting userData (from input): ${emailInputForLogging?.value}`);
+    console.log(`[DEBUG] Email value in userData object: ${userData.email}`);
+
+    // Validate ALL form inputs using the updated function
     if (!validateRepSignupForm(userData)) {
         console.log('Form validation failed');
-        return;
+        console.log(`[DEBUG] Email value after FAILED validation: ${emailInputForLogging?.value}`);
+        return; // Stop submission if validation fails
     }
     
-    if (!isValid) {
-        console.log('Email validation prevented form submission');
-        return;
-    }
-    
+    // If validation passes, proceed with signup
     console.log('Form validation passed, attempting signup');
+    console.log(`[DEBUG] Email value before showing loading state: ${emailInputForLogging?.value}`);
     
     // Show loading state
     toggleLoadingState(true, 'rep');
+    console.log(`[DEBUG] Email value before calling authModule.signUp: ${emailInputForLogging?.value}`);
     
     try {
         // Attempt to sign up user
@@ -225,7 +207,7 @@ async function handleCompanySignupSubmit(event) {
  * @returns {boolean} - True if form is valid
  */
 function validateRepSignupForm(userData) {
-    // Reset previous error messages
+    // Reset previous error messages ONCE at the beginning
     resetErrorMessages();
     
     let isValid = true;
@@ -242,9 +224,20 @@ function validateRepSignupForm(userData) {
         isValid = false;
     }
     
-    // Skip email validation here - we're handling it separately in the submit handler
-    console.log('Skipping email validation in validateRepSignupForm - already handled separately');
-    // Email is now validated directly in the form submission handler
+    // Validate email (moved from handleRepSignupSubmit)
+    const emailInput = document.getElementById('rep-email'); // Get the input element
+    const emailFeedback = document.getElementById('rep-email-feedback'); // Get feedback element
+    if (!userData.email) {
+        if (emailInput) emailInput.classList.add('is-invalid');
+        if (emailFeedback) emailFeedback.textContent = 'Email is required';
+        isValid = false;
+        console.log('Email validation failed: empty');
+    } else if (!validateEmail(userData.email)) { // Use the existing validateEmail function
+        if (emailInput) emailInput.classList.add('is-invalid');
+        if (emailFeedback) emailFeedback.textContent = 'Please enter a valid email address';
+        isValid = false;
+        console.log('Email validation failed: invalid format');
+    }
     
     // Validate phone
     if (!userData.phone) {
