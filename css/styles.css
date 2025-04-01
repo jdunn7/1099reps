@@ -111,7 +111,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Hero Section */
 .hero-section {
-    padding: 120px 0 100px;
+    padding: 160px 0 100px;
     background-color: var(--white);
     position: relative;
     overflow: hidden;
@@ -120,7 +120,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Page Header Section */
 .page-header {
-    padding: 140px 0 60px;
+    padding: 160px 0 60px;
     position: relative;
     overflow: hidden;
     margin-top: 0;
@@ -135,7 +135,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Mobile adjustments for page header */
 @media (max-width: 767.98px) {
     .page-header {
-        padding: 130px 0 40px;
+        padding: 150px 0 40px;
         text-align: center;
     }
 }
@@ -143,7 +143,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Improve hero section spacing on mobile */
 @media (max-width: 767.98px) {
     .hero-section {
-        padding: 100px 0 60px;
+        padding: 140px 0 60px;
         text-align: center;
     }
     
