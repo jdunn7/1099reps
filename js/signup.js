@@ -4,45 +4,88 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM content loaded - initializing signup forms');
+    
     // Get signup forms
     const repSignupForm = document.getElementById('rep-signup-form');
     const companySignupForm = document.getElementById('company-signup-form');
     
+    // Direct access to form fields for validation
+    const repEmailInput = document.getElementById('rep-email');
+    const repEmailFeedback = document.getElementById('rep-email-feedback');
+    const repPasswordInput = document.getElementById('rep-password');
+    const repConfirmPasswordInput = document.getElementById('rep-confirm-password');
+    
+    // Set up real-time email validation
+    if (repEmailInput) {
+        console.log('Email input found, setting up validation');
+        
+        // Clear validation styling on input
+        repEmailInput.addEventListener('input', function() {
+            repEmailInput.classList.remove('is-invalid');
+            if (repEmailFeedback) {
+                repEmailFeedback.textContent = '';
+            }
+        });
+        
+        // Validate on blur (when user leaves the field)
+        repEmailInput.addEventListener('blur', function() {
+            const email = repEmailInput.value.trim();
+            console.log('Validating email on blur:', email);
+            
+            if (!email) {
+                repEmailInput.classList.add('is-invalid');
+                if (repEmailFeedback) {
+                    repEmailFeedback.textContent = 'Email is required';
+                }
+            } else if (!validateEmail(email)) {
+                repEmailInput.classList.add('is-invalid');
+                if (repEmailFeedback) {
+                    repEmailFeedback.textContent = 'Please enter a valid email address';
+                }
+            } else {
+                repEmailInput.classList.add('is-valid');
+            }
+        });
+    } else {
+        console.warn('Email input not found in the form');
+    }
+    
+    // Set up password confirmation validation
+    if (repPasswordInput && repConfirmPasswordInput) {
+        repConfirmPasswordInput.addEventListener('input', function() {
+            if (repPasswordInput.value !== repConfirmPasswordInput.value) {
+                repConfirmPasswordInput.classList.add('is-invalid');
+                repConfirmPasswordInput.classList.remove('is-valid');
+            } else {
+                repConfirmPasswordInput.classList.remove('is-invalid');
+                repConfirmPasswordInput.classList.add('is-valid');
+            }
+        });
+    }
+    
     // Add submit event listeners to signup forms
     if (repSignupForm) {
         repSignupForm.addEventListener('submit', handleRepSignupSubmit);
-        
-        // Add input event listeners for real-time validation
-        const repEmailInput = document.getElementById('rep-email');
-        const repPasswordInput = document.getElementById('rep-password');
-        const repConfirmPasswordInput = document.getElementById('rep-confirm-password');
-        
-        if (repEmailInput) {
-            repEmailInput.addEventListener('input', function() {
-                // Clear previous error messages
-                clearFieldError('rep-email');
-            });
-        }
-        
-        if (repPasswordInput && repConfirmPasswordInput) {
-            repConfirmPasswordInput.addEventListener('input', function() {
-                // Validate password match on input
-                if (repPasswordInput.value !== repConfirmPasswordInput.value) {
-                    displayErrorMessage('rep-confirm-password', 'Passwords do not match');
-                } else {
-                    clearFieldError('rep-confirm-password');
-                }
-            });
-        }
     }
     
     if (companySignupForm) {
         companySignupForm.addEventListener('submit', handleCompanySignupSubmit);
     }
     
-    // Log that the form initialization is complete
     console.log('Signup form initialization complete');
 });
+
+/**
+ * Simple email validation function
+ * @param {string} email - Email to validate
+ * @returns {boolean} - True if email is valid
+ */
+function validateEmail(email) {
+    console.log('Validating email:', email);
+    const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return re.test(email);
+}
 
 /**
  * Handle rep signup form submission
@@ -50,12 +93,42 @@ document.addEventListener('DOMContentLoaded', function() {
  */
 async function handleRepSignupSubmit(event) {
     event.preventDefault();
+    console.log('Rep signup form submitted');
     
-    // Get form values
+    // Clear all previous validation states
+    const form = event.target;
+    const inputs = form.querySelectorAll('input, select');
+    inputs.forEach(input => {
+        input.classList.remove('is-invalid');
+    });
+    
+    // Manual validation before submission
+    let isValid = true;
+    
+    // Validate email field directly
+    const emailInput = document.getElementById('rep-email');
+    const emailFeedback = document.getElementById('rep-email-feedback');
+    const email = emailInput ? emailInput.value.trim() : '';
+    
+    console.log('Email value at submission:', email);
+    
+    if (!email) {
+        emailInput.classList.add('is-invalid');
+        if (emailFeedback) emailFeedback.textContent = 'Email is required';
+        isValid = false;
+        console.log('Email validation failed: empty');
+    } else if (!validateEmail(email)) {
+        emailInput.classList.add('is-invalid');
+        if (emailFeedback) emailFeedback.textContent = 'Please enter a valid email address';
+        isValid = false;
+        console.log('Email validation failed: invalid format');
+    }
+    
+    // Get all form values
     const userData = {
         firstName: document.getElementById('first-name').value.trim(),
         lastName: document.getElementById('last-name').value.trim(),
-        email: document.getElementById('rep-email').value.trim(),
+        email: email,
         phone: document.getElementById('phone').value.trim(),
         password: document.getElementById('rep-password').value,
         confirmPassword: document.getElementById('rep-confirm-password').value,
@@ -65,10 +138,18 @@ async function handleRepSignupSubmit(event) {
         termsAccepted: document.getElementById('rep-terms').checked
     };
     
-    // Validate form inputs
+    // Validate other form inputs
     if (!validateRepSignupForm(userData)) {
+        console.log('Form validation failed');
         return;
     }
+    
+    if (!isValid) {
+        console.log('Email validation prevented form submission');
+        return;
+    }
+    
+    console.log('Form validation passed, attempting signup');
     
     // Show loading state
     toggleLoadingState(true, 'rep');
@@ -81,6 +162,7 @@ async function handleRepSignupSubmit(event) {
         handleSuccessfulSignup();
     } catch (error) {
         // Handle signup error
+        console.error('Signup error:', error);
         handleSignupError(error);
     } finally {
         // Hide loading state
@@ -156,27 +238,9 @@ function validateRepSignupForm(userData) {
         isValid = false;
     }
     
-    // Validate email
-    console.log('Validating email field, value:', userData.email);
-    try {
-        if (!userData.email || userData.email.trim() === '') {
-            console.log('Email is empty or undefined');
-            displayErrorMessage('rep-email', 'Email is required');
-            isValid = false;
-        } else if (!isValidEmail(userData.email)) {
-            console.log('Email format is invalid');
-            displayErrorMessage('rep-email', 'Please enter a valid email address');
-            isValid = false;
-        } else {
-            console.log('Email validation passed');
-            // Clear any existing error on the email field
-            clearFieldError('rep-email');
-        }
-    } catch (error) {
-        console.error('Error during email validation:', error);
-        displayErrorMessage('rep-email', 'An error occurred validating email');
-        isValid = false;
-    }
+    // Skip email validation here - we're handling it separately in the submit handler
+    console.log('Skipping email validation in validateRepSignupForm - already handled separately');
+    // Email is now validated directly in the form submission handler
     
     // Validate phone
     if (!userData.phone) {
