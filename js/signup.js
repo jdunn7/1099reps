@@ -95,12 +95,16 @@ async function handleRepSignupSubmit(event) {
     event.preventDefault();
     console.log('Rep signup form submitted');
     
-    // Clear all previous validation states
+    // Only clear validation states but preserve input values
     const form = event.target;
     const inputs = form.querySelectorAll('input, select');
     inputs.forEach(input => {
+        // Remove validation classes but don't reset values
         input.classList.remove('is-invalid');
+        input.classList.remove('is-valid');
     });
+    
+    console.log('Preserving form values during validation');
     
     // Manual validation before submission
     let isValid = true;

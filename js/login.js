@@ -66,9 +66,10 @@ async function handleLoginSubmit(event) {
  * @returns {boolean} - True if form is valid
  */
 function validateLoginForm(email, password) {
-    // Reset previous error messages
+    // Only clear error messages but preserve input values
     resetErrorMessages();
     
+    console.log('Validating login form, preserving email value:', email);
     let isValid = true;
     
     // Validate email
@@ -84,6 +85,12 @@ function validateLoginForm(email, password) {
     if (!password) {
         displayErrorMessage('password', 'Password is required');
         isValid = false;
+    }
+    
+    // Ensure the email input still has its value
+    const emailInput = document.getElementById('email');
+    if (emailInput && email) {
+        emailInput.value = email;
     }
     
     return isValid;
@@ -133,9 +140,27 @@ function resetErrorMessages() {
     const errorMessages = document.querySelectorAll('.invalid-feedback');
     errorMessages.forEach(element => element.remove());
     
+    // Store input values before removing validation classes
+    const inputValues = {};
+    const formInputs = document.querySelectorAll('input');
+    formInputs.forEach(input => {
+        if (input.id) {
+            inputValues[input.id] = input.value;
+        }
+    });
+    
     // Remove is-invalid class from all inputs
     const invalidInputs = document.querySelectorAll('.is-invalid');
     invalidInputs.forEach(input => input.classList.remove('is-invalid'));
+    
+    // Restore input values
+    formInputs.forEach(input => {
+        if (input.id && inputValues[input.id]) {
+            input.value = inputValues[input.id];
+        }
+    });
+    
+    console.log('Reset error messages while preserving input values');
 }
 
 /**
