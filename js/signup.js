@@ -83,8 +83,14 @@ document.addEventListener('DOMContentLoaded', function() {
  */
 function validateEmail(email) {
     console.log('Validating email:', email);
+    if (!email || email.trim() === '') {
+        console.error('Email validation failed: empty email address');
+        return false;
+    }
     const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return re.test(email);
+    const result = re.test(email);
+    console.log(`Email validation result for "${email}": ${result}`);
+    return result;
 }
 
 /**
@@ -94,10 +100,19 @@ function validateEmail(email) {
 async function handleRepSignupSubmit(event) {
     event.preventDefault();
     console.log('Rep signup form submitted');
-    const emailInputForLogging = document.getElementById('rep-email');
-    console.log(`[DEBUG] Email value at start: ${emailInputForLogging?.value}`);
     
-    // Preserve input values but clear validation states
+    // IMPORTANT: Get and store the email value immediately
+    const emailInput = document.getElementById('rep-email');
+    const emailValue = emailInput ? emailInput.value.trim() : '';
+    console.log(`[DEBUG] Email value at start: ${emailValue}`);
+    
+    if (!emailValue) {
+        console.error('Email is empty at form submission start');
+        displayErrorMessage('rep-email', 'Email is required');
+        return; // Stop submission if email is empty
+    }
+    
+    // Clear validation states but DO NOT clear the values
     const form = event.target;
     const inputs = form.querySelectorAll('input, select');
     inputs.forEach(input => {
@@ -106,41 +121,51 @@ async function handleRepSignupSubmit(event) {
     });
     
     console.log('Form values preserved, proceeding with validation');
-    console.log(`[DEBUG] Email value before getting userData: ${emailInputForLogging?.value}`);
+    console.log(`[DEBUG] Email value before getting userData: ${emailValue}`);
     
-    // Get all form values
+    // Get all form values - use the stored email value to ensure it's not lost
     const userData = {
-        firstName: document.getElementById('first-name').value.trim(),
-        lastName: document.getElementById('last-name').value.trim(),
-        email: document.getElementById('rep-email').value.trim(), // Ensure email is included here
-        phone: document.getElementById('phone').value.trim(),
-        password: document.getElementById('rep-password').value,
-        confirmPassword: document.getElementById('rep-confirm-password').value,
-        location: document.getElementById('location').value.trim(),
-        experience: document.getElementById('experience').value,
-        specialty: document.getElementById('specialty').value,
-        termsAccepted: document.getElementById('rep-terms').checked
+        firstName: document.getElementById('first-name')?.value.trim() || '',
+        lastName: document.getElementById('last-name')?.value.trim() || '',
+        email: emailValue, // Use the already captured email value
+        phone: document.getElementById('phone')?.value.trim() || '',
+        password: document.getElementById('rep-password')?.value || '',
+        confirmPassword: document.getElementById('rep-confirm-password')?.value || '',
+        location: document.getElementById('location')?.value.trim() || '',
+        experience: document.getElementById('experience')?.value || '',
+        specialty: document.getElementById('specialty')?.value || '',
+        termsAccepted: document.getElementById('rep-terms')?.checked || false
     };
     
-    console.log(`[DEBUG] Email value after getting userData (from input): ${emailInputForLogging?.value}`);
     console.log(`[DEBUG] Email value in userData object: ${userData.email}`);
 
-    // Validate ALL form inputs using the updated function
+    // Double-check email validity before validation
+    if (!userData.email) {
+        console.error('Email is empty in userData object');
+        displayErrorMessage('rep-email', 'Email is required');
+        return; // Stop submission if email is empty
+    }
+
+    // Validate ALL form inputs
     if (!validateRepSignupForm(userData)) {
         console.log('Form validation failed');
-        console.log(`[DEBUG] Email value after FAILED validation: ${emailInputForLogging?.value}`);
         return; // Stop submission if validation fails
     }
     
     // If validation passes, proceed with signup
     console.log('Form validation passed, attempting signup');
-    console.log(`[DEBUG] Email value before showing loading state: ${emailInputForLogging?.value}`);
+    console.log(`[DEBUG] Email value before showing loading state: ${userData.email}`);
     
     // Show loading state
     toggleLoadingState(true, 'rep');
-    console.log(`[DEBUG] Email value before calling authModule.signUp: ${emailInputForLogging?.value}`);
+    console.log(`[DEBUG] Email value before calling authModule.signUp: ${userData.email}`);
     
     try {
+        // Final validation check before API call
+        if (!userData.email) {
+            throw new Error('Email validation failed: empty email address');
+        }
+        
         // Attempt to sign up user
         await window.authModule.signUp(userData, window.authModule.USER_TYPES.REP);
         
