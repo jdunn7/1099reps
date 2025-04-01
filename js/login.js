@@ -25,19 +25,44 @@ document.addEventListener('DOMContentLoaded', function() {
  */
 async function handleLoginSubmit(event) {
     event.preventDefault();
+    console.log('Login form submitted');
     
-    // Get form inputs
+    // IMPORTANT: Get and store the email value immediately
     const emailInput = document.getElementById('email');
+    const emailValue = emailInput ? emailInput.value.trim() : '';
+    console.log(`[DEBUG] Email value at start of login: ${emailValue}`);
+    
+    if (!emailValue) {
+        console.error('Email is empty at login form submission start');
+        displayErrorMessage('email', 'Email is required');
+        return; // Stop submission if email is empty
+    }
+    
     const passwordInput = document.getElementById('password');
     const rememberMeInput = document.getElementById('remember-me');
     
-    // Get form values
-    const email = emailInput.value.trim();
-    const password = passwordInput.value;
-    const rememberMe = rememberMeInput.checked;
+    // Get password and remember me values
+    const password = passwordInput ? passwordInput.value : '';
+    const rememberMe = rememberMeInput ? rememberMeInput.checked : false;
     
-    // Validate form inputs
-    if (!validateLoginForm(email, password)) {
+    // Store the email value in a variable that won't be affected by DOM changes
+    const secureEmailValue = emailValue;
+    console.log(`[DEBUG] Secure email value: ${secureEmailValue}`);
+    
+    // Validate form inputs - pass the secure email value
+    if (!validateLoginForm(secureEmailValue, password)) {
+        // Ensure email field still has its value after validation
+        if (emailInput) {
+            emailInput.value = secureEmailValue;
+        }
+        return;
+    }
+    
+    // Double-check email value before proceeding
+    console.log(`[DEBUG] Email value before login attempt: ${secureEmailValue}`);
+    if (!secureEmailValue) {
+        console.error('Email is empty before login attempt');
+        displayErrorMessage('email', 'Email is required');
         return;
     }
     
@@ -45,14 +70,20 @@ async function handleLoginSubmit(event) {
     toggleLoadingState(true);
     
     try {
-        // Attempt to sign in user
-        await window.authModule.signIn(email, password, rememberMe);
+        // Attempt to sign in user with the secure email value
+        await window.authModule.signIn(secureEmailValue, password, rememberMe);
         
         // Handle successful login
         handleSuccessfulLogin();
     } catch (error) {
         // Handle login error
+        console.error('Login error:', error);
         handleLoginError(error);
+        
+        // Restore email value after error
+        if (emailInput) {
+            emailInput.value = secureEmailValue;
+        }
     } finally {
         // Hide loading state
         toggleLoadingState(false);
@@ -102,8 +133,17 @@ function validateLoginForm(email, password) {
  * @returns {boolean} - True if email is valid
  */
 function isValidEmail(email) {
+    console.log(`[DEBUG] Validating email: ${email}`);
+    
+    if (!email || email.trim() === '') {
+        console.error('Email validation failed: empty email address');
+        return false;
+    }
+    
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+    const result = emailRegex.test(email);
+    console.log(`[DEBUG] Email validation result for "${email}": ${result}`);
+    return result;
 }
 
 /**
@@ -136,18 +176,21 @@ function displayErrorMessage(fieldId, message) {
  * Reset all error messages in form
  */
 function resetErrorMessages() {
-    // Remove all invalid-feedback elements
-    const errorMessages = document.querySelectorAll('.invalid-feedback');
-    errorMessages.forEach(element => element.remove());
+    console.log('[DEBUG] Resetting error messages');
     
-    // Store input values before removing validation classes
+    // First, capture all current input values
     const inputValues = {};
     const formInputs = document.querySelectorAll('input');
     formInputs.forEach(input => {
         if (input.id) {
             inputValues[input.id] = input.value;
+            console.log(`[DEBUG] Stored value for ${input.id}: ${inputValues[input.id]}`);
         }
     });
+    
+    // Remove all invalid-feedback elements
+    const errorMessages = document.querySelectorAll('.invalid-feedback');
+    errorMessages.forEach(element => element.remove());
     
     // Remove is-invalid class from all inputs
     const invalidInputs = document.querySelectorAll('.is-invalid');
@@ -157,10 +200,11 @@ function resetErrorMessages() {
     formInputs.forEach(input => {
         if (input.id && inputValues[input.id]) {
             input.value = inputValues[input.id];
+            console.log(`[DEBUG] Restored value for ${input.id}: ${input.value}`);
         }
     });
     
-    console.log('Reset error messages while preserving input values');
+    console.log('[DEBUG] Reset error messages while preserving input values');
 }
 
 /**

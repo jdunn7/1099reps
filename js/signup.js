@@ -187,24 +187,49 @@ async function handleRepSignupSubmit(event) {
  */
 async function handleCompanySignupSubmit(event) {
     event.preventDefault();
+    console.log('Company signup form submitted');
     
-    // Get form values
+    // IMPORTANT: Get and store the email value immediately
+    const emailInput = document.getElementById('company-email');
+    const emailValue = emailInput ? emailInput.value.trim() : '';
+    console.log(`[DEBUG] Company email value at start: ${emailValue}`);
+    
+    if (!emailValue) {
+        console.error('Company email is empty at form submission start');
+        displayErrorMessage('company-email', 'Email is required');
+        return; // Stop submission if email is empty
+    }
+    
+    // Get form values - use the stored email value to ensure it's not lost
     const userData = {
-        companyName: document.getElementById('company-name').value.trim(),
-        companyType: document.getElementById('company-type').value,
-        contactName: document.getElementById('contact-name').value.trim(),
-        contactTitle: document.getElementById('contact-title').value.trim(),
-        email: document.getElementById('company-email').value.trim(),
-        phone: document.getElementById('company-phone').value.trim(),
-        password: document.getElementById('company-password').value,
-        confirmPassword: document.getElementById('company-confirm-password').value,
-        location: document.getElementById('company-location').value.trim(),
-        website: document.getElementById('company-website').value.trim(),
-        termsAccepted: document.getElementById('company-terms').checked
+        companyName: document.getElementById('company-name')?.value.trim() || '',
+        companyType: document.getElementById('company-type')?.value || '',
+        contactName: document.getElementById('contact-name')?.value.trim() || '',
+        contactTitle: document.getElementById('contact-title')?.value.trim() || '',
+        email: emailValue, // Use the already captured email value
+        phone: document.getElementById('company-phone')?.value.trim() || '',
+        password: document.getElementById('company-password')?.value || '',
+        confirmPassword: document.getElementById('company-confirm-password')?.value || '',
+        location: document.getElementById('company-location')?.value.trim() || '',
+        website: document.getElementById('company-website')?.value.trim() || '',
+        termsAccepted: document.getElementById('company-terms')?.checked || false
     };
+    
+    console.log(`[DEBUG] Company email value in userData object: ${userData.email}`);
+
+    // Double-check email validity before validation
+    if (!userData.email) {
+        console.error('Company email is empty in userData object');
+        displayErrorMessage('company-email', 'Email is required');
+        return; // Stop submission if email is empty
+    }
     
     // Validate form inputs
     if (!validateCompanySignupForm(userData)) {
+        // Ensure email field still has its value after validation
+        if (emailInput) {
+            emailInput.value = userData.email;
+        }
         return;
     }
     
@@ -212,6 +237,11 @@ async function handleCompanySignupSubmit(event) {
     toggleLoadingState(true, 'company');
     
     try {
+        // Final validation check before API call
+        if (!userData.email) {
+            throw new Error('Email validation failed: empty email address');
+        }
+        
         // Attempt to sign up company
         await window.authModule.signUp(userData, window.authModule.USER_TYPES.COMPANY);
         
@@ -219,7 +249,13 @@ async function handleCompanySignupSubmit(event) {
         handleSuccessfulSignup();
     } catch (error) {
         // Handle signup error
+        console.error('Company signup error:', error);
         handleSignupError(error);
+        
+        // Restore email value after error
+        if (emailInput) {
+            emailInput.value = userData.email;
+        }
     } finally {
         // Hide loading state
         toggleLoadingState(false, 'company');
