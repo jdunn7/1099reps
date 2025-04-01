@@ -11,11 +11,37 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add submit event listeners to signup forms
     if (repSignupForm) {
         repSignupForm.addEventListener('submit', handleRepSignupSubmit);
+        
+        // Add input event listeners for real-time validation
+        const repEmailInput = document.getElementById('rep-email');
+        const repPasswordInput = document.getElementById('rep-password');
+        const repConfirmPasswordInput = document.getElementById('rep-confirm-password');
+        
+        if (repEmailInput) {
+            repEmailInput.addEventListener('input', function() {
+                // Clear previous error messages
+                clearFieldError('rep-email');
+            });
+        }
+        
+        if (repPasswordInput && repConfirmPasswordInput) {
+            repConfirmPasswordInput.addEventListener('input', function() {
+                // Validate password match on input
+                if (repPasswordInput.value !== repConfirmPasswordInput.value) {
+                    displayErrorMessage('rep-confirm-password', 'Passwords do not match');
+                } else {
+                    clearFieldError('rep-confirm-password');
+                }
+            });
+        }
     }
     
     if (companySignupForm) {
         companySignupForm.addEventListener('submit', handleCompanySignupSubmit);
     }
+    
+    // Log that the form initialization is complete
+    console.log('Signup form initialization complete');
 });
 
 /**
@@ -131,11 +157,24 @@ function validateRepSignupForm(userData) {
     }
     
     // Validate email
-    if (!userData.email) {
-        displayErrorMessage('rep-email', 'Email is required');
-        isValid = false;
-    } else if (!isValidEmail(userData.email)) {
-        displayErrorMessage('rep-email', 'Please enter a valid email address');
+    console.log('Validating email field, value:', userData.email);
+    try {
+        if (!userData.email || userData.email.trim() === '') {
+            console.log('Email is empty or undefined');
+            displayErrorMessage('rep-email', 'Email is required');
+            isValid = false;
+        } else if (!isValidEmail(userData.email)) {
+            console.log('Email format is invalid');
+            displayErrorMessage('rep-email', 'Please enter a valid email address');
+            isValid = false;
+        } else {
+            console.log('Email validation passed');
+            // Clear any existing error on the email field
+            clearFieldError('rep-email');
+        }
+    } catch (error) {
+        console.error('Error during email validation:', error);
+        displayErrorMessage('rep-email', 'An error occurred validating email');
         isValid = false;
     }
     
@@ -285,8 +324,20 @@ function validateCompanySignupForm(userData) {
  * @returns {boolean} - True if email is valid
  */
 function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+    // Log the email being validated for debugging
+    console.log('Validating email:', email);
+    
+    if (!email || email.trim() === '') {
+        console.log('Email is empty');
+        return false;
+    }
+    
+    // More comprehensive email regex
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const isValid = emailRegex.test(email);
+    
+    console.log('Email validation result:', isValid);
+    return isValid;
 }
 
 /**
@@ -359,6 +410,25 @@ function resetErrorMessages() {
     // Remove is-invalid class from all inputs
     const invalidInputs = document.querySelectorAll('.is-invalid');
     invalidInputs.forEach(input => input.classList.remove('is-invalid'));
+}
+
+/**
+ * Clear error message for a specific field
+ * @param {string} fieldId - ID of field to clear error for
+ */
+function clearFieldError(fieldId) {
+    const field = document.getElementById(fieldId);
+    if (field) {
+        // Remove is-invalid class from the field
+        field.classList.remove('is-invalid');
+        
+        // Find and remove any associated error messages
+        const parent = field.closest('.input-group') || field.parentNode;
+        const errorMessage = parent.querySelector('.invalid-feedback');
+        if (errorMessage) {
+            errorMessage.remove();
+        }
+    }
 }
 
 /**
