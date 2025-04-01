@@ -708,6 +708,11 @@ a:hover {
     box-shadow: 0 0 15px rgba(var(--primary-rgb), 0.6);
 }
 
+/* Header Spacing */
+.header-spacing {
+    padding-top: 120px !important; /* Account for fixed header */
+}
+
 /* Responsive */
 @media (max-width: 1199.98px) {
     .hero-section__title {
