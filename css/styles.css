@@ -439,6 +439,28 @@ h1, h2, h3, h4, h5, h6 {
     height: 100%;
 }
 
+/* Pricing Card Headers */
+.card-header.bg-white {
+    background-color: var(--primary) !important;
+    color: white;
+}
+
+/* Pricing value in card header */
+.pricing-value {
+    font-size: 2rem;
+    margin: 1rem 0;
+}
+
+/* Pricing value in blue header */
+.card-header.bg-white .pricing-value,
+.card-header.bg-white h3 {
+    color: white;
+}
+
+.card-header.bg-white .text-muted {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
 /* Improve pricing plans on mobile */
 @media (max-width: 767.98px) {
     .pricing-section .row {
