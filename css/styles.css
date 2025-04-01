@@ -118,6 +118,28 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 0;
 }
 
+/* Page Header Section */
+.page-header {
+    padding: 140px 0 60px;
+    position: relative;
+    overflow: hidden;
+    margin-top: 0;
+    background-color: #f8f9fa;
+}
+
+/* Background Gradients */
+.bg-gradient-primary-light {
+    background: linear-gradient(135deg, rgba(0, 86, 179, 0.1) 0%, rgba(0, 86, 179, 0.05) 100%);
+}
+
+/* Mobile adjustments for page header */
+@media (max-width: 767.98px) {
+    .page-header {
+        padding: 130px 0 40px;
+        text-align: center;
+    }
+}
+
 /* Improve hero section spacing on mobile */
 @media (max-width: 767.98px) {
     .hero-section {
