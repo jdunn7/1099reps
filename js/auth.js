@@ -3,151 +3,21 @@
  * Handles user authentication, registration, and session management
  */
 
-// Development mode flag - set to true for mock authentication
-const DEV_MODE = true;
-
-// Mock database for development
-const mockDB = {
-  users: {},
-  reps: {},
-  companies: {}
+// Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAqcHB8RcERGTEx_Owj9r1tgLOmEpwuSpo",
+  authDomain: "reps-9a143.firebaseapp.com",
+  projectId: "reps-9a143",
+  storageBucket: "reps-9a143.firebasestorage.app",
+  messagingSenderId: "284932017183",
+  appId: "1:284932017183:web:fc6923756efd46f785592a",
+  measurementId: "G-GMT65DEEND"
 };
 
-// Mock authentication for development
-const mockAuth = {
-  currentUser: null,
-  
-  // Mock sign in with email and password
-  signInWithEmailAndPassword: function(email, password) {
-    return new Promise((resolve, reject) => {
-      // For development, accept any email/password combination
-      if (DEV_MODE) {
-        // Create a mock user if it doesn't exist
-        if (!mockDB.users[email]) {
-          const userId = 'user_' + Date.now();
-          mockDB.users[email] = {
-            uid: userId,
-            email: email,
-            userType: 'rep'
-          };
-          
-          // Create a mock rep profile
-          mockDB.reps[userId] = {
-            userId: userId,
-            firstName: 'Test',
-            lastName: 'User',
-            phone: '555-123-4567',
-            location: 'New York, NY',
-            experience: '3-5',
-            specialty: 'medical-device'
-          };
-        }
-        
-        this.currentUser = mockDB.users[email];
-        resolve({ user: this.currentUser });
-      } else {
-        // In production, this would validate credentials
-        reject(new Error('Authentication not implemented in development mode'));
-      }
-    });
-  },
-  
-  // Mock sign out
-  signOut: function() {
-    return new Promise((resolve) => {
-      this.currentUser = null;
-      resolve();
-    });
-  },
-  
-  // Mock send password reset email
-  sendPasswordResetEmail: function(email) {
-    return new Promise((resolve) => {
-      console.log('Password reset email sent to:', email);
-      resolve();
-    });
-  }
-};
-
-// Use Firebase in production, mock in development
-let auth, db;
-if (!DEV_MODE && typeof firebase !== 'undefined') {
-  // Firebase configuration would go here in production
-  const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "your-project.firebaseapp.com",
-    projectId: "your-project-id",
-    storageBucket: "your-project.appspot.com",
-    messagingSenderId: "your-messaging-sender-id",
-    appId: "your-app-id"
-  };
-
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  auth = firebase.auth();
-  db = firebase.firestore();
-} else {
-  // Use mock authentication and database in development
-  auth = mockAuth;
-  db = {
-    collection: function(collectionName) {
-      return {
-        doc: function(docId) {
-          return {
-            get: function() {
-              return new Promise((resolve) => {
-                let data;
-                let exists = false;
-                
-                if (collectionName === 'users' && mockDB.users[docId]) {
-                  data = mockDB.users[docId];
-                  exists = true;
-                } else if (collectionName === 'reps' && mockDB.reps[docId]) {
-                  data = mockDB.reps[docId];
-                  exists = true;
-                } else if (collectionName === 'companies' && mockDB.companies[docId]) {
-                  data = mockDB.companies[docId];
-                  exists = true;
-                }
-                
-                resolve({
-                  exists: exists,
-                  data: function() {
-                    return data;
-                  }
-                });
-              });
-            },
-            set: function(data) {
-              return new Promise((resolve) => {
-                if (collectionName === 'users') {
-                  mockDB.users[docId] = data;
-                } else if (collectionName === 'reps') {
-                  mockDB.reps[docId] = data;
-                } else if (collectionName === 'companies') {
-                  mockDB.companies[docId] = data;
-                }
-                resolve();
-              });
-            },
-            update: function(data) {
-              return new Promise((resolve) => {
-                if (collectionName === 'users' && mockDB.users[docId]) {
-                  mockDB.users[docId] = { ...mockDB.users[docId], ...data };
-                } else if (collectionName === 'reps' && mockDB.reps[docId]) {
-                  mockDB.reps[docId] = { ...mockDB.reps[docId], ...data };
-                } else if (collectionName === 'companies' && mockDB.companies[docId]) {
-                  mockDB.companies[docId] = { ...mockDB.companies[docId], ...data };
-                }
-                resolve();
-              });
-            }
-          };
-        }
-      };
-    }
-  };
-}
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
 
 // User types
 const USER_TYPES = {
@@ -160,18 +30,15 @@ window.authModule = {
   // Sign in with email and password
   signIn: async function(email, password, rememberMe = false) {
     try {
+      // Set persistence based on remember me option
+      const persistence = rememberMe 
+        ? firebase.auth.Auth.Persistence.LOCAL 
+        : firebase.auth.Auth.Persistence.SESSION;
+      
+      await auth.setPersistence(persistence);
+      
       // Attempt to sign in user
       const userCredential = await auth.signInWithEmailAndPassword(email, password);
-      
-      // Set persistence based on remember me checkbox
-      if (rememberMe) {
-        // Store user session in local storage (persists across browser sessions)
-        localStorage.setItem('rememberMe', 'true');
-      } else {
-        // Clear any existing remember me setting
-        localStorage.removeItem('rememberMe');
-      }
-      
       return userCredential;
     } catch (error) {
       console.error('Sign in error:', error);
@@ -183,7 +50,6 @@ window.authModule = {
   signOut: async function() {
     try {
       await auth.signOut();
-      localStorage.removeItem('rememberMe');
       return true;
     } catch (error) {
       console.error('Sign out error:', error);
@@ -215,25 +81,8 @@ window.authModule = {
   // Sign in with Google
   signInWithGoogle: async function() {
     try {
-      // In development mode, create a mock user
-      if (DEV_MODE) {
-        const email = 'google-user@example.com';
-        const userId = 'google_user_' + Date.now();
-        
-        mockDB.users[email] = {
-          uid: userId,
-          email: email,
-          userType: 'rep',
-          displayName: 'Google User',
-          photoURL: 'https://via.placeholder.com/150'
-        };
-        
-        mockAuth.currentUser = mockDB.users[email];
-        return { user: mockAuth.currentUser };
-      } else {
-        // In production, would use Firebase Google provider
-        throw new Error('Google authentication not implemented in development mode');
-      }
+      const provider = new firebase.auth.GoogleAuthProvider();
+      return await auth.signInWithPopup(provider);
     } catch (error) {
       console.error('Google sign in error:', error);
       throw error;
@@ -243,25 +92,9 @@ window.authModule = {
   // Sign in with LinkedIn
   signInWithLinkedIn: async function() {
     try {
-      // In development mode, create a mock user
-      if (DEV_MODE) {
-        const email = 'linkedin-user@example.com';
-        const userId = 'linkedin_user_' + Date.now();
-        
-        mockDB.users[email] = {
-          uid: userId,
-          email: email,
-          userType: 'rep',
-          displayName: 'LinkedIn User',
-          photoURL: 'https://via.placeholder.com/150'
-        };
-        
-        mockAuth.currentUser = mockDB.users[email];
-        return { user: mockAuth.currentUser };
-      } else {
-        // In production, would use Firebase custom auth with LinkedIn
-        throw new Error('LinkedIn authentication not implemented in development mode');
-      }
+      // Note: LinkedIn requires additional setup with Firebase Auth
+      // This is a placeholder - you'll need to implement OAuth for LinkedIn
+      throw new Error('LinkedIn authentication requires additional setup');
     } catch (error) {
       console.error('LinkedIn sign in error:', error);
       throw error;
@@ -293,60 +126,11 @@ window.authModule = {
       console.error('Update user profile error:', error);
       throw error;
     }
-  }
-};
-
-/**
- * Sign up a new user
- * @param {Object} userData - User data for registration
- * @param {string} userType - Type of user (rep or company)
- * @returns {Promise} - Promise resolving to user credentials
- */
-async function signUp(userData, userType) {
-  try {
-    // In development mode, create a mock user
-    if (DEV_MODE) {
-      const email = userData.email;
-      const userId = 'user_' + Date.now();
-      
-      // Create user in mock database
-      mockDB.users[email] = {
-        uid: userId,
-        email: email,
-        userType: userType,
-        createdAt: new Date().toISOString(),
-        ...userData,
-        // Remove password from data stored in database
-        password: undefined,
-        confirmPassword: undefined
-      };
-      
-      // Set as current user
-      mockAuth.currentUser = mockDB.users[email];
-      
-      // Create profile collection based on user type
-      if (userType === USER_TYPES.REP) {
-        mockDB.reps[userId] = {
-          userId: userId,
-          firstName: userData.firstName || '',
-          lastName: userData.lastName || '',
-          phone: userData.phone || '',
-          location: userData.location || '',
-          experience: userData.experience || '',
-          specialty: userData.specialty || ''
-        };
-      } else if (userType === USER_TYPES.COMPANY) {
-        mockDB.companies[userId] = {
-          userId: userId,
-          companyName: userData.companyName || '',
-          industry: userData.industry || '',
-          size: userData.size || '',
-          location: userData.location || ''
-        };
-      }
-      
-      return { user: mockAuth.currentUser };
-    } else {
+  },
+  
+  // Sign up a new user
+  signUp: async function(userData, userType) {
+    try {
       // Create user with email and password
       const userCredential = await auth.createUserWithEmailAndPassword(
         userData.email,
@@ -364,62 +148,47 @@ async function signUp(userData, userType) {
         // Remove password from data stored in Firestore
         password: undefined,
         confirmPassword: undefined
-    });
-    
-    // Create specific profile based on user type
-    if (userType === USER_TYPES.REP) {
-      await db.collection('reps').doc(userId).set({
-        userId: userId,
-        firstName: userData.firstName,
-        lastName: userData.lastName,
-        phone: userData.phone,
-        location: userData.location,
-        experience: userData.experience,
-        specialty: userData.specialty,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
       });
-    } else if (userType === USER_TYPES.COMPANY) {
-      await db.collection('companies').doc(userId).set({
-        userId: userId,
-        companyName: userData.companyName,
-        companyType: userData.companyType,
-        contactName: userData.contactName,
-        contactTitle: userData.contactTitle,
-        phone: userData.phone,
-        location: userData.location,
-        website: userData.website,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
+      
+      // Create specific profile based on user type
+      if (userType === USER_TYPES.REP) {
+        await db.collection('reps').doc(userId).set({
+          userId: userId,
+          firstName: userData.firstName || '',
+          lastName: userData.lastName || '',
+          phone: userData.phone || '',
+          location: userData.location || '',
+          experience: userData.experience || '',
+          specialty: userData.specialty || '',
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+      } else if (userType === USER_TYPES.COMPANY) {
+        await db.collection('companies').doc(userId).set({
+          userId: userId,
+          companyName: userData.companyName || '',
+          companyType: userData.companyType || '',
+          contactName: userData.contactName || '',
+          contactTitle: userData.contactTitle || '',
+          phone: userData.phone || '',
+          location: userData.location || '',
+          website: userData.website || '',
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+      }
+      
+      return userCredential;
+    } catch (error) {
+      console.error('Sign up error:', error);
+      throw error;
     }
-    
-    return userCredential;
-  } catch (error) {
-    console.error("Error signing up:", error);
-    throw error;
   }
-}
+};
 
-/**
- * Sign in existing user
- * @param {string} email - User email
- * @param {string} password - User password
- * @param {boolean} rememberMe - Whether to persist the session
- * @returns {Promise} - Promise resolving to user credentials
- */
-async function signIn(email, password, rememberMe = false) {
-  try {
-    // Set persistence based on remember me option
-    const persistence = rememberMe 
-      ? firebase.auth.Auth.Persistence.LOCAL 
-      : firebase.auth.Auth.Persistence.SESSION;
-    
-    await auth.setPersistence(persistence);
-    return await auth.signInWithEmailAndPassword(email, password);
-  } catch (error) {
-    console.error("Error signing in:", error);
-    throw error;
-  }
-}
+// Export the auth module for use in other scripts
+window.signUp = window.authModule.signUp;
+
+// Export the signIn function for use in other scripts
+window.signIn = window.authModule.signIn;
 
 /**
  * Sign out the current user
