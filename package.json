@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node server.js"
   },
-  "dependencies": {},
+  "dependencies": {
+    "firebase": "^11.6.0"
+  },
   "author": "",
   "license": "ISC"
 }
