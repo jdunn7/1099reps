@@ -1,0 +1,46 @@
+/* Onboarding styles */
+
+/* Progress indicators */
+.progress-bar {
+  height: 10px;
+}
+
+.calendar-date {
+  width: 30px;
+  height: 30px;
+}
+
+.step-indicator {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 8px;
+}
+
+.step-indicator.active {
+  background-color: var(--primary);
+  color: white;
+}
+
+.step-indicator.completed {
+  background-color: var(--success);
+  color: white;
+}
+
+.profile-photo-preview {
+  width: 80px;
+  height: 80px;
+}
+
+.profile-photo-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.welcome-icon {
+  height: 80px;
+}

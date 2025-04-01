@@ -305,22 +305,11 @@
     <!-- Custom JS -->
     <script src="js/modern.js"></script>
     
-    <script>
-        // Rep signup form handling
-        document.getElementById('rep-signup-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            // In a real implementation, you would send the form data to your backend
-            alert('Account created successfully! You can now log in.');
-            window.location.href = 'login.html';
-        });
-        
-        // Company signup form handling
-        document.getElementById('company-signup-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            // In a real implementation, you would send the form data to your backend
-            alert('Company account created successfully! You can now log in.');
-            window.location.href = 'login.html';
-        });
-    </script>
+    <!-- In production, these would be Firebase scripts -->
+    <!-- For development, we're using a mock authentication system -->
+    
+    <!-- Authentication Scripts -->
+    <script src="js/auth.js"></script>
+    <script src="js/signup.js"></script>
 </body>
 </html>
