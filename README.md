@@ -32,15 +32,15 @@ npm start
 
 This will start:
 
-- HTTPS server on port 3000
-- HTTP to HTTPS redirect server on port 8090
+- HTTPS server on port 3001
+- HTTP to HTTPS redirect server on port 8091
 
 ### 4. Access the secure website
 
 Open your browser and navigate to:
 
 ```text
-https://1099reps.com:3000
+https://1099reps.com:3001
 ```
 
 Note: Since we're using a self-signed certificate, your browser will show a security warning. This is normal for development environments. Click "Advanced" and then "Proceed" to access the site.

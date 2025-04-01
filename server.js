@@ -8,17 +8,51 @@ const options = {
   cert: fs.readFileSync(path.join(__dirname, 'ssl/certificate.crt'))
 };
 
-// Define the port for HTTPS (using 3000 for development)
-const PORT = 3000;
+// Define the port for HTTPS (using 3001 for development to avoid conflicts)
+const PORT = 3001;
 
-// Create a simple file server
+// Create a secure file server with URL rewriting
 const server = https.createServer(options, (req, res) => {
-  // Get the requested URL path
-  let filePath = path.join(__dirname, req.url === '/' ? 'index.html' : req.url);
+  // Parse the URL
+  const parsedUrl = new URL(req.url, `https://${req.headers.host}`);
+  let pathname = parsedUrl.pathname;
   
-  // Handle directory paths by serving index.html
-  if (filePath.endsWith('/')) {
-    filePath = path.join(filePath, 'index.html');
+  // Remove trailing slash except for root
+  if (pathname.length > 1 && pathname.endsWith('/')) {
+    pathname = pathname.slice(0, -1);
+    // Redirect to the URL without trailing slash
+    res.writeHead(301, { 'Location': pathname + parsedUrl.search });
+    res.end();
+    return;
+  }
+  
+  // Get the requested URL path
+  let filePath;
+  
+  // Handle root path
+  if (pathname === '/') {
+    filePath = path.join(__dirname, 'index.html');
+  } 
+  // Handle clean URLs (no file extension in URL)
+  else if (!path.extname(pathname)) {
+    // Check if a directory exists with this name
+    const dirPath = path.join(__dirname, pathname.substring(1));
+    if (fs.existsSync(dirPath) && fs.statSync(dirPath).isDirectory()) {
+      filePath = path.join(dirPath, 'index.html');
+    } else {
+      // Check if HTML file exists
+      const htmlPath = path.join(__dirname, pathname.substring(1) + '.html');
+      if (fs.existsSync(htmlPath)) {
+        filePath = htmlPath;
+      } else {
+        // Default to treating it as a directory with index.html
+        filePath = path.join(__dirname, pathname.substring(1), 'index.html');
+      }
+    }
+  } 
+  // Handle direct file requests (with extension)
+  else {
+    filePath = path.join(__dirname, pathname.substring(1));
   }
 
   // Get the file extension
@@ -81,6 +115,6 @@ http.createServer((req, res) => {
   const host = req.headers.host.split(':')[0];
   res.writeHead(301, { 'Location': `https://${host}:${PORT}${req.url}` });
   res.end();
-}).listen(8090, () => {
-  console.log('HTTP to HTTPS redirect server running on port 8090');
+}).listen(8091, () => {
+  console.log('HTTP to HTTPS redirect server running on port 8091');
 });
