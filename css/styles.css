@@ -118,6 +118,22 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 0;
 }
 
+/* Improve hero section spacing on mobile */
+@media (max-width: 767.98px) {
+    .hero-section {
+        padding: 100px 0 60px;
+        text-align: center;
+    }
+    
+    .hero-section h1 {
+        margin-bottom: 1.5rem;
+    }
+    
+    .hero-section p {
+        margin-bottom: 2rem;
+    }
+}
+
 .min-vh-75 {
     min-height: 75vh;
 }
@@ -208,6 +224,19 @@ h1, h2, h3, h4, h5, h6 {
         padding: 1rem;
         border-radius: 0.5rem;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        margin-top: 0.5rem;
+    }
+    
+    /* Ensure proper spacing for mobile navigation */
+    .navbar-toggler {
+        margin-right: 0.5rem;
+        border: none;
+        padding: 0.5rem;
+    }
+    
+    .navbar-toggler:focus {
+        box-shadow: none;
+        outline: none;
     }
     
     .navbar-nav {
@@ -378,6 +407,40 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 0.5rem;
     overflow: hidden;
     transition: all 0.3s ease;
+}
+
+/* Pricing Cards */
+.pricing-card {
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+/* Improve pricing plans on mobile */
+@media (max-width: 767.98px) {
+    .pricing-section .row {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        /* Removed -webkit-overflow-scrolling for better compatibility */
+        scroll-behavior: smooth;
+        padding-bottom: 2rem;
+        /* Add indicators for horizontal scrolling */
+        position: relative;
+    }
+    
+    .pricing-section .col-md-4 {
+        flex: 0 0 90%;
+        max-width: 90%;
+        scroll-snap-align: center;
+        margin-bottom: 1rem;
+    }
+    
+    .pricing-card {
+        margin: 0 auto;
+        max-width: 100%;
+    }
 }
 
 .card:hover {
