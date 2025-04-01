@@ -8,16 +8,29 @@ const firebaseConfig = {
   apiKey: "AIzaSyAqcHB8RcERGTEx_Owj9r1tgLOmEpwuSpo",
   authDomain: "reps-9a143.firebaseapp.com",
   projectId: "reps-9a143",
-  storageBucket: "reps-9a143.firebasestorage.app",
+  storageBucket: "reps-9a143.appspot.com",
   messagingSenderId: "284932017183",
   appId: "1:284932017183:web:fc6923756efd46f785592a",
   measurementId: "G-GMT65DEEND"
 };
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
+// Initialize Firebase with error handling
+let auth;
+let db;
+
+try {
+  // Check if Firebase is already initialized
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+  
+  auth = firebase.auth();
+  db = firebase.firestore();
+  
+  console.log("Firebase initialized successfully");
+} catch (error) {
+  console.error("Firebase initialization error:", error);
+}
 
 // User types
 const USER_TYPES = {

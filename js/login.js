@@ -113,7 +113,16 @@ function displayErrorMessage(fieldId, message) {
     errorElement.style.display = 'block';
     
     field.classList.add('is-invalid');
-    field.parentNode.appendChild(errorElement);
+    
+    // Find the closest form-group or input-group-wrapper to append the error message
+    const inputGroup = field.closest('.input-group');
+    if (inputGroup) {
+        // If field is in an input-group, append after the input-group
+        inputGroup.parentNode.appendChild(errorElement);
+    } else {
+        // Otherwise append directly after the field
+        field.parentNode.appendChild(errorElement);
+    }
 }
 
 /**

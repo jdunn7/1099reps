@@ -335,7 +335,15 @@ function displayErrorMessage(fieldId, message) {
         if (field.type === 'checkbox') {
             field.closest('.form-check').appendChild(errorElement);
         } else {
-            field.parentNode.appendChild(errorElement);
+            // Find the closest input-group to append the error message
+            const inputGroup = field.closest('.input-group');
+            if (inputGroup) {
+                // If field is in an input-group, append after the input-group
+                inputGroup.parentNode.appendChild(errorElement);
+            } else {
+                // Otherwise append directly after the field
+                field.parentNode.appendChild(errorElement);
+            }
         }
     }
 }
