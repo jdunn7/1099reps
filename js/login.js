@@ -239,8 +239,9 @@ function handleSuccessfulLogin() {
         // Redirect to the specified URL
         window.location.href = redirectUrl;
     } else {
-        // Default redirect to dashboard
-        window.location.href = 'dashboard/index.html';
+        // Default redirect to dashboard with timestamp to prevent caching
+        const timestamp = new Date().getTime();
+        window.location.href = `dashboard/index.html?t=${timestamp}`;
     }
 }
 
