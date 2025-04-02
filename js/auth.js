@@ -27,7 +27,14 @@ try {
   firebase.initializeApp(firebaseConfig);
   auth = firebase.auth();
   db = firebase.firestore();
-  analytics = firebase.analytics();
+  
+  // Only initialize analytics if the SDK is available
+  if (typeof firebase.analytics === 'function') {
+    analytics = firebase.analytics();
+  } else {
+    console.log("Firebase Analytics SDK not loaded, skipping initialization");
+  }
+  
   console.log("Firebase initialized successfully");
 } catch (error) {
   console.error("Firebase initialization error:", error);
