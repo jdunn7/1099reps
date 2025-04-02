@@ -3,8 +3,8 @@
  * Handles login form submission and validation
  */
 
-// Import auth module and necessary functions
-import { authModule, signIn, signInWithGoogle, USER_TYPES } from './auth.js';
+// Import necessary functions
+import { signIn, signInWithGoogle, USER_TYPES } from './auth.js';
 
 document.addEventListener('DOMContentLoaded', function() {
     // Get login form element
@@ -74,7 +74,7 @@ async function handleLoginSubmit(event) {
     
     try {
         // Attempt to sign in user with the secure email value
-        await authModule.signIn(secureEmailValue, password, rememberMe);
+        await signIn(secureEmailValue, password, rememberMe);
         
         // Handle successful login
         handleSuccessfulLogin();
@@ -311,7 +311,7 @@ function setupSocialLoginButtons() {
                 toggleLoadingState(true);
                 
                 // Sign in with Google
-                await authModule.signInWithGoogle();
+                await signInWithGoogle();
                 
                 // Handle successful login
                 handleSuccessfulLogin();
@@ -335,7 +335,7 @@ function setupSocialLoginButtons() {
                 toggleLoadingState(true);
                 
                 // Sign in with LinkedIn
-                await authModule.signInWithLinkedIn();
+                await signInWithLinkedIn();
                 
                 // Handle successful login
                 handleSuccessfulLogin();

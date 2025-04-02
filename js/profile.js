@@ -3,8 +3,8 @@
  * Handles user profile management and updates
  */
 
-// Import auth module functions
-import * as authModule from './auth.js';
+// Import necessary functions
+import { USER_TYPES } from './auth.js';
 
 document.addEventListener('DOMContentLoaded', function() {
     // Check if user is authenticated

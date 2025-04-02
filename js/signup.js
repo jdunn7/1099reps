@@ -3,8 +3,8 @@
  * Handles signup form submission and validation for both reps and companies
  */
 
-// Import auth module and necessary functions
-import { authModule, signUp, USER_TYPES } from './auth.js';
+// Import necessary functions
+import { signUp, USER_TYPES } from './auth.js';
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM content loaded - initializing signup forms');
@@ -161,7 +161,7 @@ async function handleRepSignupSubmit(event) {
     
     // Show loading state
     toggleLoadingState(true, 'rep');
-    console.log(`[DEBUG] Email value before calling authModule.signUp: ${userData.email}`);
+    console.log(`[DEBUG] Email value before calling signUp: ${userData.email}`);
     
     try {
         // Final validation check before API call

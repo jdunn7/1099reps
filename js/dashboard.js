@@ -3,9 +3,12 @@
  * Handles dashboard functionality and data display
  */
 
+// Import necessary functions
+import { isAuthenticated, getCurrentUser } from './auth.js';
+
 document.addEventListener('DOMContentLoaded', function() {
     // Check if user is authenticated
-    if (!window.authModule.isAuthenticated()) {
+    if (!firebase.auth().currentUser) {
         // Redirect to login page if not authenticated
         window.location.href = '../login.html?redirect=' + encodeURIComponent(window.location.pathname);
         return;
@@ -21,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
 async function initializeDashboard() {
     try {
         // Get current user
-        const user = window.authModule.getCurrentUser();
+        const user = firebase.auth().currentUser;
         
         if (!user) {
             console.error('No user found');
@@ -494,7 +497,7 @@ async function handleLogout(event) {
     
     try {
         // Sign out user
-        await window.authModule.signOut();
+        await firebase.auth().signOut();
         
         // Redirect to home page
         window.location.href = '../index.html';

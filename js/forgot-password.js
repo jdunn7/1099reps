@@ -3,8 +3,8 @@
  * Handles password reset request form submission and validation
  */
 
-// Import auth module and necessary functions
-import { authModule, sendPasswordResetEmail } from './auth.js';
+// Import necessary functions
+import { sendPasswordResetEmail } from './auth.js';
 
 document.addEventListener('DOMContentLoaded', function() {
     // Get forgot password form element
@@ -39,7 +39,7 @@ async function handleForgotPasswordSubmit(event) {
     
     try {
         // Attempt to send password reset email
-        await authModule.sendPasswordResetEmail(email);
+        await sendPasswordResetEmail(email);
         
         // Handle successful password reset request
         handleSuccessfulPasswordResetRequest(email);
@@ -169,7 +169,7 @@ function handleSuccessfulPasswordResetRequest(email) {
             
             try {
                 // Attempt to resend password reset email
-                await authModule.sendPasswordResetEmail(email);
+                await sendPasswordResetEmail(email);
                 
                 // Show success message
                 alert('Password reset email resent successfully!');

@@ -204,8 +204,7 @@ export const authModule = {
   }
 };
 
-// Export the auth module and individual functions for direct use
-export { authModule };
+// Export individual functions for direct use
 export const signUp = authModule.signUp;
 export const signIn = authModule.signIn;
 export const signOut = authModule.signOut;

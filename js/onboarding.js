@@ -3,9 +3,12 @@
  * Handles onboarding process for new users
  */
 
+// Import necessary functions
+import { isAuthenticated, getCurrentUser, updateUserProfile, signOut } from './auth.js';
+
 document.addEventListener('DOMContentLoaded', function() {
     // Check if user is authenticated
-    if (!window.authModule.isAuthenticated()) {
+    if (!firebase.auth().currentUser) {
         // Redirect to login page if not authenticated
         window.location.href = '../login.html?redirect=' + encodeURIComponent(window.location.pathname);
         return;
@@ -24,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
 async function initializeOnboarding() {
     try {
         // Get current user
-        const user = window.authModule.getCurrentUser();
+        const user = firebase.auth().currentUser;
         
         if (!user) {
             console.error('No user found');
@@ -207,7 +210,7 @@ async function handleNextButtonClick(event) {
         const formData = getFormData();
         
         // Get current user
-        const user = window.authModule.getCurrentUser();
+        const user = firebase.auth().currentUser;
         
         if (!user) {
             throw new Error('No user found');
@@ -224,7 +227,7 @@ async function handleNextButtonClick(event) {
         const userType = userData.userType;
         
         // Update user profile
-        await window.authModule.updateUserProfile(user.uid, userType, formData);
+        await updateUserProfile(user.uid, userType, formData);
         
         // Redirect to dashboard
         window.location.href = '../dashboard/index.html';
@@ -260,7 +263,7 @@ async function handleLogout(event) {
     
     try {
         // Sign out user
-        await window.authModule.signOut();
+        await signOut();
         
         // Redirect to home page
         window.location.href = '../index.html';
