@@ -7,15 +7,18 @@
 import { isAuthenticated, getCurrentUser } from './auth.js';
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Check if user is authenticated
-    if (!firebase.auth().currentUser) {
-        // Redirect to login page if not authenticated
-        window.location.href = '../login.html?redirect=' + encodeURIComponent(window.location.pathname);
-        return;
-    }
-    
-    // Initialize dashboard
-    initializeDashboard();
+    // Wait for Firebase auth state to be determined before checking authentication
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            // User is signed in, initialize dashboard
+            console.log('User is authenticated, initializing dashboard');
+            initializeDashboard();
+        } else {
+            // No user is signed in, redirect to login
+            console.log('User is not authenticated, redirecting to login');
+            window.location.href = '../login.html?redirect=' + encodeURIComponent(window.location.pathname);
+        }
+    });
 });
 
 /**
