@@ -88,23 +88,46 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Newsletter form submission
-    const newsletterForms = document.querySelectorAll('form');
-    if (newsletterForms.length > 0) {
-        newsletterForms.forEach(form => {
-            if (form.querySelector('input[type="email"]')) {
-                form.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    const emailInput = this.querySelector('input[type="email"]');
+    // Newsletter form submission - ONLY for actual newsletter forms, not login/signup
+    const newsletterForms = document.querySelectorAll('form.newsletter-form');
+    
+    // If no specific newsletter forms found, look for footer newsletter forms
+    if (newsletterForms.length === 0) {
+        const footerForms = document.querySelectorAll('footer form');
+        
+        if (footerForms.length > 0) {
+            footerForms.forEach(form => {
+                if (form.querySelector('input[type="email"]') && 
+                    !form.id.includes('login') && 
+                    !form.id.includes('signup')) {
                     
-                    if (emailInput && emailInput.value) {
-                        // Here you would typically send this to your backend
-                        // For now, we'll just show an alert
-                        alert('Thank you for subscribing to our newsletter!');
-                        emailInput.value = '';
-                    }
-                });
-            }
+                    form.addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        const emailInput = this.querySelector('input[type="email"]');
+                        
+                        if (emailInput && emailInput.value) {
+                            // Here you would typically send this to your backend
+                            console.log('Newsletter subscription:', emailInput.value);
+                            alert('Thank you for subscribing to our newsletter!');
+                            emailInput.value = '';
+                        }
+                    });
+                }
+            });
+        }
+    } else {
+        // If specific newsletter forms found, use those
+        newsletterForms.forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const emailInput = this.querySelector('input[type="email"]');
+                
+                if (emailInput && emailInput.value) {
+                    console.log('Newsletter subscription:', emailInput.value);
+                    alert('Thank you for subscribing to our newsletter!');
+                    emailInput.value = '';
+                }
+            });
         });
     }
 
