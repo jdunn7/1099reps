@@ -28,6 +28,23 @@ try {
   auth = firebase.auth();
   db = firebase.firestore();
   
+  // Enable offline persistence for Firestore
+  db.enablePersistence({ synchronizeTabs: true })
+    .then(() => {
+      console.log("Firestore offline persistence enabled");
+    })
+    .catch((err) => {
+      if (err.code === 'failed-precondition') {
+        // Multiple tabs open, persistence can only be enabled in one tab at a time
+        console.warn("Multiple tabs open, persistence only enabled in one tab");
+      } else if (err.code === 'unimplemented') {
+        // The current browser does not support all of the features required for persistence
+        console.warn("Current browser doesn't support persistence");
+      } else {
+        console.error("Error enabling persistence:", err);
+      }
+    });
+  
   // Only initialize analytics if the SDK is available
   if (typeof firebase.analytics === 'function') {
     analytics = firebase.analytics();

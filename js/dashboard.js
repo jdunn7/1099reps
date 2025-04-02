@@ -7,6 +7,9 @@
 import { isAuthenticated, getCurrentUser } from './auth.js';
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Set up network status monitoring
+    setupNetworkMonitoring();
+    
     // Wait for Firebase auth state to be determined before checking authentication
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
@@ -20,6 +23,73 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+/**
+ * Set up network status monitoring
+ */
+function setupNetworkMonitoring() {
+    // Check initial network status
+    updateNetworkStatus();
+    
+    // Listen for online/offline events
+    window.addEventListener('online', function() {
+        console.log('Device is now online');
+        updateNetworkStatus(true);
+        // Attempt to sync data when coming back online
+        if (firebase.auth().currentUser) {
+            initializeDashboard();
+        }
+    });
+    
+    window.addEventListener('offline', function() {
+        console.log('Device is now offline');
+        updateNetworkStatus(false);
+    });
+}
+
+/**
+ * Update network status indicator
+ * @param {boolean} isOnline - Whether the device is online
+ */
+function updateNetworkStatus(isOnline = navigator.onLine) {
+    console.log('Updating network status indicator:', isOnline);
+    
+    // Create or get the network status indicator
+    let networkIndicator = document.getElementById('network-status');
+    
+    if (!networkIndicator) {
+        // Create the indicator if it doesn't exist
+        networkIndicator = document.createElement('div');
+        networkIndicator.id = 'network-status';
+        networkIndicator.style.position = 'fixed';
+        networkIndicator.style.bottom = '10px';
+        networkIndicator.style.right = '10px';
+        networkIndicator.style.padding = '5px 10px';
+        networkIndicator.style.borderRadius = '4px';
+        networkIndicator.style.fontSize = '12px';
+        networkIndicator.style.fontWeight = 'bold';
+        networkIndicator.style.zIndex = '9999';
+        document.body.appendChild(networkIndicator);
+    }
+    
+    if (isOnline) {
+        networkIndicator.textContent = '🟢 Online';
+        networkIndicator.style.backgroundColor = '#d4edda';
+        networkIndicator.style.color = '#155724';
+        networkIndicator.style.border = '1px solid #c3e6cb';
+        
+        // Hide after 5 seconds if online
+        setTimeout(() => {
+            networkIndicator.style.opacity = '0.5';
+        }, 5000);
+    } else {
+        networkIndicator.textContent = '🔴 Offline - Using cached data';
+        networkIndicator.style.backgroundColor = '#f8d7da';
+        networkIndicator.style.color = '#721c24';
+        networkIndicator.style.border = '1px solid #f5c6cb';
+        networkIndicator.style.opacity = '1';
+    }
+}
 
 /**
  * Initialize dashboard with user data
@@ -67,48 +137,72 @@ async function initializeDashboard() {
 async function getUserData(userId) {
     try {
         console.log('Getting user data for ID:', userId);
-        // Get user document from Firestore
-        const userDoc = await firebase.firestore().collection('users').doc(userId).get();
+        const user = firebase.auth().currentUser;
         
-        if (!userDoc.exists) {
-            console.warn('User document not found in Firestore');
-            // Instead of throwing an error, return basic user data from auth
-            const user = firebase.auth().currentUser;
-            return {
-                userId: user.uid,
-                email: user.email,
-                userType: 'rep', // Default to rep if not known
-                profile: {}
-            };
+        // Default user data in case we can't fetch from Firestore
+        let defaultUserData = {
+            userId: user.uid,
+            email: user.email,
+            userType: 'rep', // Default to rep if not known
+            profile: {}
+        };
+        
+        // Check if we're online
+        const isOnline = window.navigator.onLine;
+        console.log('Network status - Online:', isOnline);
+        
+        if (!isOnline) {
+            console.warn('Device is offline, using cached data if available');
+            // We'll still try to get data from Firestore as it might be cached
         }
-        
-        const userData = userDoc.data();
-        console.log('User data retrieved:', userData.userType);
-        
-        // Get additional data based on user type
-        const collection = userData.userType === 'rep' ? 'reps' : 'companies';
-        let profileData = {};
         
         try {
-            const profileDoc = await firebase.firestore().collection(collection).doc(userId).get();
-            if (profileDoc.exists) {
-                profileData = profileDoc.data();
-                console.log('Profile data retrieved successfully');
-            } else {
-                console.warn('Profile document not found, using empty profile');
+            // Get user document from Firestore
+            const userDoc = await firebase.firestore().collection('users').doc(userId).get();
+            
+            if (!userDoc.exists) {
+                console.warn('User document not found in Firestore');
+                return defaultUserData;
             }
-        } catch (profileError) {
-            console.warn('Error fetching profile, using empty profile:', profileError);
+            
+            const userData = userDoc.data();
+            console.log('User data retrieved:', userData.userType);
+            
+            // Get additional data based on user type
+            const collection = userData.userType === 'rep' ? 'reps' : 'companies';
+            let profileData = {};
+            
+            try {
+                const profileDoc = await firebase.firestore().collection(collection).doc(userId).get();
+                if (profileDoc.exists) {
+                    profileData = profileDoc.data();
+                    console.log('Profile data retrieved successfully');
+                } else {
+                    console.warn('Profile document not found, using empty profile');
+                }
+            } catch (profileError) {
+                console.warn('Error fetching profile, using empty profile:', profileError);
+            }
+            
+            // Combine user and profile data
+            return {
+                ...userData,
+                profile: profileData
+            };
+        } catch (firestoreError) {
+            console.warn('Error accessing Firestore, using default user data:', firestoreError);
+            return defaultUserData;
         }
-        
-        // Combine user and profile data
-        return {
-            ...userData,
-            profile: profileData
-        };
     } catch (error) {
         console.error('Error getting user data:', error);
-        throw error;
+        // Return basic user info instead of throwing
+        const user = firebase.auth().currentUser;
+        return {
+            userId: user.uid,
+            email: user.email,
+            userType: 'rep',
+            profile: {}
+        };
     }
 }
 
