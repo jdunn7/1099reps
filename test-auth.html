@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auth Module Test</title>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+  <script src="js/auth.js" type="module"></script>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+    .test { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+    .success { background-color: #e6ffe6; }
+    .error { background-color: #ffebeb; }
+    button { padding: 8px 15px; margin: 5px; cursor: pointer; }
+    input { padding: 8px; margin: 5px; width: 200px; }
+  </style>
+</head>
+<body>
+  <h1>Auth Module Tests</h1>
+
+  <div class="test" id="signup-test">
+    <h2>Sign Up Test</h2>
+    <input type="email" id="signup-email" placeholder="Email">
+    <input type="password" id="signup-password" placeholder="Password">
+    <select id="user-type" aria-label="User type">
+      <option value="rep">Rep</option>
+      <option value="company">Company</option>
+    </select>
+    <button onclick="testSignUp()">Test Sign Up</button>
+    <div id="signup-result"></div>
+  </div>
+
+  <div class="test" id="signin-test">
+    <h2>Sign In Test</h2>
+    <input type="email" id="signin-email" placeholder="Email">
+    <input type="password" id="signin-password" placeholder="Password">
+    <button onclick="testSignIn()">Test Sign In</button>
+    <div id="signin-result"></div>
+  </div>
+
+  <div class="test" id="profile-test">
+    <h2>Profile Test</h2>
+    <button onclick="testGetProfile()">Test Get Profile</button>
+    <button onclick="testUpdateProfile()">Test Update Profile</button>
+    <div id="profile-result"></div>
+  </div>
+
+  <div class="test" id="signout-test">
+    <h2>Sign Out Test</h2>
+    <button onclick="testSignOut()">Test Sign Out</button>
+    <div id="signout-result"></div>
+  </div>
+
+  <div class="test" id="google-test">
+    <h2>Google Sign In Test (Mock)</h2>
+    <button onclick="testGoogleSignIn()">Test Google Sign In</button>
+    <div id="google-result"></div>
+  </div>
+
+  <script>
+    function logResult(elementId, success, message) {
+      const el = document.getElementById(elementId);
+      el.innerHTML = message;
+      el.parentElement.className = success ? 'test success' : 'test error';
+    }
+
+    async function testSignUp() {
+      try {
+        const email = document.getElementById('signup-email').value;
+        const password = document.getElementById('signup-password').value;
+        const userType = document.getElementById('user-type').value;
+        
+        const userData = {
+          email,
+          password,
+          firstName: 'Test',
+          lastName: 'User'
+        };
+        
+        const result = await window.authModule.signUp(userData, userType);
+        logResult('signup-result', true, `Sign up successful! User ID: ${result.user.uid}`);
+      } catch (error) {
+        logResult('signup-result', false, `Sign up failed: ${error.message}`);
+      }
+    }
+
+    async function testSignIn() {
+      try {
+        const email = document.getElementById('signin-email').value;
+        const password = document.getElementById('signin-password').value;
+        
+        const result = await window.authModule.signIn(email, password);
+        logResult('signin-result', true, `Sign in successful! User: ${result.user.email}`);
+      } catch (error) {
+        logResult('signin-result', false, `Sign in failed: ${error.message}`);
+      }
+    }
+
+    async function testGetProfile() {
+      try {
+        const user = window.authModule.getCurrentUser();
+        if (!user) {
+          throw new Error('No user signed in');
+        }
+        
+        const profile = await window.authModule.getUserProfile(user.uid);
+        logResult('profile-result', true, `Profile loaded: ${JSON.stringify(profile)}`);
+      } catch (error) {
+        logResult('profile-result', false, `Get profile failed: ${error.message}`);
+      }
+    }
+
+    async function testUpdateProfile() {
+      try {
+        const user = window.authModule.getCurrentUser();
+        if (!user) {
+          throw new Error('No user signed in');
+        }
+        
+        const updates = {
+          lastUpdated: new Date().toISOString()
+        };
+        
+        await window.authModule.updateUserProfile(user.uid, updates);
+        logResult('profile-result', true, 'Profile updated successfully');
+      } catch (error) {
+        logResult('profile-result', false, `Update profile failed: ${error.message}`);
+      }
+    }
+
+    async function testSignOut() {
+      try {
+        await window.authModule.signOut();
+        logResult('signout-result', true, 'Signed out successfully');
+      } catch (error) {
+        logResult('signout-result', false, `Sign out failed: ${error.message}`);
+      }
+    }
+
+    async function testGoogleSignIn() {
+      try {
+        // Mock Google sign in for testing
+        logResult('google-result', true, 'Google sign in would be triggered (mock)');
+      } catch (error) {
+        logResult('google-result', false, `Google sign in failed: ${error.message}`);
+      }
+    }
+  </script>
+</body>
+</html>
