@@ -39,9 +39,9 @@ const USER_TYPES = {
   COMPANY: 'company'
 };
 
-// Create a compatibility layer for the window.authModule object
-// This ensures the modernized Firebase code still works with the existing JS files
-export const authModule = {
+// Previously had an authModule export here, but we've replaced it with standalone functions
+// Define the authModule object for internal use only
+const authModule = {
   // User types
   USER_TYPES: USER_TYPES,
   
