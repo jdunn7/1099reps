@@ -3,6 +3,9 @@
  * Handles signup form submission and validation for both reps and companies
  */
 
+// Import auth module and necessary functions
+import { authModule, signUp, USER_TYPES } from './auth.js';
+
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM content loaded - initializing signup forms');
     
@@ -167,7 +170,7 @@ async function handleRepSignupSubmit(event) {
         }
         
         // Attempt to sign up user
-        await window.authModule.signUp(userData, window.authModule.USER_TYPES.REP);
+        await signUp(userData, USER_TYPES.REP);
         
         // Handle successful signup
         handleSuccessfulSignup();
@@ -243,7 +246,7 @@ async function handleCompanySignupSubmit(event) {
         }
         
         // Attempt to sign up company
-        await window.authModule.signUp(userData, window.authModule.USER_TYPES.COMPANY);
+        await signUp(userData, USER_TYPES.COMPANY);
         
         // Handle successful signup
         handleSuccessfulSignup();

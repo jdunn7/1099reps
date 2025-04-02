@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>My Profile | 1099 REPS</title>
+    <meta name="description" content="Manage your 1099 REPS profile, update your information, and enhance your visibility to healthcare companies.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/modern.css">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <!-- Header/Navigation -->
+    <header class="header">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+            <div class="container">
+                <a class="navbar-brand" href="../index.html">
+                    <img src="../images/logo.png" alt="1099 REPS Logo" height="50">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../job-search/index.html">Find Jobs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../for-reps/index.html">For Reps</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../for-companies/index.html">For Companies</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../resources/index.html">Resources</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="../images/avatar-placeholder.jpg" alt="User Avatar" class="rounded-circle me-1" width="28" height="28" id="navUserAvatar">
+                                <span id="navUserName">Account</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item" href="index.html">Dashboard</a></li>
+                                <li><a class="dropdown-item active" href="profile.html">My Profile</a></li>
+                                <li><a class="dropdown-item" href="applications.html">My Applications</a></li>
+                                <li><a class="dropdown-item" href="saved-jobs.html">Saved Jobs</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#" id="logoutLink">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Profile Content -->
+    <main class="profile-main pt-5 mt-5">
+        <div class="container py-4">
+            <!-- Page Title -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h1 class="h3 fw-bold">My Profile</h1>
+                    <p class="text-muted">Manage your personal information and profile settings</p>
+                </div>
+            </div>
+            
+            <!-- Profile Form -->
+            <div class="row">
+                <div class="col-lg-3 mb-4">
+                    <!-- Profile Navigation -->
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="text-center mb-4">
+                                <div class="position-relative d-inline-block">
+                                    <img src="../images/avatar-placeholder.jpg" alt="User Avatar" class="rounded-circle img-fluid mb-3 profile-avatar" id="profileAvatar">
+                                    <button class="btn btn-sm btn-primary position-absolute bottom-0 end-0 rounded-circle avatar-edit-btn" id="changeAvatarBtn" aria-label="Change profile picture" title="Change profile picture">
+                                        <i class="bi bi-pencil-fill"></i>
+                                    </button>
+                                </div>
+                                <h2 class="h5 fw-bold mb-0" id="profileName">John Doe</h2>
+                                <p class="text-muted small mb-0" id="profileEmail">john@example.com</p>
+                            </div>
+                            
+                            <div class="list-group list-group-flush">
+                                <a href="#personalInfo" class="list-group-item list-group-item-action active px-0">
+                                    <i class="bi bi-person me-2"></i> Personal Information
+                                </a>
+                                <a href="#professionalInfo" class="list-group-item list-group-item-action px-0">
+                                    <i class="bi bi-briefcase me-2"></i> Professional Details
+                                </a>
+                                <a href="#accountSettings" class="list-group-item list-group-item-action px-0">
+                                    <i class="bi bi-gear me-2"></i> Account Settings
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-9">
+                    <!-- Personal Information -->
+                    <div class="card border-0 shadow-sm mb-4" id="personalInfo">
+                        <div class="card-header bg-white py-3">
+                            <h2 class="h5 fw-bold mb-0">Personal Information</h2>
+                        </div>
+                        <div class="card-body p-4">
+                            <form id="personalInfoForm">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="firstName" class="form-label">First Name</label>
+                                        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter your first name">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="lastName" class="form-label">Last Name</label>
+                                        <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter your last name">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="email" class="form-label">Email Address</label>
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" readonly>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="phone" class="form-label">Phone Number</label>
+                                        <input type="tel" class="form-control" id="phone" name="phone" placeholder="Enter your phone number">
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="location" class="form-label">Location</label>
+                                        <input type="text" class="form-control" id="location" name="location" placeholder="City, State">
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="bio" class="form-label">Bio</label>
+                                        <textarea class="form-control" id="bio" name="bio" rows="4" placeholder="Tell us about yourself"></textarea>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- Professional Information -->
+                    <div class="card border-0 shadow-sm mb-4" id="professionalInfo">
+                        <div class="card-header bg-white py-3">
+                            <h2 class="h5 fw-bold mb-0">Professional Details</h2>
+                        </div>
+                        <div class="card-body p-4">
+                            <form id="professionalInfoForm">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="specialty" class="form-label">Specialty</label>
+                                        <select class="form-select" id="specialty" name="specialty">
+                                            <option value="" selected disabled>Select your specialty</option>
+                                            <option value="Orthopedic">Orthopedic</option>
+                                            <option value="Cardiovascular">Cardiovascular</option>
+                                            <option value="Neurology">Neurology</option>
+                                            <option value="Dental">Dental</option>
+                                            <option value="Ophthalmology">Ophthalmology</option>
+                                            <option value="General Surgery">General Surgery</option>
+                                            <option value="Pharmaceutical">Pharmaceutical</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="experience" class="form-label">Years of Experience</label>
+                                        <select class="form-select" id="experience" name="experience">
+                                            <option value="" selected disabled>Select years of experience</option>
+                                            <option value="0-1">Less than 1 year</option>
+                                            <option value="1-3">1-3 years</option>
+                                            <option value="3-5">3-5 years</option>
+                                            <option value="5-10">5-10 years</option>
+                                            <option value="10+">10+ years</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="skills" class="form-label">Skills</label>
+                                        <input type="text" class="form-control" id="skills" name="skills" placeholder="e.g., Sales, Negotiation, Product Knowledge">
+                                        <div class="form-text">Separate skills with commas</div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="certifications" class="form-label">Certifications</label>
+                                        <textarea class="form-control" id="certifications" name="certifications" rows="3" placeholder="List your relevant certifications"></textarea>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- Account Settings -->
+                    <div class="card border-0 shadow-sm" id="accountSettings">
+                        <div class="card-header bg-white py-3">
+                            <h2 class="h5 fw-bold mb-0">Account Settings</h2>
+                        </div>
+                        <div class="card-body p-4">
+                            <form id="accountSettingsForm">
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <label for="currentPassword" class="form-label">Current Password</label>
+                                        <input type="password" class="form-control" id="currentPassword" name="currentPassword" placeholder="Enter your current password">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="newPassword" class="form-label">New Password</label>
+                                        <input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="Enter new password">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm new password">
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary">Update Password</button>
+                                    </div>
+                                </div>
+                            </form>
+                            
+                            <hr class="my-4">
+                            
+                            <h3 class="h6 fw-bold mb-3">Email Notifications</h3>
+                            <div class="form-check form-switch mb-2">
+                                <input class="form-check-input" type="checkbox" id="jobAlerts" checked>
+                                <label class="form-check-label" for="jobAlerts">Job Alerts</label>
+                                <div class="form-text">Receive notifications about new job opportunities matching your profile</div>
+                            </div>
+                            <div class="form-check form-switch mb-2">
+                                <input class="form-check-input" type="checkbox" id="applicationUpdates" checked>
+                                <label class="form-check-label" for="applicationUpdates">Application Updates</label>
+                                <div class="form-text">Receive updates about your job applications</div>
+                            </div>
+                            <div class="form-check form-switch mb-2">
+                                <input class="form-check-input" type="checkbox" id="marketingEmails">
+                                <label class="form-check-label" for="marketingEmails">Marketing Emails</label>
+                                <div class="form-text">Receive promotional emails and newsletters</div>
+                            </div>
+                            
+                            <hr class="my-4">
+                            
+                            <h3 class="h6 fw-bold text-danger mb-3">Danger Zone</h3>
+                            <p class="text-muted">Once you delete your account, there is no going back. Please be certain.</p>
+                            <button type="button" class="btn btn-outline-danger" id="deleteAccountBtn">Delete Account</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer py-5 bg-primary-dark text-white mt-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <img src="../images/logo.png" alt="1099 REPS Logo" height="50" class="mb-4">
+                    <p>The premier platform connecting independent medical sales representatives with healthcare companies.</p>
+                </div>
+                <div class="col-lg-2 col-md-3 col-6">
+                    <h5 class="text-white mb-3">For Reps</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="../for-reps/index.html" class="text-white-50">How It Works</a></li>
+                        <li class="mb-2"><a href="../job-search/index.html" class="text-white-50">Find Jobs</a></li>
+                        <li class="mb-2"><a href="../resources/index.html" class="text-white-50">Resources</a></li>
+                        <li class="mb-2"><a href="../signup.html" class="text-white-50">Sign Up</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-3 col-6">
+                    <h5 class="text-white mb-3">For Companies</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="../for-companies/index.html" class="text-white-50">How It Works</a></li>
+                        <li class="mb-2"><a href="../for-companies/post-job.html" class="text-white-50">Post a Job</a></li>
+                        <li class="mb-2"><a href="../for-companies/pricing.html" class="text-white-50">Pricing</a></li>
+                        <li class="mb-2"><a href="../signup.html?type=company" class="text-white-50">Sign Up</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-3 col-6">
+                    <h5 class="text-white mb-3">Company</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="../about.html" class="text-white-50">About Us</a></li>
+                        <li class="mb-2"><a href="../contact.html" class="text-white-50">Contact</a></li>
+                        <li class="mb-2"><a href="../blog/index.html" class="text-white-50">Blog</a></li>
+                        <li class="mb-2"><a href="../careers.html" class="text-white-50">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-3 col-6">
+                    <h5 class="text-white mb-3">Legal</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="../terms.html" class="text-white-50">Terms of Service</a></li>
+                        <li class="mb-2"><a href="../privacy.html" class="text-white-50">Privacy Policy</a></li>
+                        <li class="mb-2"><a href="../cookies.html" class="text-white-50">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="mt-4 mb-3 border-white-25">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0 text-white-50">&copy; 2025 1099 REPS. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
+                    <div class="social-links">
+                        <a href="#" class="text-white me-2" aria-label="LinkedIn" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                        <a href="#" class="text-white me-2" aria-label="Twitter" title="Twitter"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="text-white me-2" aria-label="Facebook" title="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-white" aria-label="Instagram" title="Instagram"><i class="bi bi-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-storage-compat.js"></script>
+    
+    <!-- Authentication Scripts -->
+    <script src="../js/auth.js" type="module"></script>
+    <script src="../js/profile.js" type="module"></script>
+</body>
+</html>
