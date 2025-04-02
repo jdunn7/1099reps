@@ -66,27 +66,45 @@ async function initializeDashboard() {
  */
 async function getUserData(userId) {
     try {
+        console.log('Getting user data for ID:', userId);
         // Get user document from Firestore
         const userDoc = await firebase.firestore().collection('users').doc(userId).get();
         
         if (!userDoc.exists) {
-            throw new Error('User document not found');
+            console.warn('User document not found in Firestore');
+            // Instead of throwing an error, return basic user data from auth
+            const user = firebase.auth().currentUser;
+            return {
+                userId: user.uid,
+                email: user.email,
+                userType: 'rep', // Default to rep if not known
+                profile: {}
+            };
         }
         
         const userData = userDoc.data();
+        console.log('User data retrieved:', userData.userType);
         
         // Get additional data based on user type
         const collection = userData.userType === 'rep' ? 'reps' : 'companies';
-        const profileDoc = await firebase.firestore().collection(collection).doc(userId).get();
+        let profileData = {};
         
-        if (!profileDoc.exists) {
-            throw new Error('Profile document not found');
+        try {
+            const profileDoc = await firebase.firestore().collection(collection).doc(userId).get();
+            if (profileDoc.exists) {
+                profileData = profileDoc.data();
+                console.log('Profile data retrieved successfully');
+            } else {
+                console.warn('Profile document not found, using empty profile');
+            }
+        } catch (profileError) {
+            console.warn('Error fetching profile, using empty profile:', profileError);
         }
         
         // Combine user and profile data
         return {
             ...userData,
-            profile: profileDoc.data()
+            profile: profileData
         };
     } catch (error) {
         console.error('Error getting user data:', error);
@@ -99,18 +117,24 @@ async function getUserData(userId) {
  * @param {Object} userData - User data
  */
 function updateDashboardUI(userData) {
+    console.log('Updating dashboard UI with user data');
+    
+    // Ensure profile exists to prevent errors
+    userData.profile = userData.profile || {};
+    
     // Update user name in welcome message
     const welcomeMessage = document.querySelector('.dashboard-main h1');
     if (welcomeMessage) {
         let displayName = 'there';
         
-        if (userData.userType === 'rep') {
-            displayName = userData.profile.firstName || displayName;
-        } else if (userData.userType === 'company') {
-            displayName = userData.profile.contactName || displayName;
+        if (userData.userType === 'rep' && userData.profile) {
+            displayName = userData.profile.firstName || userData.email?.split('@')[0] || displayName;
+        } else if (userData.userType === 'company' && userData.profile) {
+            displayName = userData.profile.contactName || userData.profile.companyName || userData.email?.split('@')[0] || displayName;
         }
         
         welcomeMessage.textContent = `Welcome back, ${displayName}!`;
+        console.log('Welcome message updated for:', displayName);
     }
     
     // Update user avatar and name in navbar
@@ -118,24 +142,62 @@ function updateDashboardUI(userData) {
     const userName = document.querySelector('#userDropdown span');
     
     if (userAvatar && userName) {
-        // Set user name
+        // Set user name with fallbacks
         if (userData.userType === 'rep') {
-            userName.textContent = `${userData.profile.firstName} ${userData.profile.lastName}`;
+            const firstName = userData.profile.firstName || '';
+            const lastName = userData.profile.lastName || '';
+            const fullName = `${firstName} ${lastName}`.trim();
+            userName.textContent = fullName || userData.email || 'User';
         } else if (userData.userType === 'company') {
-            userName.textContent = userData.profile.companyName;
+            userName.textContent = userData.profile.companyName || userData.email || 'Company';
+        } else {
+            userName.textContent = userData.email || 'User';
         }
         
         // Set user avatar if available
         if (userData.profile.avatarUrl) {
             userAvatar.src = userData.profile.avatarUrl;
         }
+        
+        console.log('User name in navbar updated');
     }
     
-    // Update logout link
-    const logoutLink = document.querySelector('a[href="../index.html"]:contains("Logout")');
-    if (logoutLink) {
-        logoutLink.href = '#';
-        logoutLink.addEventListener('click', handleLogout);
+    // Update logout link - using a more reliable selector
+    const logoutLinks = document.querySelectorAll('a');
+    logoutLinks.forEach(link => {
+        if (link.textContent.includes('Logout') || link.textContent.includes('Sign Out')) {
+            console.log('Found logout link:', link.textContent);
+            link.href = '#';
+            link.addEventListener('click', handleLogout);
+        }
+    });
+    
+    // Also add event listener to any element with logout class
+    const logoutButtons = document.querySelectorAll('.logout, .sign-out');
+    logoutButtons.forEach(button => {
+        console.log('Found logout button');
+        button.addEventListener('click', handleLogout);
+    });
+}
+
+/**
+ * Handle logout action
+ * @param {Event} event - Click event
+ */
+async function handleLogout(event) {
+    event.preventDefault();
+    console.log('Logout initiated');
+    
+    try {
+        // Sign out user
+        await firebase.auth().signOut();
+        console.log('User signed out successfully');
+        
+        // Redirect to home page
+        window.location.href = '../index.html';
+    } catch (error) {
+        console.error('Error signing out:', error);
+        alert('Error signing out. Please try again.');
     }
 }
 
@@ -145,19 +207,37 @@ function updateDashboardUI(userData) {
  */
 async function loadDashboardStats(userData) {
     try {
+        console.log('Loading dashboard stats for user type:', userData.userType);
         // Get stats based on user type
-        let stats;
+        let stats = {
+            applications: 0,
+            interviews: 0,
+            offers: 0,
+            connections: 0
+        };
         
-        if (userData.userType === 'rep') {
-            stats = await getRepStats(userData.userId);
-        } else if (userData.userType === 'company') {
-            stats = await getCompanyStats(userData.userId);
+        try {
+            if (userData.userType === 'rep') {
+                const repStats = await getRepStats(userData.userId);
+                if (repStats) {
+                    stats = { ...stats, ...repStats };
+                }
+            } else if (userData.userType === 'company') {
+                const companyStats = await getCompanyStats(userData.userId);
+                if (companyStats) {
+                    stats = { ...stats, ...companyStats };
+                }
+            }
+        } catch (statsError) {
+            console.warn('Error fetching specific stats, using defaults:', statsError);
         }
         
         // Update stats in UI
         updateStatsUI(stats);
+        console.log('Dashboard stats updated successfully');
     } catch (error) {
         console.error('Error loading dashboard stats:', error);
+        // Don't let stats errors crash the dashboard
     }
 }
 
