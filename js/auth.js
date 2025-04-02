@@ -204,17 +204,203 @@ export const authModule = {
   }
 };
 
-// Export individual functions for direct use
-export const signUp = authModule.signUp;
-export const signIn = authModule.signIn;
-export const signOut = authModule.signOut;
-export const sendPasswordResetEmail = authModule.sendPasswordResetEmail;
-export const getCurrentUser = authModule.getCurrentUser;
-export const isLoggedIn = authModule.isLoggedIn;
-export const getUserProfile = authModule.getUserProfile;
-export const updateUserProfile = authModule.updateUserProfile;
-export const signInWithGoogle = authModule.signInWithGoogle;
-export const signInWithLinkedIn = authModule.signInWithLinkedIn;
+// Define standalone functions for export
+
+/**
+ * Sign in with email and password
+ * @param {string} email - User email
+ * @param {string} password - User password
+ * @param {boolean} rememberMe - Whether to remember the user
+ * @returns {Promise<UserCredential>} - Firebase user credential
+ */
+export async function signIn(email, password, rememberMe = false) {
+  try {
+    // Set persistence based on remember me option
+    const persistence = rememberMe 
+      ? firebase.auth.Auth.Persistence.LOCAL 
+      : firebase.auth.Auth.Persistence.SESSION;
+    
+    await auth.setPersistence(persistence);
+    
+    // Attempt to sign in user
+    const userCredential = await auth.signInWithEmailAndPassword(email, password);
+    return userCredential;
+  } catch (error) {
+    console.error('Sign in error:', error);
+    throw error;
+  }
+}
+
+/**
+ * Sign up a new user
+ * @param {Object} userData - User data
+ * @param {string} userType - User type (rep or company)
+ * @returns {Promise<UserCredential>} - Firebase user credential
+ */
+export async function signUp(userData, userType) {
+  try {
+    console.log('Starting signup with email:', userData.email);
+    
+    // Create user with email and password
+    const userCredential = await auth.createUserWithEmailAndPassword(
+      userData.email,
+      userData.password
+    );
+    
+    // Add user data to Firestore
+    const userId = userCredential.user.uid;
+    await db.collection('users').doc(userId).set({
+      userId: userId,
+      userType: userType,
+      email: userData.email,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      ...userData,
+      // Remove password from data stored in Firestore
+      password: undefined,
+      confirmPassword: undefined
+    });
+    
+    // Create specific profile based on user type
+    if (userType === USER_TYPES.REP) {
+      await db.collection('reps').doc(userId).set({
+        userId: userId,
+        firstName: userData.firstName || '',
+        lastName: userData.lastName || '',
+        phone: userData.phone || '',
+        location: userData.location || '',
+        experience: userData.experience || '',
+        specialty: userData.specialty || '',
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    } else if (userType === USER_TYPES.COMPANY) {
+      await db.collection('companies').doc(userId).set({
+        userId: userId,
+        companyName: userData.companyName || '',
+        companyType: userData.companyType || '',
+        contactName: userData.contactName || '',
+        contactTitle: userData.contactTitle || '',
+        phone: userData.phone || '',
+        location: userData.location || '',
+        website: userData.website || '',
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    }
+    
+    return userCredential;
+  } catch (error) {
+    console.error('Sign up error:', error);
+    throw error;
+  }
+}
+
+/**
+ * Sign out current user
+ * @returns {Promise<boolean>} - True if sign out successful
+ */
+export async function signOut() {
+  try {
+    await auth.signOut();
+    return true;
+  } catch (error) {
+    console.error('Sign out error:', error);
+    throw error;
+  }
+}
+
+/**
+ * Send password reset email
+ * @param {string} email - User email
+ * @returns {Promise<boolean>} - True if email sent successfully
+ */
+export async function sendPasswordResetEmail(email) {
+  try {
+    await auth.sendPasswordResetEmail(email);
+    return true;
+  } catch (error) {
+    console.error('Password reset error:', error);
+    throw error;
+  }
+}
+
+/**
+ * Get current user
+ * @returns {Object|null} - Firebase user object or null if not signed in
+ */
+export function getCurrentUser() {
+  return auth.currentUser;
+}
+
+/**
+ * Check if user is logged in
+ * @returns {boolean} - True if user is logged in
+ */
+export function isAuthenticated() {
+  return !!auth.currentUser;
+}
+
+/**
+ * Get user profile
+ * @param {string} userId - User ID
+ * @returns {Promise<Object>} - User profile data
+ */
+export async function getUserProfile(userId) {
+  try {
+    const userDoc = await db.collection('users').doc(userId).get();
+    
+    if (userDoc.exists) {
+      return userDoc.data();
+    } else {
+      throw new Error('User profile not found');
+    }
+  } catch (error) {
+    console.error('Get user profile error:', error);
+    throw error;
+  }
+}
+
+/**
+ * Update user profile
+ * @param {string} userId - User ID
+ * @param {Object} profileData - Profile data to update
+ * @returns {Promise<boolean>} - True if update successful
+ */
+export async function updateUserProfile(userId, profileData) {
+  try {
+    await db.collection('users').doc(userId).update(profileData);
+    return true;
+  } catch (error) {
+    console.error('Update user profile error:', error);
+    throw error;
+  }
+}
+
+/**
+ * Sign in with Google
+ * @returns {Promise<UserCredential>} - Firebase user credential
+ */
+export async function signInWithGoogle() {
+  try {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    return await auth.signInWithPopup(provider);
+  } catch (error) {
+    console.error('Google sign in error:', error);
+    throw error;
+  }
+}
+
+/**
+ * Sign in with LinkedIn
+ * @returns {Promise<UserCredential>} - Firebase user credential
+ */
+export async function signInWithLinkedIn() {
+  try {
+    // LinkedIn sign in is not implemented yet
+    throw new Error('LinkedIn sign in is not implemented yet');
+  } catch (error) {
+    console.error('LinkedIn sign in error:', error);
+    throw error;
+  }
+}
 export { USER_TYPES };
 
 // Auth state observer

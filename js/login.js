@@ -4,7 +4,7 @@
  */
 
 // Import necessary functions
-import { signIn, signInWithGoogle, USER_TYPES } from './auth.js';
+import { signIn, signInWithGoogle, signInWithLinkedIn, USER_TYPES } from './auth.js';
 
 document.addEventListener('DOMContentLoaded', function() {
     // Get login form element
