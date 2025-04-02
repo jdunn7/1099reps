@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Allow all bots to access the blog
+Allow: /blog/
+Allow: /blog/articles/
+Allow: /blog/categories/
+
+# Sitemap location
+Sitemap: https://1099reps.com/blog/sitemap.xml
