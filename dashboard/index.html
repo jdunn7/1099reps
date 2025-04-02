@@ -165,7 +165,9 @@
                             
                             <div class="mt-4">
                                 <h6 class="mb-3">Application Activity</h6>
-                                <canvas id="applicationChart" height="100"></canvas>
+                                <div class="chart-container">
+                                    <canvas id="applicationChart"></canvas>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -587,6 +589,10 @@
                     scales: {
                         y: {
                             beginAtZero: true,
+                            ticks: {
+                                precision: 0,
+                                maxTicksLimit: 5
+                            },
                             grid: {
                                 display: true,
                                 drawBorder: false
