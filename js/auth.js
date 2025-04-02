@@ -3,7 +3,10 @@
  * Handles user authentication, registration, and session management
  */
 
-// Firebase configuration
+// Firebase is loaded via script tags in the HTML files
+// This file uses the compatibility version of Firebase
+
+// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyAqcHB8RcERGTEx_Owj9r1tgLOmEpwuSpo",
   authDomain: "reps-9a143.firebaseapp.com",
@@ -17,16 +20,14 @@ const firebaseConfig = {
 // Initialize Firebase with error handling
 let auth;
 let db;
+let analytics;
 
 try {
-  // Check if Firebase is already initialized
-  if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-  }
-  
+  // Initialize Firebase with the compatibility version
+  firebase.initializeApp(firebaseConfig);
   auth = firebase.auth();
   db = firebase.firestore();
-  
+  analytics = firebase.analytics();
   console.log("Firebase initialized successfully");
 } catch (error) {
   console.error("Firebase initialization error:", error);
@@ -38,8 +39,12 @@ const USER_TYPES = {
   COMPANY: 'company'
 };
 
-// Create a global authModule object for use in other scripts
-window.authModule = {
+// Create a compatibility layer for the window.authModule object
+// This ensures the modernized Firebase code still works with the existing JS files
+export const authModule = {
+  // User types
+  USER_TYPES: USER_TYPES,
+  
   // Sign in with email and password
   signIn: async function(email, password, rememberMe = false) {
     try {
@@ -144,6 +149,8 @@ window.authModule = {
   // Sign up a new user
   signUp: async function(userData, userType) {
     try {
+      console.log('Starting signup with email:', userData.email);
+      
       // Create user with email and password
       const userCredential = await auth.createUserWithEmailAndPassword(
         userData.email,
@@ -197,121 +204,19 @@ window.authModule = {
   }
 };
 
-// Export the auth module for use in other scripts
-window.signUp = window.authModule.signUp;
-
-// Export the signIn function for use in other scripts
-window.signIn = window.authModule.signIn;
-
-/**
- * Sign out the current user
- * @returns {Promise} - Promise resolving when sign out is complete
- */
-async function signOut() {
-  try {
-    return await auth.signOut();
-  } catch (error) {
-    console.error("Error signing out:", error);
-    throw error;
-  }
-}
-
-/**
- * Send password reset email
- * @param {string} email - User email
- * @returns {Promise} - Promise resolving when email is sent
- */
-async function resetPassword(email) {
-  try {
-    return await auth.sendPasswordResetEmail(email);
-  } catch (error) {
-    console.error("Error resetting password:", error);
-    throw error;
-  }
-}
-
-/**
- * Get current authenticated user
- * @returns {Object|null} - Current user or null if not authenticated
- */
-function getCurrentUser() {
-  return auth.currentUser;
-}
-
-/**
- * Check if user is authenticated
- * @returns {boolean} - True if user is authenticated
- */
-function isAuthenticated() {
-  return !!auth.currentUser;
-}
-
-/**
- * Get user profile data
- * @param {string} userId - User ID
- * @param {string} userType - Type of user (rep or company)
- * @returns {Promise} - Promise resolving to user profile data
- */
-async function getUserProfile(userId, userType) {
-  try {
-    const collection = userType === USER_TYPES.REP ? 'reps' : 'companies';
-    const doc = await db.collection(collection).doc(userId).get();
-    
-    if (doc.exists) {
-      return doc.data();
-    } else {
-      throw new Error('Profile not found');
-    }
-  } catch (error) {
-    console.error("Error getting user profile:", error);
-    throw error;
-  }
-}
-
-/**
- * Update user profile
- * @param {string} userId - User ID
- * @param {string} userType - Type of user (rep or company)
- * @param {Object} profileData - Updated profile data
- * @returns {Promise} - Promise resolving when update is complete
- */
-async function updateUserProfile(userId, userType, profileData) {
-  try {
-    const collection = userType === USER_TYPES.REP ? 'reps' : 'companies';
-    return await db.collection(collection).doc(userId).update({
-      ...profileData,
-      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-    });
-  } catch (error) {
-    console.error("Error updating user profile:", error);
-    throw error;
-  }
-}
-
-/**
- * Sign in with Google
- * @returns {Promise} - Promise resolving to user credentials
- */
-async function signInWithGoogle() {
-  try {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    return await auth.signInWithPopup(provider);
-  } catch (error) {
-    console.error("Error signing in with Google:", error);
-    throw error;
-  }
-}
-
-/**
- * Sign in with LinkedIn
- * @returns {Promise} - Promise resolving to user credentials
- */
-async function signInWithLinkedIn() {
-  // Note: LinkedIn authentication requires additional setup with Firebase
-  // This is a placeholder for the actual implementation
-  console.warn("LinkedIn authentication not fully implemented");
-  alert("LinkedIn authentication is not available at this time");
-}
+// Export the auth module and individual functions for direct use
+export { authModule };
+export const signUp = authModule.signUp;
+export const signIn = authModule.signIn;
+export const signOut = authModule.signOut;
+export const sendPasswordResetEmail = authModule.sendPasswordResetEmail;
+export const getCurrentUser = authModule.getCurrentUser;
+export const isLoggedIn = authModule.isLoggedIn;
+export const getUserProfile = authModule.getUserProfile;
+export const updateUserProfile = authModule.updateUserProfile;
+export const signInWithGoogle = authModule.signInWithGoogle;
+export const signInWithLinkedIn = authModule.signInWithLinkedIn;
+export { USER_TYPES };
 
 // Auth state observer
 auth.onAuthStateChanged(user => {
@@ -365,17 +270,4 @@ function updateUIForUnauthenticatedUser() {
   }
 }
 
-// Export functions for use in other modules
-window.authModule = {
-  signUp,
-  signIn,
-  signOut,
-  resetPassword,
-  getCurrentUser,
-  isAuthenticated,
-  getUserProfile,
-  updateUserProfile,
-  signInWithGoogle,
-  signInWithLinkedIn,
-  USER_TYPES
-};
+// Auth module is already exported above
