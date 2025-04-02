@@ -39,6 +39,7 @@
     <link rel="stylesheet" href="../css/modern.css">
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/blog.css">
+    <link rel="stylesheet" href="../css/blog-msn.css">
     
     <!-- Structured Data for Blog -->
     <script type="application/ld+json">
@@ -59,7 +60,7 @@
     }
     </script>
 </head>
-<body>
+<body class="blog-body">
     <!-- Header/Navigation -->
     <header class="header">
         <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
@@ -109,19 +110,29 @@
     </header>
 
     <!-- Blog Header -->
-    <section class="blog-header py-5 mt-5 bg-primary text-white">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-8 mx-auto text-center">
-                    <h1 class="display-4 fw-bold mb-3">1099 REPS Blog</h1>
-                    <p class="lead mb-4">Expert insights, tips, and strategies for independent medical sales representatives</p>
-                    <div class="d-flex justify-content-center">
-                        <div class="input-group search-bar">
-                            <input type="text" class="form-control" placeholder="Search articles..." aria-label="Search articles">
-                            <button class="btn btn-light" type="button" title="Search blog articles">
-                                <i class="bi bi-search"></i><span class="visually-hidden">Search</span>
-                            </button>
-                        </div>
+    <section class="blog-header">
+        <div class="container blog-container">
+            <div class="blog-header-content text-center">
+                <h1 class="display-4 fw-bold text-white mb-3">1099 REPS Blog</h1>
+                <p class="lead text-white mb-4">Expert insights, tips, and strategies for independent medical sales representatives</p>
+                <div class="d-flex justify-content-center">
+                    <div class="input-group search-bar">
+                        <input type="text" class="form-control" placeholder="Search articles..." aria-label="Search articles">
+                        <button class="btn btn-light" type="button" title="Search blog articles">
+                            <i class="bi bi-search"></i><span class="visually-hidden">Search</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- News Ticker -->
+            <div class="news-ticker">
+                <div class="ticker-wrap">
+                    <div class="ticker-move">
+                        <div class="ticker-item">Breaking: New FDA regulations impact medical device sales representatives</div>
+                        <div class="ticker-item">Industry Report: Healthcare sales projected to grow 15% in 2025</div>
+                        <div class="ticker-item">Webinar: Join us next week for "Tax Strategies for Independent Contractors"</div>
+                        <div class="ticker-item">Survey reveals top challenges for 1099 medical sales reps in 2025</div>
+                        <div class="ticker-item">New partnership opportunities for independent sales representatives</div>
                     </div>
                 </div>
             </div>
@@ -129,16 +140,16 @@
     </section>
 
     <!-- Category Navigation -->
-    <section class="category-nav py-3 bg-light">
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-center flex-wrap">
+    <section class="category-nav">
+        <div class="container blog-container">
+            <div class="d-flex justify-content-between align-items-center">
                 <div class="category-pills">
-                    <a href="index.html" class="btn btn-sm btn-primary me-2 mb-2">All</a>
-                    <a href="categories/career-advice.html" class="btn btn-sm btn-outline-primary me-2 mb-2">Career Advice</a>
-                    <a href="categories/sales-strategies.html" class="btn btn-sm btn-outline-primary me-2 mb-2">Sales Strategies</a>
-                    <a href="categories/industry-trends.html" class="btn btn-sm btn-outline-primary me-2 mb-2">Industry Trends</a>
-                    <a href="categories/tax-finance.html" class="btn btn-sm btn-outline-primary me-2 mb-2">Tax & Finance</a>
-                    <a href="categories/success-stories.html" class="btn btn-sm btn-outline-primary me-2 mb-2">Success Stories</a>
+                    <a href="index.html" class="btn btn-sm btn-primary active">All</a>
+                    <a href="categories/career-advice.html" class="btn btn-sm btn-outline-secondary btn-category-career">Career Advice</a>
+                    <a href="categories/sales-strategies.html" class="btn btn-sm btn-outline-secondary btn-category-sales">Sales Strategies</a>
+                    <a href="categories/industry-trends.html" class="btn btn-sm btn-outline-secondary btn-category-industry">Industry Trends</a>
+                    <a href="categories/tax-finance.html" class="btn btn-sm btn-outline-secondary btn-category-finance">Tax & Finance</a>
+                    <a href="categories/success-stories.html" class="btn btn-sm btn-outline-secondary btn-category-success">Success Stories</a>
                 </div>
                 <div class="sort-options">
                     <select class="form-select form-select-sm" aria-label="Sort articles by">
@@ -151,204 +162,370 @@
         </div>
     </section>
 
-    <!-- Featured Article -->
-    <section class="featured-article py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card border-0 shadow-sm featured-card">
-                        <div class="row g-0">
-                            <div class="col-md-6">
-                                <img src="../images/blog/featured-article.jpg" class="img-fluid rounded-start h-100 object-fit-cover" alt="Top 10 Tips for 1099 Medical Sales Representatives">
+    <!-- Featured Carousel -->
+    <section class="py-5">
+        <div class="container blog-container">
+            <div class="featured-carousel">
+                <div class="featured-badge">Featured</div>
+                <div id="featuredCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="../images/blog/featured-article.jpg" class="d-block w-100" alt="Top 10 Tips for 1099 Medical Sales Representatives">
+                            <div class="carousel-caption">
+                                <span class="badge bg-primary mb-2">Sales Strategies</span>
+                                <h2 class="fw-bold"><a href="articles/top-10-tips-for-1099-medical-sales-representatives.html" class="text-white text-decoration-none">Top 10 Tips for 1099 Medical Sales Representatives</a></h2>
+                                <p class="d-none d-md-block">Discover the essential strategies that successful independent medical sales representatives use to maximize their earnings and build lasting client relationships.</p>
+                                <div class="article-meta">
+                                    <img src="../images/team/sarah-johnson.jpg" alt="Sarah Johnson">
+                                    <span>Sarah Johnson</span>
+                                    <span class="dot-separator">•</span>
+                                    <span>April 1, 2025</span>
+                                </div>
                             </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="../images/blog/featured-article2.jpg" class="d-block w-100" alt="How to Navigate the Changing Healthcare Landscape">
+                            <div class="carousel-caption">
+                                <span class="badge bg-info mb-2">Industry Trends</span>
+                                <h2 class="fw-bold"><a href="articles/navigating-healthcare-landscape.html" class="text-white text-decoration-none">How to Navigate the Changing Healthcare Landscape</a></h2>
+                                <p class="d-none d-md-block">Stay ahead of industry shifts with these expert insights on adapting your sales approach to the evolving healthcare market.</p>
+                                <div class="article-meta">
+                                    <img src="../images/team/michael-chen.jpg" alt="Michael Chen">
+                                    <span>Michael Chen</span>
+                                    <span class="dot-separator">•</span>
+                                    <span>March 28, 2025</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="../images/blog/featured-article3.jpg" class="d-block w-100" alt="Tax Strategies Every Independent Contractor Should Know">
+                            <div class="carousel-caption">
+                                <span class="badge bg-success mb-2">Tax & Finance</span>
+                                <h2 class="fw-bold"><a href="articles/tax-strategies-independent-contractors.html" class="text-white text-decoration-none">Tax Strategies Every Independent Contractor Should Know</a></h2>
+                                <p class="d-none d-md-block">Maximize your take-home pay with these essential tax planning strategies designed specifically for 1099 medical sales representatives.</p>
+                                <div class="article-meta">
+                                    <img src="../images/team/jennifer-patel.jpg" alt="Jennifer Patel">
+                                    <span>Jennifer Patel</span>
+                                    <span class="dot-separator">•</span>
+                                    <span>March 25, 2025</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#featuredCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#featuredCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Area with MSN-Style Grid Layout -->
+    <section class="py-5">
+        <div class="container blog-container">
+            <div class="row">
+                <!-- Main Content Column -->
+                <div class="col-lg-8">
+                    <!-- Breaking News Section -->
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="bg-danger text-white px-3 py-1 rounded-3 me-3">
+                            <strong>BREAKING</strong>
+                        </div>
+                        <h2 class="h5 mb-0"><a href="articles/new-healthcare-legislation.html" class="text-decoration-none text-dark">New FDA regulations impact medical device sales representatives</a></h2>
+                    </div>
+                    
+                    <!-- Article Grid Layout -->
+                    <div class="article-grid mb-5">
+                        <!-- Main Featured Article -->
+                        <div class="article-grid-main">
+                            <div class="card h-100 border-0 shadow-sm article-card">
+                                <img src="../images/blog/article-1.jpg" class="card-img-top" alt="How to Negotiate Better Contracts as an Independent Sales Rep">
+                                <div class="card-body">
+                                    <span class="badge bg-info mb-2">Sales Strategies</span>
+                                    <h3 class="card-title h4 fw-bold mb-3">
+                                        <a href="articles/how-to-negotiate-better-contracts.html" class="text-decoration-none text-dark stretched-link">How to Negotiate Better Contracts as an Independent Sales Rep</a>
+                                    </h3>
+                                    <p class="card-text">Learn the key negotiation tactics that will help you secure more favorable terms and higher commissions in your sales contracts. Discover the psychological principles that drive successful negotiations.</p>
+                                    <div class="article-meta">
+                                        <img src="../images/team/michael-chen.jpg" alt="Michael Chen">
+                                        <span>Michael Chen</span>
+                                        <span class="dot-separator">•</span>
+                                        <span>March 28, 2025</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Secondary Articles -->
+                        <div class="article-grid-secondary">
+                            <div class="card h-100 border-0 shadow-sm article-card">
+                                <img src="../images/blog/article-2.jpg" class="card-img-top" alt="The Future of Medical Device Sales: Trends for 2025">
+                                <div class="card-body">
+                                    <span class="badge bg-warning mb-2">Industry Trends</span>
+                                    <h3 class="card-title h5 fw-bold mb-3">
+                                        <a href="articles/future-of-medical-device-sales.html" class="text-decoration-none text-dark stretched-link">The Future of Medical Device Sales: Trends for 2025</a>
+                                    </h3>
+                                    <div class="article-meta">
+                                        <img src="../images/team/jennifer-patel.jpg" alt="Jennifer Patel">
+                                        <span>Jennifer Patel</span>
+                                        <span class="dot-separator">•</span>
+                                        <span>March 22, 2025</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="article-grid-tertiary">
+                            <div class="card h-100 border-0 shadow-sm article-card">
+                                <img src="../images/blog/article-3.jpg" class="card-img-top" alt="Tax Planning Strategies for Independent Contractors">
+                                <div class="card-body">
+                                    <span class="badge bg-success mb-2">Tax & Finance</span>
+                                    <h3 class="card-title h5 fw-bold mb-3">
+                                        <a href="articles/tax-planning-strategies.html" class="text-decoration-none text-dark stretched-link">Tax Planning Strategies for Independent Contractors</a>
+                                    </h3>
+                                    <div class="article-meta">
+                                        <img src="../images/team/david-rodriguez.jpg" alt="David Rodriguez">
+                                        <span>David Rodriguez</span>
+                                        <span class="dot-separator">•</span>
+                                        <span>March 15, 2025</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Content Blocks by Category -->
+                    <div class="mb-5">
+                        <h2 class="h4 fw-bold mb-4">Latest Articles</h2>
+                        <div class="row g-4">
+                            <!-- Article 1 -->
                             <div class="col-md-6">
-                                <div class="card-body d-flex flex-column h-100 p-4 p-lg-5">
-                                    <span class="badge bg-primary mb-2">Featured</span>
-                                    <h2 class="card-title h3 fw-bold mb-3">
-                                        <a href="articles/top-10-tips-for-1099-medical-sales-representatives.html" class="text-decoration-none text-dark stretched-link">Top 10 Tips for 1099 Medical Sales Representatives</a>
-                                    </h2>
-                                    <p class="card-text text-muted mb-4">Discover the essential strategies that successful independent medical sales representatives use to maximize their earnings and build lasting client relationships.</p>
-                                    <div class="mt-auto">
-                                        <div class="d-flex align-items-center">
-                                            <img src="../images/team/sarah-johnson.jpg" class="rounded-circle me-2" width="40" height="40" alt="Sarah Johnson">
-                                            <div>
-                                                <p class="mb-0 fw-medium">Sarah Johnson</p>
-                                                <p class="text-muted small mb-0">April 1, 2025 • 8 min read</p>
-                                            </div>
+                                <div class="card h-100 border-0 shadow-sm article-card">
+                                    <img src="../images/blog/article-4.jpg" class="card-img-top" alt="From Hospital Rep to Six-Figure Earner: A Success Story">
+                                    <div class="card-body">
+                                        <span class="badge bg-danger mb-2">Success Stories</span>
+                                        <h3 class="card-title h5 fw-bold mb-3">
+                                            <a href="articles/hospital-rep-success-story.html" class="text-decoration-none text-dark stretched-link">From Hospital Rep to Six-Figure Earner: A Success Story</a>
+                                        </h3>
+                                        <p class="card-text text-muted">Read how Jane Simmons transformed her career from a hospital employee to a successful independent medical sales representative.</p>
+                                        <div class="article-meta">
+                                            <img src="../images/team/sarah-johnson.jpg" alt="Sarah Johnson">
+                                            <span>Sarah Johnson</span>
+                                            <span class="dot-separator">•</span>
+                                            <span>March 10, 2025</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Article 2 -->
+                            <div class="col-md-6">
+                                <div class="card h-100 border-0 shadow-sm article-card">
+                                    <img src="../images/blog/article-5.jpg" class="card-img-top" alt="Building Your Personal Brand as a Medical Sales Representative">
+                                    <div class="card-body">
+                                        <span class="badge bg-info mb-2">Career Advice</span>
+                                        <h3 class="card-title h5 fw-bold mb-3">
+                                            <a href="articles/building-personal-brand.html" class="text-decoration-none text-dark stretched-link">Building Your Personal Brand as a Medical Sales Representative</a>
+                                        </h3>
+                                        <p class="card-text text-muted">Discover how to differentiate yourself in a competitive market by developing a strong personal brand that resonates with clients.</p>
+                                        <div class="article-meta">
+                                            <img src="../images/team/michael-chen.jpg" alt="Michael Chen">
+                                            <span>Michael Chen</span>
+                                            <span class="dot-separator">•</span>
+                                            <span>March 5, 2025</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Article 3 -->
+                            <div class="col-md-6">
+                                <div class="card h-100 border-0 shadow-sm article-card">
+                                    <img src="../images/blog/article-6.jpg" class="card-img-top" alt="Navigating Regulatory Changes in Pharmaceutical Sales">
+                                    <div class="card-body">
+                                        <span class="badge bg-warning mb-2">Industry Trends</span>
+                                        <h3 class="card-title h5 fw-bold mb-3">
+                                            <a href="articles/navigating-regulatory-changes.html" class="text-decoration-none text-dark stretched-link">Navigating Regulatory Changes in Pharmaceutical Sales</a>
+                                        </h3>
+                                        <p class="card-text text-muted">Stay compliant and effective with this comprehensive guide to recent regulatory changes affecting pharmaceutical sales reps.</p>
+                                        <div class="article-meta">
+                                            <img src="../images/team/jennifer-patel.jpg" alt="Jennifer Patel">
+                                            <span>Jennifer Patel</span>
+                                            <span class="dot-separator">•</span>
+                                            <span>February 28, 2025</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Article 4 - Horizontal Card -->
+                            <div class="col-md-6">
+                                <div class="card h-100 border-0 shadow-sm article-card article-card-horizontal">
+                                    <img src="../images/blog/article-7.jpg" class="card-img-side" alt="The Future of Medical Device Sales in 2025">
+                                    <div class="card-body">
+                                        <span class="badge bg-warning mb-2">Industry Trends</span>
+                                        <h3 class="card-title h5 fw-bold mb-3">
+                                            <a href="articles/future-of-medical-device-sales.html" class="text-decoration-none text-dark stretched-link">The Future of Medical Device Sales in 2025</a>
+                                        </h3>
+                                        <div class="article-meta">
+                                            <span>Michael Chen</span>
+                                            <span class="dot-separator">•</span>
+                                            <span>March 1, 2025</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Latest Articles -->
-    <section class="latest-articles py-5 bg-light">
-        <div class="container">
-            <h2 class="h3 fw-bold mb-4">Latest Articles</h2>
-            <div class="row g-4">
-                <!-- Article 1 -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border-0 shadow-sm article-card">
-                        <img src="../images/blog/article-1.jpg" class="card-img-top" alt="How to Negotiate Better Contracts as an Independent Sales Rep">
-                        <div class="card-body">
-                            <span class="badge bg-info mb-2">Sales Strategies</span>
-                            <h3 class="card-title h5 fw-bold mb-3">
-                                <a href="articles/how-to-negotiate-better-contracts.html" class="text-decoration-none text-dark stretched-link">How to Negotiate Better Contracts as an Independent Sales Rep</a>
-                            </h3>
-                            <p class="card-text text-muted">Learn proven negotiation tactics that can help you secure more favorable terms and higher commissions in your sales contracts.</p>
-                        </div>
-                        <div class="card-footer bg-white border-0">
-                            <div class="d-flex align-items-center">
-                                <img src="../images/team/michael-chen.jpg" class="rounded-circle me-2" width="32" height="32" alt="Michael Chen">
-                                <div>
-                                    <p class="mb-0 small fw-medium">Michael Chen</p>
-                                    <p class="text-muted small mb-0">March 28, 2025</p>
-                                </div>
-                            </div>
-                        </div>
+                    
+                    <!-- Pagination -->
+                    <div class="d-flex justify-content-center mt-5">
+                        <nav aria-label="Blog pagination">
+                            <ul class="pagination">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
                 
-                <!-- Article 2 -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border-0 shadow-sm article-card">
-                        <img src="../images/blog/article-2.jpg" class="card-img-top" alt="The Future of Medical Device Sales: Trends for 2025">
-                        <div class="card-body">
-                            <span class="badge bg-warning mb-2">Industry Trends</span>
-                            <h3 class="card-title h5 fw-bold mb-3">
-                                <a href="articles/future-of-medical-device-sales.html" class="text-decoration-none text-dark stretched-link">The Future of Medical Device Sales: Trends for 2025</a>
-                            </h3>
-                            <p class="card-text text-muted">Stay ahead of the curve with our analysis of emerging trends and technologies reshaping the medical device sales landscape.</p>
+                <!-- Sidebar Column -->
+                <div class="col-lg-4">
+                    <div class="blog-sidebar">
+                        <!-- Trending Articles Widget -->
+                        <div class="sidebar-block mb-4">
+                            <div class="sidebar-block-header">
+                                <h3>Trending Now</h3>
+                            </div>
+                            <div class="sidebar-block-body">
+                                <div class="trending-list">
+                                    <div class="trending-item">
+                                        <div class="trending-number"></div>
+                                        <div class="trending-content">
+                                            <h4><a href="articles/top-10-tips-for-1099-medical-sales-representatives.html" class="text-decoration-none text-dark">Top 10 Tips for 1099 Medical Sales Representatives</a></h4>
+                                            <p>8,542 readers</p>
+                                        </div>
+                                    </div>
+                                    <div class="trending-item">
+                                        <div class="trending-number"></div>
+                                        <div class="trending-content">
+                                            <h4><a href="articles/tax-planning-strategies.html" class="text-decoration-none text-dark">Tax Planning Strategies for Independent Contractors</a></h4>
+                                            <p>6,271 readers</p>
+                                        </div>
+                                    </div>
+                                    <div class="trending-item">
+                                        <div class="trending-number"></div>
+                                        <div class="trending-content">
+                                            <h4><a href="articles/hospital-rep-success-story.html" class="text-decoration-none text-dark">From Hospital Rep to Six-Figure Earner</a></h4>
+                                            <p>5,839 readers</p>
+                                        </div>
+                                    </div>
+                                    <div class="trending-item">
+                                        <div class="trending-number"></div>
+                                        <div class="trending-content">
+                                            <h4><a href="articles/new-healthcare-legislation.html" class="text-decoration-none text-dark">Understanding the New Healthcare Legislation</a></h4>
+                                            <p>4,127 readers</p>
+                                        </div>
+                                    </div>
+                                    <div class="trending-item">
+                                        <div class="trending-number"></div>
+                                        <div class="trending-content">
+                                            <h4><a href="articles/essential-tools-for-remote-sales.html" class="text-decoration-none text-dark">5 Essential Tools for Remote Medical Sales Reps</a></h4>
+                                            <p>3,895 readers</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-footer bg-white border-0">
-                            <div class="d-flex align-items-center">
-                                <img src="../images/team/jennifer-patel.jpg" class="rounded-circle me-2" width="32" height="32" alt="Jennifer Patel">
-                                <div>
-                                    <p class="mb-0 small fw-medium">Jennifer Patel</p>
-                                    <p class="text-muted small mb-0">March 22, 2025</p>
+                        
+                        <!-- Newsletter Signup -->
+                        <div class="newsletter-box mb-4">
+                            <div class="newsletter-content">
+                                <h3>Subscribe to Our Newsletter</h3>
+                                <p>Get the latest industry news, tips, and strategies delivered directly to your inbox.</p>
+                                <form>
+                                    <div class="mb-3">
+                                        <input type="email" class="form-control" placeholder="Your email address" required>
+                                    </div>
+                                    <button type="submit" class="btn">Subscribe Now</button>
+                                </form>
+                            </div>
+                        </div>
+                        
+                        <!-- Editor's Picks -->
+                        <div class="sidebar-block mb-4">
+                            <div class="sidebar-block-header">
+                                <h3>Editor's Picks</h3>
+                            </div>
+                            <div class="sidebar-block-body p-0">
+                                <div class="card border-0 article-card">
+                                    <img src="../images/blog/featured-article.jpg" class="card-img-top" alt="The Complete Guide to 1099 vs W2 Employment">
+                                    <div class="card-body">
+                                        <span class="badge bg-success mb-2">Tax & Finance</span>
+                                        <h4 class="card-title h6 fw-bold">
+                                            <a href="articles/1099-vs-w2-guide.html" class="text-decoration-none text-dark">The Complete Guide to 1099 vs W2 Employment</a>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Popular Tags -->
+                        <div class="sidebar-block mb-4">
+                            <div class="sidebar-block-header">
+                                <h3>Popular Tags</h3>
+                            </div>
+                            <div class="sidebar-block-body">
+                                <div class="tag-cloud">
+                                    <a href="tags/sales-tips.html">Sales Tips <span class="tag-count">24</span></a>
+                                    <a href="tags/tax-advice.html">Tax Advice <span class="tag-count">18</span></a>
+                                    <a href="tags/medical-devices.html">Medical Devices <span class="tag-count">15</span></a>
+                                    <a href="tags/healthcare.html">Healthcare <span class="tag-count">12</span></a>
+                                    <a href="tags/career-growth.html">Career Growth <span class="tag-count">10</span></a>
+                                    <a href="tags/negotiation.html">Negotiation <span class="tag-count">8</span></a>
+                                    <a href="tags/remote-work.html">Remote Work <span class="tag-count">7</span></a>
+                                    <a href="tags/success-stories.html">Success Stories <span class="tag-count">6</span></a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Featured Job -->
+                        <div class="sidebar-block mb-4">
+                            <div class="sidebar-block-header">
+                                <h3>Featured Job</h3>
+                            </div>
+                            <div class="sidebar-block-body">
+                                <div class="card border-0 bg-light">
+                                    <div class="card-body">
+                                        <h4 class="h6 fw-bold">Senior Medical Device Sales Representative</h4>
+                                        <p class="mb-2"><i class="bi bi-building me-2"></i>MedTech Innovations</p>
+                                        <p class="mb-2"><i class="bi bi-geo-alt me-2"></i>Boston, MA (Remote)</p>
+                                        <p class="mb-3"><i class="bi bi-currency-dollar me-2"></i>$120K - $200K + Commission</p>
+                                        <a href="../job-search/job-details.html" class="btn btn-primary btn-sm">View Job</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Article 3 -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border-0 shadow-sm article-card">
-                        <img src="../images/blog/article-3.jpg" class="card-img-top" alt="Tax Planning Strategies for Independent Contractors">
-                        <div class="card-body">
-                            <span class="badge bg-success mb-2">Tax & Finance</span>
-                            <h3 class="card-title h5 fw-bold mb-3">
-                                <a href="articles/tax-planning-strategies.html" class="text-decoration-none text-dark stretched-link">Tax Planning Strategies for Independent Contractors</a>
-                            </h3>
-                            <p class="card-text text-muted">Maximize your income and minimize your tax burden with these essential financial strategies for 1099 sales representatives.</p>
-                        </div>
-                        <div class="card-footer bg-white border-0">
-                            <div class="d-flex align-items-center">
-                                <img src="../images/team/david-rodriguez.jpg" class="rounded-circle me-2" width="32" height="32" alt="David Rodriguez">
-                                <div>
-                                    <p class="mb-0 small fw-medium">David Rodriguez</p>
-                                    <p class="text-muted small mb-0">March 15, 2025</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Article 4 -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border-0 shadow-sm article-card">
-                        <img src="../images/blog/article-4.jpg" class="card-img-top" alt="From Hospital Rep to Six-Figure Earner: A Success Story">
-                        <div class="card-body">
-                            <span class="badge bg-danger mb-2">Success Stories</span>
-                            <h3 class="card-title h5 fw-bold mb-3">
-                                <a href="articles/hospital-rep-success-story.html" class="text-decoration-none text-dark stretched-link">From Hospital Rep to Six-Figure Earner: A Success Story</a>
-                            </h3>
-                            <p class="card-text text-muted">Read how Jane Simmons transformed her career from a hospital employee to a successful independent medical sales representative.</p>
-                        </div>
-                        <div class="card-footer bg-white border-0">
-                            <div class="d-flex align-items-center">
-                                <img src="../images/team/sarah-johnson.jpg" class="rounded-circle me-2" width="32" height="32" alt="Sarah Johnson">
-                                <div>
-                                    <p class="mb-0 small fw-medium">Sarah Johnson</p>
-                                    <p class="text-muted small mb-0">March 10, 2025</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Article 5 -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border-0 shadow-sm article-card">
-                        <img src="../images/blog/article-5.jpg" class="card-img-top" alt="Building Your Personal Brand as a Medical Sales Representative">
-                        <div class="card-body">
-                            <span class="badge bg-info mb-2">Career Advice</span>
-                            <h3 class="card-title h5 fw-bold mb-3">
-                                <a href="articles/building-personal-brand.html" class="text-decoration-none text-dark stretched-link">Building Your Personal Brand as a Medical Sales Representative</a>
-                            </h3>
-                            <p class="card-text text-muted">Discover how to differentiate yourself in a competitive market by developing a strong personal brand that resonates with clients.</p>
-                        </div>
-                        <div class="card-footer bg-white border-0">
-                            <div class="d-flex align-items-center">
-                                <img src="../images/team/michael-chen.jpg" class="rounded-circle me-2" width="32" height="32" alt="Michael Chen">
-                                <div>
-                                    <p class="mb-0 small fw-medium">Michael Chen</p>
-                                    <p class="text-muted small mb-0">March 5, 2025</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Article 6 -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border-0 shadow-sm article-card">
-                        <img src="../images/blog/article-6.jpg" class="card-img-top" alt="Navigating Regulatory Changes in Pharmaceutical Sales">
-                        <div class="card-body">
-                            <span class="badge bg-warning mb-2">Industry Trends</span>
-                            <h3 class="card-title h5 fw-bold mb-3">
-                                <a href="articles/navigating-regulatory-changes.html" class="text-decoration-none text-dark stretched-link">Navigating Regulatory Changes in Pharmaceutical Sales</a>
-                            </h3>
-                            <p class="card-text text-muted">Stay compliant and effective with this comprehensive guide to recent regulatory changes affecting pharmaceutical sales reps.</p>
-                        </div>
-                        <div class="card-footer bg-white border-0">
-                            <div class="d-flex align-items-center">
-                                <img src="../images/team/jennifer-patel.jpg" class="rounded-circle me-2" width="32" height="32" alt="Jennifer Patel">
-                                <div>
-                                    <p class="mb-0 small fw-medium">Jennifer Patel</p>
-                                    <p class="text-muted small mb-0">February 28, 2025</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Pagination -->
-            <div class="d-flex justify-content-center mt-5">
-                <nav aria-label="Blog pagination">
-                    <ul class="pagination">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
             </div>
         </div>
     </section>
