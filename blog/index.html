@@ -40,6 +40,7 @@
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/blog.css">
     <link rel="stylesheet" href="../css/blog-msn.css">
+    <link rel="stylesheet" href="../css/insights-hub.css">
     
     <!-- Structured Data for Blog -->
     <script type="application/ld+json">
@@ -109,11 +110,16 @@
         </nav>
     </header>
 
+    <!-- Reading Progress Bar -->
+    <div class="reading-progress-container">
+        <div class="reading-progress-bar" id="reading-progress-bar" aria-label="Reading progress"></div>
+    </div>
+
     <!-- Blog Header -->
     <section class="blog-header">
         <div class="container blog-container">
             <div class="blog-header-content text-center">
-                <h1 class="display-4 fw-bold text-white mb-3">1099 REPS Blog</h1>
+                <h1 class="display-4 fw-bold text-white mb-3">1099 REPS Insights Hub</h1>
                 <p class="lead text-white mb-4">Expert insights, tips, and strategies for independent medical sales representatives</p>
                 <div class="d-flex justify-content-center">
                     <div class="input-group search-bar">
@@ -140,17 +146,29 @@
     </section>
 
     <!-- Category Navigation -->
-    <section class="category-nav">
-        <div class="container blog-container">
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="category-pills">
-                    <a href="index.html" class="btn btn-sm btn-primary active">All</a>
-                    <a href="categories/career-advice.html" class="btn btn-sm btn-outline-secondary btn-category-career">Career Advice</a>
-                    <a href="categories/sales-strategies.html" class="btn btn-sm btn-outline-secondary btn-category-sales">Sales Strategies</a>
-                    <a href="categories/industry-trends.html" class="btn btn-sm btn-outline-secondary btn-category-industry">Industry Trends</a>
-                    <a href="categories/tax-finance.html" class="btn btn-sm btn-outline-secondary btn-category-finance">Tax & Finance</a>
-                    <a href="categories/success-stories.html" class="btn btn-sm btn-outline-secondary btn-category-success">Success Stories</a>
-                </div>
+    <section class="category-navigation">
+        <div class="container">
+            <div class="category-nav-wrapper">
+                <ul class="category-nav-list">
+                    <li class="category-nav-item active">
+                        <a href="index.html" class="category-nav-link">All</a>
+                    </li>
+                    <li class="category-nav-item">
+                        <a href="categories/career-advice.html" class="category-nav-link">Career Advice</a>
+                    </li>
+                    <li class="category-nav-item">
+                        <a href="categories/sales-strategies.html" class="category-nav-link">Sales Strategies</a>
+                    </li>
+                    <li class="category-nav-item">
+                        <a href="categories/industry-trends.html" class="category-nav-link">Industry Trends</a>
+                    </li>
+                    <li class="category-nav-item">
+                        <a href="categories/tax-finance.html" class="category-nav-link">Tax & Finance</a>
+                    </li>
+                    <li class="category-nav-item">
+                        <a href="categories/success-stories.html" class="category-nav-link">Success Stories</a>
+                    </li>
+                </ul>
                 <div class="sort-options">
                     <select class="form-select form-select-sm" aria-label="Sort articles by">
                         <option selected>Most Recent</option>
@@ -162,86 +180,104 @@
         </div>
     </section>
 
-    <!-- Featured Carousel -->
-    <section class="py-5">
-        <div class="container blog-container">
-            <div class="featured-carousel">
-                <div class="featured-badge">Featured</div>
-                <div id="featuredCarousel" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    <!-- Featured Article -->
+    <section class="featured-article-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Featured Article</h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="featured-article-container">
+                <div class="featured-article-card">
+                    <div class="featured-article-image-container">
+                        <img src="../images/blog/featured-article.jpg" class="featured-article-image" alt="Top 10 Tips for 1099 Medical Sales Representatives">
+                        <div class="featured-badge">Featured</div>
                     </div>
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="../images/blog/featured-article.jpg" class="d-block w-100" alt="Top 10 Tips for 1099 Medical Sales Representatives">
-                            <div class="carousel-caption">
-                                <span class="badge bg-primary mb-2">Sales Strategies</span>
-                                <h2 class="fw-bold"><a href="articles/top-10-tips-for-1099-medical-sales-representatives.html" class="text-white text-decoration-none">Top 10 Tips for 1099 Medical Sales Representatives</a></h2>
-                                <p class="d-none d-md-block">Discover the essential strategies that successful independent medical sales representatives use to maximize their earnings and build lasting client relationships.</p>
-                                <div class="article-meta">
-                                    <img src="../images/team/sarah-johnson.jpg" alt="Sarah Johnson">
-                                    <span>Sarah Johnson</span>
-                                    <span class="dot-separator">•</span>
-                                    <span>April 1, 2025</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <img src="../images/blog/featured-article2.jpg" class="d-block w-100" alt="How to Navigate the Changing Healthcare Landscape">
-                            <div class="carousel-caption">
-                                <span class="badge bg-info mb-2">Industry Trends</span>
-                                <h2 class="fw-bold"><a href="articles/navigating-healthcare-landscape.html" class="text-white text-decoration-none">How to Navigate the Changing Healthcare Landscape</a></h2>
-                                <p class="d-none d-md-block">Stay ahead of industry shifts with these expert insights on adapting your sales approach to the evolving healthcare market.</p>
-                                <div class="article-meta">
-                                    <img src="../images/team/michael-chen.jpg" alt="Michael Chen">
-                                    <span>Michael Chen</span>
-                                    <span class="dot-separator">•</span>
-                                    <span>March 28, 2025</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <img src="../images/blog/featured-article3.jpg" class="d-block w-100" alt="Tax Strategies Every Independent Contractor Should Know">
-                            <div class="carousel-caption">
-                                <span class="badge bg-success mb-2">Tax & Finance</span>
-                                <h2 class="fw-bold"><a href="articles/tax-strategies-independent-contractors.html" class="text-white text-decoration-none">Tax Strategies Every Independent Contractor Should Know</a></h2>
-                                <p class="d-none d-md-block">Maximize your take-home pay with these essential tax planning strategies designed specifically for 1099 medical sales representatives.</p>
-                                <div class="article-meta">
-                                    <img src="../images/team/jennifer-patel.jpg" alt="Jennifer Patel">
-                                    <span>Jennifer Patel</span>
-                                    <span class="dot-separator">•</span>
-                                    <span>March 25, 2025</span>
-                                </div>
-                            </div>
+                    <div class="featured-article-content">
+                        <span class="article-category">Sales Strategies</span>
+                        <h2 class="featured-article-title"><a href="articles/top-10-tips-for-1099-medical-sales-representatives.html">Top 10 Tips for 1099 Medical Sales Representatives</a></h2>
+                        <p class="featured-article-excerpt">Discover the essential strategies that successful independent medical sales representatives use to maximize their earnings and build lasting client relationships.</p>
+                        <div class="article-meta">
+                            <img src="../images/team/sarah-johnson.jpg" alt="Sarah Johnson" class="author-avatar">
+                            <span class="author-name">Sarah Johnson</span>
+                            <span class="dot-separator">•</span>
+                            <span class="article-date">April 1, 2025</span>
                         </div>
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#featuredCarousel" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#featuredCarousel" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Main Content Area with MSN-Style Grid Layout -->
-    <section class="py-5">
-        <div class="container blog-container">
+    <!-- Latest Articles Section -->
+    <section class="latest-articles-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Latest Articles</h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="article-grid">
+                <div class="row">
+                    <!-- Article Card 1 -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="article-card">
+                            <div class="article-image-container">
+                                <img src="../images/blog/article-1.jpg" class="article-image" alt="How to Navigate the Changing Healthcare Landscape">
+                                <span class="article-category">Industry Trends</span>
+                            </div>
+                            <div class="article-content">
+                                <h3 class="article-title"><a href="articles/navigating-healthcare-landscape.html">How to Navigate the Changing Healthcare Landscape</a></h3>
+                                <p class="article-excerpt">Stay ahead of industry shifts with these expert insights on adapting your sales approach to the evolving healthcare market.</p>
+                                <div class="article-meta">
+                                    <img src="../images/team/michael-chen.jpg" alt="Michael Chen" class="author-avatar">
+                                    <span class="author-name">Michael Chen</span>
+                                    <span class="dot-separator">•</span>
+                                    <span class="article-date">March 28, 2025</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Article Card 2 -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="article-card">
+                            <div class="article-image-container">
+                                <img src="../images/blog/article-2.jpg" class="article-image" alt="Tax Strategies Every Independent Contractor Should Know">
+                                <span class="article-category">Tax & Finance</span>
+                            </div>
+                            <div class="article-content">
+                                <h3 class="article-title"><a href="articles/tax-strategies-independent-contractors.html">Tax Strategies Every Independent Contractor Should Know</a></h3>
+                                <p class="article-excerpt">Maximize your take-home pay with these essential tax planning strategies designed specifically for 1099 medical sales representatives.</p>
+                                <div class="article-meta">
+                                    <img src="../images/team/jennifer-patel.jpg" alt="Jennifer Patel" class="author-avatar">
+                                    <span class="author-name">Jennifer Patel</span>
+                                    <span class="dot-separator">•</span>
+                                    <span class="article-date">March 15, 2025</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- More Articles Section -->
+    <section class="more-articles-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">More Insights</h2>
+                <div class="section-divider"></div>
+            </div>
             <div class="row">
                 <!-- Main Content Column -->
                 <div class="col-lg-8">
                     <!-- Breaking News Section -->
-                    <div class="d-flex align-items-center mb-4">
-                        <div class="bg-danger text-white px-3 py-1 rounded-3 me-3">
+                    <div class="breaking-news-card mb-4">
+                        <div class="breaking-news-badge">
                             <strong>BREAKING</strong>
                         </div>
-                        <h2 class="h5 mb-0"><a href="articles/new-healthcare-legislation.html" class="text-decoration-none text-dark">New FDA regulations impact medical device sales representatives</a></h2>
+                        <h2 class="breaking-news-title"><a href="articles/new-healthcare-legislation.html">New FDA regulations impact medical device sales representatives</a></h2>
                     </div>
                     
                     <!-- Article Grid Layout -->
@@ -411,45 +447,46 @@
                 <div class="col-lg-4">
                     <div class="blog-sidebar">
                         <!-- Trending Articles Widget -->
-                        <div class="sidebar-block mb-4">
+                        <div class="sidebar-block trending-block">
                             <div class="sidebar-block-header">
-                                <h3>Trending Now</h3>
+                                <h3 class="sidebar-title">Trending Now</h3>
+                                <div class="sidebar-divider"></div>
                             </div>
                             <div class="sidebar-block-body">
                                 <div class="trending-list">
                                     <div class="trending-item">
-                                        <div class="trending-number"></div>
+                                        <div class="trending-number">1</div>
                                         <div class="trending-content">
-                                            <h4><a href="articles/top-10-tips-for-1099-medical-sales-representatives.html" class="text-decoration-none text-dark">Top 10 Tips for 1099 Medical Sales Representatives</a></h4>
-                                            <p>8,542 readers</p>
+                                            <h4 class="trending-title"><a href="articles/top-10-tips-for-1099-medical-sales-representatives.html">Top 10 Tips for 1099 Medical Sales Representatives</a></h4>
+                                            <p class="trending-meta">8,542 readers</p>
                                         </div>
                                     </div>
                                     <div class="trending-item">
-                                        <div class="trending-number"></div>
+                                        <div class="trending-number">2</div>
                                         <div class="trending-content">
-                                            <h4><a href="articles/tax-planning-strategies.html" class="text-decoration-none text-dark">Tax Planning Strategies for Independent Contractors</a></h4>
-                                            <p>6,271 readers</p>
+                                            <h4 class="trending-title"><a href="articles/tax-planning-strategies.html">Tax Planning Strategies for Independent Contractors</a></h4>
+                                            <p class="trending-meta">6,271 readers</p>
                                         </div>
                                     </div>
                                     <div class="trending-item">
-                                        <div class="trending-number"></div>
+                                        <div class="trending-number">3</div>
                                         <div class="trending-content">
-                                            <h4><a href="articles/hospital-rep-success-story.html" class="text-decoration-none text-dark">From Hospital Rep to Six-Figure Earner</a></h4>
-                                            <p>5,839 readers</p>
+                                            <h4 class="trending-title"><a href="articles/hospital-rep-success-story.html">From Hospital Rep to Six-Figure Earner</a></h4>
+                                            <p class="trending-meta">5,839 readers</p>
                                         </div>
                                     </div>
                                     <div class="trending-item">
-                                        <div class="trending-number"></div>
+                                        <div class="trending-number">4</div>
                                         <div class="trending-content">
-                                            <h4><a href="articles/new-healthcare-legislation.html" class="text-decoration-none text-dark">Understanding the New Healthcare Legislation</a></h4>
-                                            <p>4,127 readers</p>
+                                            <h4 class="trending-title"><a href="articles/new-healthcare-legislation.html">Understanding the New Healthcare Legislation</a></h4>
+                                            <p class="trending-meta">4,127 readers</p>
                                         </div>
                                     </div>
                                     <div class="trending-item">
-                                        <div class="trending-number"></div>
+                                        <div class="trending-number">5</div>
                                         <div class="trending-content">
-                                            <h4><a href="articles/essential-tools-for-remote-sales.html" class="text-decoration-none text-dark">5 Essential Tools for Remote Medical Sales Reps</a></h4>
-                                            <p>3,895 readers</p>
+                                            <h4 class="trending-title"><a href="articles/essential-tools-for-remote-sales.html">5 Essential Tools for Remote Medical Sales Reps</a></h4>
+                                            <p class="trending-meta">3,895 readers</p>
                                         </div>
                                     </div>
                                 </div>
@@ -459,29 +496,40 @@
                         <!-- Newsletter Signup -->
                         <div class="newsletter-box mb-4">
                             <div class="newsletter-content">
-                                <h3>Subscribe to Our Newsletter</h3>
-                                <p>Get the latest industry news, tips, and strategies delivered directly to your inbox.</p>
-                                <form>
-                                    <div class="mb-3">
-                                        <input type="email" class="form-control" placeholder="Your email address" required>
+                                <div class="newsletter-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                        <polyline points="22,6 12,13 2,6"></polyline>
+                                    </svg>
+                                </div>
+                                <h3 class="newsletter-title">Stay Informed</h3>
+                                <p class="newsletter-description">Get the latest industry news, tips, and strategies delivered directly to your inbox.</p>
+                                <form class="newsletter-form">
+                                    <div class="newsletter-input-group">
+                                        <input type="email" class="newsletter-input" placeholder="Your email address" required>
+                                        <button type="submit" class="newsletter-button">Subscribe</button>
                                     </div>
-                                    <button type="submit" class="btn">Subscribe Now</button>
+                                    <div class="newsletter-privacy">
+                                        <small>We respect your privacy. Unsubscribe at any time.</small>
+                                    </div>
                                 </form>
                             </div>
                         </div>
                         
                         <!-- Editor's Picks -->
-                        <div class="sidebar-block mb-4">
+                        <div class="sidebar-block editors-picks mb-4">
                             <div class="sidebar-block-header">
-                                <h3>Editor's Picks</h3>
+                                <h3 class="sidebar-title">Editor's Picks</h3>
                             </div>
-                            <div class="sidebar-block-body p-0">
-                                <div class="card border-0 article-card">
-                                    <img src="../images/blog/featured-article.jpg" class="card-img-top" alt="The Complete Guide to 1099 vs W2 Employment">
-                                    <div class="card-body">
-                                        <span class="badge bg-success mb-2">Tax & Finance</span>
-                                        <h4 class="card-title h6 fw-bold">
-                                            <a href="articles/1099-vs-w2-guide.html" class="text-decoration-none text-dark">The Complete Guide to 1099 vs W2 Employment</a>
+                            <div class="sidebar-block-body">
+                                <div class="editors-pick-item">
+                                    <div class="editors-pick-image">
+                                        <img src="../images/blog/featured-article.jpg" alt="The Complete Guide to 1099 vs W2 Employment">
+                                    </div>
+                                    <div class="editors-pick-content">
+                                        <span class="editors-pick-category">Tax & Finance</span>
+                                        <h4 class="editors-pick-title">
+                                            <a href="articles/1099-vs-w2-guide.html">The Complete Guide to 1099 vs W2 Employment</a>
                                         </h4>
                                     </div>
                                 </div>

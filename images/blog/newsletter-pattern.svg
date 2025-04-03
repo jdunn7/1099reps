@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="400" viewBox="0 0 800 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g opacity="0.3">
+    <circle cx="50" cy="50" r="10" fill="white"/>
+    <circle cx="150" cy="100" r="15" fill="white"/>
+    <circle cx="250" cy="50" r="8" fill="white"/>
+    <circle cx="350" cy="150" r="12" fill="white"/>
+    <circle cx="450" cy="50" r="9" fill="white"/>
+    <circle cx="550" cy="100" r="14" fill="white"/>
+    <circle cx="650" cy="50" r="7" fill="white"/>
+    <circle cx="750" cy="150" r="11" fill="white"/>
+    <circle cx="50" cy="250" r="13" fill="white"/>
+    <circle cx="150" cy="300" r="8" fill="white"/>
+    <circle cx="250" cy="250" r="12" fill="white"/>
+    <circle cx="350" cy="350" r="9" fill="white"/>
+    <circle cx="450" cy="250" r="14" fill="white"/>
+    <circle cx="550" cy="300" r="7" fill="white"/>
+    <circle cx="650" cy="250" r="11" fill="white"/>
+    <circle cx="750" cy="350" r="10" fill="white"/>
+    <path d="M100 25L125 75L75 75L100 25Z" fill="white"/>
+    <path d="M200 125L225 175L175 175L200 125Z" fill="white"/>
+    <path d="M300 25L325 75L275 75L300 25Z" fill="white"/>
+    <path d="M400 125L425 175L375 175L400 125Z" fill="white"/>
+    <path d="M500 25L525 75L475 75L500 25Z" fill="white"/>
+    <path d="M600 125L625 175L575 175L600 125Z" fill="white"/>
+    <path d="M700 25L725 75L675 75L700 25Z" fill="white"/>
+    <path d="M100 225L125 275L75 275L100 225Z" fill="white"/>
+    <path d="M200 325L225 375L175 375L200 325Z" fill="white"/>
+    <path d="M300 225L325 275L275 275L300 225Z" fill="white"/>
+    <path d="M400 325L425 375L375 375L400 325Z" fill="white"/>
+    <path d="M500 225L525 275L475 275L500 225Z" fill="white"/>
+    <path d="M600 325L625 375L575 375L600 325Z" fill="white"/>
+    <path d="M700 225L725 275L675 275L700 225Z" fill="white"/>
+  </g>
+</svg>
