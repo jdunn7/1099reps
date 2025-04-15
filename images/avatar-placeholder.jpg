@@ -1,0 +1,6 @@
+<!-- This is actually an SVG file saved with a .jpg extension to match the code references -->
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <rect width="200" height="200" fill="#e0e0e0"/>
+  <circle cx="100" cy="80" r="40" fill="#a0a0a0"/>
+  <rect x="40" y="140" width="120" height="60" rx="20" fill="#a0a0a0"/>
+</svg>

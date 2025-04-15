@@ -98,9 +98,24 @@
                                         <input type="password" class="form-control border-start-0" id="password" placeholder="Enter your password" required>
                                     </div>
                                 </div>
+                                <div class="mb-3">
+                                    <label class="form-label">I am a:</label>
+                                    <div class="d-flex">
+                                        <div class="form-check me-4">
+                                            <input class="form-check-input" type="radio" name="user-type" id="user-type-rep" value="rep" checked>
+                                            <label class="form-check-label" for="user-type-rep">Medical Rep</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="user-type" id="user-type-company" value="company">
+                                            <label class="form-check-label" for="user-type-company">Company</label>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="mb-4 form-check">
                                     <input type="checkbox" class="form-check-input" id="remember-me">
                                     <label class="form-check-label" for="remember-me">Remember me</label>
+                                </div>
+                                <div id="login-error" class="alert alert-danger d-none" role="alert">
                                 </div>
                                 <button type="submit" class="btn btn-primary w-100 py-2 mb-4">Login</button>
                                 

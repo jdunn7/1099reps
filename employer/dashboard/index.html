@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Employer Dashboard | 1099 REPS</title>
+    <meta name="description" content="Manage your job postings and find qualified medical sales representatives for your healthcare company.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../../images/favicon/favicon.png">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../css/modern.css">
+    <link rel="stylesheet" href="../../css/dashboard.css">
+    <link rel="stylesheet" href="../../css/employer-dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../../index.html" class="logo">
+                    <img src="../../images/logo.png" alt="1099 REPS Logo" height="40" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML+='<span class=\'logo-text\'>1099 REPS</span>';">
+                </a>
+                <button class="btn-close-sidebar d-lg-none" title="Close sidebar">
+                    <i class="bi bi-x-lg"></i>
+                    <span class="visually-hidden">Close sidebar</span>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link active">
+                            <i class="bi bi-grid-1x2"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="job-postings.html" class="nav-link">
+                            <i class="bi bi-briefcase"></i>
+                            <span>Job Postings</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="candidates.html" class="nav-link">
+                            <i class="bi bi-people"></i>
+                            <span>Candidates</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="messages.html" class="nav-link">
+                            <i class="bi bi-chat-dots"></i>
+                            <span>Messages</span>
+                            <span class="badge bg-primary rounded-pill ms-auto">3</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="company-profile.html" class="nav-link">
+                            <i class="bi bi-building"></i>
+                            <span>Company Profile</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="settings.html" class="nav-link">
+                            <i class="bi bi-gear"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <a href="/auth/logout.html" id="logout-btn" class="btn btn-outline-light w-100">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Navigation -->
+            <header class="top-nav">
+                <button class="btn-toggle-sidebar d-lg-none" title="Toggle sidebar">
+                    <i class="bi bi-list"></i>
+                    <span class="visually-hidden">Toggle sidebar</span>
+                </button>
+                
+                <div class="search-bar d-none d-md-flex">
+                    <i class="bi bi-search"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+                
+                <div class="top-nav-right">
+                    <div class="dropdown">
+                        <button class="btn btn-link dropdown-toggle" type="button" id="notificationsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-bell"></i>
+                            <span class="badge bg-danger rounded-circle">2</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationsDropdown">
+                            <li><h6 class="dropdown-header">Notifications</h6></li>
+                            <li><a class="dropdown-item" href="#">New candidate application</a></li>
+                            <li><a class="dropdown-item" href="#">Message from John Smith</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">View all notifications</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="dropdown user-dropdown">
+                        <button class="btn btn-link dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="user-avatar bg-light rounded-circle d-flex align-items-center justify-content-center">
+                                <img src="../../images/team/john-smith.jpg" alt="User Avatar" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML+='<i class=\'bi bi-person text-secondary\'></i>';">
+                            </div>
+                            <span class="d-none d-md-inline">Company Name</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="company-profile.html">Company Profile</a></li>
+                            <li><a class="dropdown-item" href="settings.html">Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/auth/logout.html" id="dropdown-logout">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="content-wrapper">
+                <div class="container-fluid">
+                    <!-- Page Header -->
+                    <div class="page-header">
+                        <h1>Dashboard</h1>
+                        <p class="text-muted">Welcome to your employer dashboard</p>
+                    </div>
+                    
+                    <!-- Stats Cards -->
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card stat-card">
+                                <div class="card-body">
+                                    <div class="stat-icon bg-primary-soft text-primary">
+                                        <i class="bi bi-briefcase"></i>
+                                    </div>
+                                    <h3 class="stat-value">5</h3>
+                                    <p class="stat-label">Active Job Postings</p>
+                                    <div class="stat-change text-success">
+                                        <i class="bi bi-arrow-up"></i> 2 new this month
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card stat-card">
+                                <div class="card-body">
+                                    <div class="stat-icon bg-success-soft text-success">
+                                        <i class="bi bi-people"></i>
+                                    </div>
+                                    <h3 class="stat-value">24</h3>
+                                    <p class="stat-label">Total Applicants</p>
+                                    <div class="stat-change text-success">
+                                        <i class="bi bi-arrow-up"></i> 8 new this week
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card stat-card">
+                                <div class="card-body">
+                                    <div class="stat-icon bg-warning-soft text-warning">
+                                        <i class="bi bi-eye"></i>
+                                    </div>
+                                    <h3 class="stat-value">142</h3>
+                                    <p class="stat-label">Job Views</p>
+                                    <div class="stat-change text-success">
+                                        <i class="bi bi-arrow-up"></i> 12% increase
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card stat-card">
+                                <div class="card-body">
+                                    <div class="stat-icon bg-info-soft text-info">
+                                        <i class="bi bi-chat-dots"></i>
+                                    </div>
+                                    <h3 class="stat-value">8</h3>
+                                    <p class="stat-label">Unread Messages</p>
+                                    <div class="stat-change text-danger">
+                                        <i class="bi bi-arrow-up"></i> 3 new today
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Applications & Job Postings -->
+                    <div class="row g-4">
+                        <div class="col-lg-8">
+                            <div class="card mb-4">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="card-title mb-0">Recent Applications</h5>
+                                    <a href="candidates.html" class="btn btn-sm btn-outline-primary">View All</a>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover align-middle mb-0">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>Candidate</th>
+                                                    <th>Position</th>
+                                                    <th>Experience</th>
+                                                    <th>Date</th>
+                                                    <th>Status</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="avatar avatar-sm me-2 bg-light rounded-circle d-flex align-items-center justify-content-center">
+                                                                <img src="../../images/testimonials/Sarah.png" alt="Sarah Johnson" onerror="this.onerror=null; this.parentNode.innerHTML='<i class=\'bi bi-person text-secondary\'></i>';">
+                                                            </div>
+                                                            <div>
+                                                                <h6 class="mb-0">Sarah Johnson</h6>
+                                                                <small class="text-muted">sarah@example.com</small>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>Medical Device Sales Rep</td>
+                                                    <td>8 years</td>
+                                                    <td>Apr 14, 2025</td>
+                                                    <td><span class="badge bg-success">New</span></td>
+                                                    <td>
+                                                        <div class="dropdown">
+                                                            <button class="btn btn-sm btn-icon" data-bs-toggle="dropdown" title="More options">
+                                                                <i class="bi bi-three-dots-vertical"></i>
+                                                                <span class="visually-hidden">More options</span>
+                                                            </button>
+                                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                                <li><a class="dropdown-item" href="#">View Profile</a></li>
+                                                                <li><a class="dropdown-item" href="#">Send Message</a></li>
+                                                                <li><a class="dropdown-item" href="#">Schedule Interview</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="avatar avatar-sm me-2 bg-light rounded-circle d-flex align-items-center justify-content-center">
+                                                                <img src="../../images/testimonials/Michael.png" alt="Michael Chen" onerror="this.onerror=null; this.parentNode.innerHTML='<i class=\'bi bi-person text-secondary\'></i>';">
+                                                            </div>
+                                                            <div>
+                                                                <h6 class="mb-0">Michael Davis</h6>
+                                                                <small class="text-muted">michael@example.com</small>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>Pharmaceutical Sales Rep</td>
+                                                    <td>5 years</td>
+                                                    <td>Apr 12, 2025</td>
+                                                    <td><span class="badge bg-warning">In Review</span></td>
+                                                    <td>
+                                                        <div class="dropdown">
+                                                            <button class="btn btn-sm btn-icon" data-bs-toggle="dropdown" title="More options">
+                                                                <i class="bi bi-three-dots-vertical"></i>
+                                                                <span class="visually-hidden">More options</span>
+                                                            </button>
+                                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                                <li><a class="dropdown-item" href="#">View Profile</a></li>
+                                                                <li><a class="dropdown-item" href="#">Send Message</a></li>
+                                                                <li><a class="dropdown-item" href="#">Schedule Interview</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="avatar avatar-sm me-2 bg-light rounded-circle d-flex align-items-center justify-content-center">
+                                                                <img src="../../images/testimonials/Jennifer.png" alt="Jennifer Patel" onerror="this.onerror=null; this.parentNode.innerHTML='<i class=\'bi bi-person text-secondary\'></i>';">
+                                                            </div>
+                                                            <div>
+                                                                <h6 class="mb-0">Jennifer Wilson</h6>
+                                                                <small class="text-muted">jennifer@example.com</small>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>Medical Device Sales Manager</td>
+                                                    <td>12 years</td>
+                                                    <td>Apr 10, 2025</td>
+                                                    <td><span class="badge bg-info">Interview</span></td>
+                                                    <td>
+                                                        <div class="dropdown">
+                                                            <button class="btn btn-sm btn-icon" data-bs-toggle="dropdown" title="More options">
+                                                                <i class="bi bi-three-dots-vertical"></i>
+                                                                <span class="visually-hidden">More options</span>
+                                                            </button>
+                                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                                <li><a class="dropdown-item" href="#">View Profile</a></li>
+                                                                <li><a class="dropdown-item" href="#">Send Message</a></li>
+                                                                <li><a class="dropdown-item" href="#">Schedule Interview</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-4">
+                            <div class="card mb-4">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="card-title mb-0">Your Job Postings</h5>
+                                    <a href="job-postings.html" class="btn btn-sm btn-outline-primary">View All</a>
+                                </div>
+                                <div class="card-body">
+                                    <div class="job-posting">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <h6 class="mb-0">Medical Device Sales Rep</h6>
+                                            <span class="badge bg-success">Active</span>
+                                        </div>
+                                        <p class="text-muted small mb-2">Boston, MA (Remote)</p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <small class="text-muted">12 applicants</small>
+                                            <small class="text-muted">Expires in 15 days</small>
+                                        </div>
+                                    </div>
+                                    
+                                    <hr>
+                                    
+                                    <div class="job-posting">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <h6 class="mb-0">Pharmaceutical Sales Specialist</h6>
+                                            <span class="badge bg-success">Active</span>
+                                        </div>
+                                        <p class="text-muted small mb-2">Chicago, IL (On-site)</p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <small class="text-muted">8 applicants</small>
+                                            <small class="text-muted">Expires in 21 days</small>
+                                        </div>
+                                    </div>
+                                    
+                                    <hr>
+                                    
+                                    <div class="job-posting">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <h6 class="mb-0">Regional Sales Manager</h6>
+                                            <span class="badge bg-success">Active</span>
+                                        </div>
+                                        <p class="text-muted small mb-2">New York, NY (Hybrid)</p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <small class="text-muted">4 applicants</small>
+                                            <small class="text-muted">Expires in 28 days</small>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="text-center mt-4">
+                                        <a href="post-job.html" class="btn btn-primary">
+                                            <i class="bi bi-plus-circle"></i> Post New Job
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Firebase SDK (using compatibility version for module support) -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="../../js/auth.js" type="module"></script>
+    <script src="../../js/dashboard.js" type="module"></script>
+    
+    <script type="module">
+        // Mobile sidebar toggle
+        document.querySelector('.btn-toggle-sidebar')?.addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.add('show');
+        });
+        
+        document.querySelector('.btn-close-sidebar')?.addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.remove('show');
+        });
+        
+        // No need for click handlers on logout buttons since they now directly link to the logout page
+        // This ensures the logout process works even if JavaScript is disabled
+    </script>
+</body>
+</html>

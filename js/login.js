@@ -44,6 +44,13 @@ async function handleLoginSubmit(event) {
     const passwordInput = document.getElementById('password');
     const rememberMeInput = document.getElementById('remember-me');
     
+    // Get user type (rep or company)
+    const userTypeRep = document.getElementById('user-type-rep');
+    const userTypeCompany = document.getElementById('user-type-company');
+    const userType = userTypeCompany && userTypeCompany.checked ? USER_TYPES.COMPANY : USER_TYPES.REP;
+    
+    console.log(`[DEBUG] User type selected: ${userType}`);
+    
     // Get password and remember me values
     const password = passwordInput ? passwordInput.value : '';
     const rememberMe = rememberMeInput ? rememberMeInput.checked : false;
@@ -73,14 +80,28 @@ async function handleLoginSubmit(event) {
     toggleLoadingState(true);
     
     try {
-        // Attempt to sign in user with the secure email value
-        await signIn(secureEmailValue, password, rememberMe);
+        console.log(`Attempting to sign in as ${userType} with email: ${secureEmailValue}`);
+        
+        // Attempt to sign in user with the secure email value and user type
+        const userCredential = await signIn(secureEmailValue, password, rememberMe, userType);
+        
+        console.log('Sign in successful:', userCredential.user.uid);
         
         // Handle successful login
-        handleSuccessfulLogin();
+        handleSuccessfulLogin(userType);
     } catch (error) {
         // Handle login error
         console.error('Login error:', error);
+        console.error('Error code:', error.code);
+        console.error('Error message:', error.message);
+        
+        // Log additional details for debugging
+        if (error.code === 'auth/network-request-failed') {
+            console.error('Network error - check Firebase connectivity');
+        } else if (error.code === 'auth/internal-error') {
+            console.error('Internal Firebase error - check Firebase console');
+        }
+        
         handleLoginError(error);
         
         // Restore email value after error
@@ -230,18 +251,33 @@ function toggleLoadingState(isLoading) {
 
 /**
  * Handle successful login
+ * @param {string} userType - Type of user (rep or company)
  */
-function handleSuccessfulLogin() {
+function handleSuccessfulLogin(userType = USER_TYPES.REP) {
+    console.log(`Handling successful login for user type: ${userType}`);
+    
+    // Store user type in localStorage for persistence across page loads
+    localStorage.setItem('user_type', userType);
+    
     // Check if there's a redirect URL in the query parameters
     const redirectUrl = getRedirectUrl();
     
     if (redirectUrl) {
         // Redirect to the specified URL
+        console.log(`Redirecting to: ${redirectUrl}`);
         window.location.href = redirectUrl;
     } else {
         // Default redirect to dashboard with timestamp to prevent caching
         const timestamp = new Date().getTime();
-        window.location.href = `dashboard/index.html?t=${timestamp}`;
+        
+        // Redirect to appropriate dashboard based on user type
+        if (userType === USER_TYPES.COMPANY) {
+            console.log('Redirecting to employer dashboard');
+            window.location.href = `/employer/dashboard/index.html?t=${timestamp}`;
+        } else {
+            console.log('Redirecting to rep dashboard');
+            window.location.href = `/dashboard/index.html?t=${timestamp}`;
+        }
     }
 }
 
@@ -250,18 +286,30 @@ function handleSuccessfulLogin() {
  * @param {Error} error - Login error
  */
 function handleLoginError(error) {
-    console.error('Login error:', error);
+    console.error('Handling login error:', error);
     
     // Display appropriate error message based on error code
     let errorMessage = 'An error occurred during login. Please try again.';
     
-    if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
-        errorMessage = 'Invalid email or password. Please try again.';
+    if (error.code === 'auth/user-not-found') {
+        errorMessage = 'No account found with this email address. Please check your email or sign up for a new account.';
+    } else if (error.code === 'auth/wrong-password') {
+        errorMessage = 'Incorrect password. Please try again or use the forgot password link.';
+    } else if (error.code === 'auth/invalid-email') {
+        errorMessage = 'Invalid email format. Please enter a valid email address.';
     } else if (error.code === 'auth/too-many-requests') {
         errorMessage = 'Too many unsuccessful login attempts. Please try again later or reset your password.';
     } else if (error.code === 'auth/user-disabled') {
         errorMessage = 'This account has been disabled. Please contact support.';
+    } else if (error.code === 'auth/network-request-failed') {
+        errorMessage = 'Network connection error. Please check your internet connection and try again.';
+    } else if (error.message && error.message.includes('not registered as a')) {
+        // This is our custom error for user type mismatch
+        errorMessage = error.message;
     }
+    
+    // Log the error message we're showing to the user
+    console.log('Showing error message to user:', errorMessage);
     
     // Show error alert
     showErrorAlert(errorMessage);
@@ -272,26 +320,46 @@ function handleLoginError(error) {
  * @param {string} message - Error message to display
  */
 function showErrorAlert(message) {
-    // Create alert element
-    const alertElement = document.createElement('div');
-    alertElement.className = 'alert alert-danger alert-dismissible fade show mt-3';
-    alertElement.role = 'alert';
+    // Get the login error container
+    const errorContainer = document.getElementById('login-error');
     
-    // Add alert content
-    alertElement.innerHTML = `
-        ${message}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    `;
-    
-    // Insert alert before form
-    const form = document.getElementById('login-form');
-    form.parentNode.insertBefore(alertElement, form);
-    
-    // Auto-dismiss alert after 5 seconds
-    setTimeout(() => {
-        const bsAlert = new bootstrap.Alert(alertElement);
-        bsAlert.close();
-    }, 5000);
+    if (errorContainer) {
+        // Show the error container
+        errorContainer.classList.remove('d-none');
+        errorContainer.textContent = message;
+        
+        // Auto-hide error after 5 seconds
+        setTimeout(() => {
+            errorContainer.classList.add('d-none');
+        }, 5000);
+    } else {
+        // Fallback to creating a new alert if container doesn't exist
+        const alertElement = document.createElement('div');
+        alertElement.className = 'alert alert-danger alert-dismissible fade show mt-3';
+        alertElement.role = 'alert';
+        
+        // Add alert content
+        alertElement.innerHTML = `
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        `;
+        
+        // Insert alert before form
+        const form = document.getElementById('login-form');
+        if (form) {
+            form.parentNode.insertBefore(alertElement, form);
+        }
+        
+        // Auto-dismiss alert after 5 seconds
+        setTimeout(() => {
+            try {
+                const bsAlert = new bootstrap.Alert(alertElement);
+                bsAlert.close();
+            } catch (e) {
+                alertElement.remove();
+            }
+        }, 5000);
+    }
 }
 
 /**

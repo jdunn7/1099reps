@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Logging Out | 1099 REPS</title>
+    <meta name="description" content="Logging out of your 1099 REPS account">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../images/favicon/favicon.png">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/modern.css">
+    
+    <style>
+        .logout-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f8f9fa;
+        }
+        
+        .logout-card {
+            max-width: 500px;
+            width: 100%;
+            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            background-color: #fff;
+            text-align: center;
+        }
+        
+        .logout-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .logout-title {
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .countdown {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin: 1.5rem 0;
+        }
+        
+        .spinner-border {
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="logout-container">
+        <div class="logout-card">
+            <div class="logout-icon">
+                <i class="bi bi-box-arrow-right"></i>
+            </div>
+            <h1 class="logout-title">Logging Out</h1>
+            <p class="text-muted">Please wait while we securely log you out of your account.</p>
+            
+            <div class="d-flex justify-content-center align-items-center my-4">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <span class="ms-2">Signing out...</span>
+            </div>
+            
+            <div class="countdown" id="countdown">
+                Redirecting in <span id="seconds">3</span>
+            </div>
+            
+            <div class="mt-4">
+                <a href="../index.html" class="btn btn-outline-primary">Return to Homepage</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Firebase SDK (using compatibility version for module support) -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    
+    <!-- Custom JS -->
+    <script type="module">
+        import { signOut } from '../js/auth.js';
+        
+        // Start countdown
+        let seconds = 3;
+        const countdownElement = document.getElementById('seconds');
+        
+        // Perform logout immediately
+        performLogout();
+        
+        // Update countdown every second
+        const countdownInterval = setInterval(() => {
+            seconds--;
+            if (countdownElement) {
+                countdownElement.textContent = seconds;
+            }
+            
+            if (seconds <= 0) {
+                clearInterval(countdownInterval);
+                // Redirect to homepage after countdown
+                window.location.href = '../index.html';
+            }
+        }, 1000);
+        
+        // Function to perform logout
+        async function performLogout() {
+            try {
+                console.log('Performing logout from logout page');
+                // Clear any user data from localStorage
+                localStorage.removeItem('user_authenticated');
+                localStorage.removeItem('user_email');
+                localStorage.removeItem('user_uid');
+                localStorage.removeItem('user_type');
+                localStorage.removeItem('user_data');
+                
+                // Call the signOut function from auth.js
+                await signOut();
+                console.log('Logout successful');
+            } catch (error) {
+                console.error('Error during logout:', error);
+                // Continue with redirect even if there's an error
+            }
+        }
+    </script>
+</body>
+</html>
