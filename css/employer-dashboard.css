@@ -335,6 +335,12 @@
   margin-bottom: 0;
 }
 
+/* Company Profile */
+.cover-image-container {
+  height: 150px;
+  overflow: hidden;
+}
+
 /* Responsive */
 @media (max-width: 992px) {
   .sidebar {

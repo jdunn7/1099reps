@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Post a Job | Employer Dashboard | 1099 REPS</title>
+    <meta name="description" content="Post a new medical sales representative job opening.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../../images/favicon/favicon.png">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../css/modern.css">
+    <link rel="stylesheet" href="../../css/dashboard.css">
+    <link rel="stylesheet" href="../../css/employer-dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../../index.html" class="logo">
+                    <img src="../../images/logo.png" alt="1099 REPS Logo" height="40" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML+='<span class=\'logo-text\'>1099 REPS</span>';">
+                </a>
+                <button class="btn-close-sidebar d-lg-none" title="Close sidebar">
+                    <i class="bi bi-x-lg"></i>
+                    <span class="visually-hidden">Close sidebar</span>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <i class="bi bi-grid-1x2"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="job-postings.html" class="nav-link active">
+                            <i class="bi bi-briefcase"></i>
+                            <span>Job Postings</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="candidates.html" class="nav-link">
+                            <i class="bi bi-people"></i>
+                            <span>Candidates</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="messages.html" class="nav-link">
+                            <i class="bi bi-chat-dots"></i>
+                            <span>Messages</span>
+                            <span class="badge bg-primary rounded-pill ms-auto">3</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="company-profile.html" class="nav-link">
+                            <i class="bi bi-building"></i>
+                            <span>Company Profile</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="settings.html" class="nav-link">
+                            <i class="bi bi-gear"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <a href="/auth/logout.html" id="logout-btn" class="btn btn-outline-light w-100">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Navigation -->
+            <header class="top-nav">
+                <button class="btn-toggle-sidebar d-lg-none" title="Toggle sidebar">
+                    <i class="bi bi-list"></i>
+                    <span class="visually-hidden">Toggle sidebar</span>
+                </button>
+                
+                <div class="search-bar d-none d-md-flex">
+                    <i class="bi bi-search"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+                
+                <div class="top-nav-right">
+                    <div class="dropdown">
+                        <button class="btn btn-link dropdown-toggle" type="button" id="notificationsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-bell"></i>
+                            <span class="badge bg-danger">2</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationsDropdown">
+                            <li><h6 class="dropdown-header">Notifications</h6></li>
+                            <li><a class="dropdown-item" href="#">New application received</a></li>
+                            <li><a class="dropdown-item" href="#">Interview scheduled</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">View all notifications</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="dropdown user-dropdown">
+                        <button class="btn btn-link dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="user-avatar bg-light rounded-circle d-flex align-items-center justify-content-center">
+                                <img src="../../images/team/john-smith.jpg" alt="User Avatar" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML+='<i class=\'bi bi-person text-secondary\'></i>';">
+                            </div>
+                            <span class="d-none d-md-inline" id="company-name-header">Company Name</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="#">My Profile</a></li>
+                            <li><a class="dropdown-item" href="company-profile.html">Company Profile</a></li>
+                            <li><a class="dropdown-item" href="settings.html">Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/auth/logout.html" id="dropdown-logout">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="content-wrapper">
+                <div class="container-fluid">
+                    <!-- Page Header -->
+                    <div class="page-header d-flex justify-content-between align-items-center">
+                        <div>
+                            <h1>Post a New Job</h1>
+                            <p class="text-muted">Create a new job posting for medical sales representatives</p>
+                        </div>
+                        <div>
+                            <a href="job-postings.html" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left"></i> Back to Jobs
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Job Posting Form -->
+                    <div class="card">
+                        <div class="card-body">
+                            <form id="job-posting-form">
+                                <!-- Basic Information -->
+                                <div class="mb-4">
+                                    <h5 class="card-title">Basic Information</h5>
+                                    
+                                    <div class="mb-3">
+                                        <label for="job-title" class="form-label">Job Title <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="job-title" placeholder="e.g., Medical Device Sales Representative" required>
+                                    </div>
+                                    
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="job-type" class="form-label">Employment Type <span class="text-danger">*</span></label>
+                                            <select class="form-select" id="job-type" required>
+                                                <option value="">Select Type</option>
+                                                <option value="full-time">Full-time</option>
+                                                <option value="part-time">Part-time</option>
+                                                <option value="contract">Contract</option>
+                                                <option value="temporary">Temporary</option>
+                                                <option value="internship">Internship</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="job-category" class="form-label">Category <span class="text-danger">*</span></label>
+                                            <select class="form-select" id="job-category" required>
+                                                <option value="">Select Category</option>
+                                                <option value="medical-devices">Medical Devices</option>
+                                                <option value="pharmaceuticals">Pharmaceuticals</option>
+                                                <option value="biotech">Biotech</option>
+                                                <option value="healthcare-it">Healthcare IT</option>
+                                                <option value="diagnostics">Diagnostics</option>
+                                                <option value="dental">Dental</option>
+                                                <option value="other">Other</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="job-location" class="form-label">Location <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="job-location" placeholder="City, State or Remote" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="work-arrangement" class="form-label">Work Arrangement <span class="text-danger">*</span></label>
+                                            <select class="form-select" id="work-arrangement" required>
+                                                <option value="">Select Arrangement</option>
+                                                <option value="on-site">On-site</option>
+                                                <option value="remote">Remote</option>
+                                                <option value="hybrid">Hybrid</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="salary-min" class="form-label">Salary Range (Minimum)</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text">$</span>
+                                                <input type="number" class="form-control" id="salary-min" placeholder="e.g., 50000">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="salary-max" class="form-label">Salary Range (Maximum)</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text">$</span>
+                                                <input type="number" class="form-control" id="salary-max" placeholder="e.g., 80000">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" id="salary-negotiable">
+                                        <label class="form-check-label" for="salary-negotiable">
+                                            Salary is negotiable
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="application-deadline" class="form-label">Application Deadline</label>
+                                        <input type="date" class="form-control" id="application-deadline">
+                                    </div>
+                                </div>
+                                
+                                <!-- Job Description -->
+                                <div class="mb-4">
+                                    <h5 class="card-title">Job Description</h5>
+                                    
+                                    <div class="mb-3">
+                                        <label for="job-summary" class="form-label">Job Summary <span class="text-danger">*</span></label>
+                                        <textarea class="form-control" id="job-summary" rows="3" placeholder="Provide a brief overview of the position..." required></textarea>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="job-responsibilities" class="form-label">Responsibilities <span class="text-danger">*</span></label>
+                                        <textarea class="form-control" id="job-responsibilities" rows="5" placeholder="List the key responsibilities of the position..." required></textarea>
+                                        <div class="form-text">Use bullet points (•) to separate different responsibilities.</div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="job-qualifications" class="form-label">Qualifications <span class="text-danger">*</span></label>
+                                        <textarea class="form-control" id="job-qualifications" rows="5" placeholder="List the required qualifications..." required></textarea>
+                                        <div class="form-text">Use bullet points (•) to separate different qualifications.</div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="job-benefits" class="form-label">Benefits & Perks</label>
+                                        <textarea class="form-control" id="job-benefits" rows="3" placeholder="List the benefits and perks offered..."></textarea>
+                                        <div class="form-text">Use bullet points (•) to separate different benefits.</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Additional Information -->
+                                <div class="mb-4">
+                                    <h5 class="card-title">Additional Information</h5>
+                                    
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="experience-level" class="form-label">Experience Level <span class="text-danger">*</span></label>
+                                            <select class="form-select" id="experience-level" required>
+                                                <option value="">Select Experience Level</option>
+                                                <option value="entry">Entry Level (0-2 years)</option>
+                                                <option value="mid">Mid Level (3-5 years)</option>
+                                                <option value="senior">Senior Level (5-10 years)</option>
+                                                <option value="executive">Executive Level (10+ years)</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="education-level" class="form-label">Education Level</label>
+                                            <select class="form-select" id="education-level">
+                                                <option value="">Select Education Level</option>
+                                                <option value="high-school">High School Diploma</option>
+                                                <option value="associate">Associate's Degree</option>
+                                                <option value="bachelor">Bachelor's Degree</option>
+                                                <option value="master">Master's Degree</option>
+                                                <option value="doctorate">Doctorate</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="required-skills" class="form-label">Required Skills</label>
+                                        <input type="text" class="form-control" id="required-skills" placeholder="e.g., CRM, Salesforce, Medical Terminology">
+                                        <div class="form-text">Separate skills with commas.</div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="travel-percentage" class="form-label">Travel Percentage</label>
+                                        <select class="form-select" id="travel-percentage">
+                                            <option value="">Select Travel Percentage</option>
+                                            <option value="0">No travel (0%)</option>
+                                            <option value="25">Minimal travel (up to 25%)</option>
+                                            <option value="50">Moderate travel (25-50%)</option>
+                                            <option value="75">Frequent travel (50-75%)</option>
+                                            <option value="100">Extensive travel (75-100%)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <!-- Application Process -->
+                                <div class="mb-4">
+                                    <h5 class="card-title">Application Process</h5>
+                                    
+                                    <div class="mb-3">
+                                        <label for="application-instructions" class="form-label">Application Instructions</label>
+                                        <textarea class="form-control" id="application-instructions" rows="3" placeholder="Provide specific instructions for applicants..."></textarea>
+                                    </div>
+                                    
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" id="require-resume" checked>
+                                        <label class="form-check-label" for="require-resume">
+                                            Require resume/CV
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" id="require-cover-letter">
+                                        <label class="form-check-label" for="require-cover-letter">
+                                            Require cover letter
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <!-- Visibility & Publishing -->
+                                <div class="mb-4">
+                                    <h5 class="card-title">Visibility & Publishing</h5>
+                                    
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" id="job-featured">
+                                        <label class="form-check-label" for="job-featured">
+                                            Feature this job (premium feature)
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" id="job-confidential">
+                                        <label class="form-check-label" for="job-confidential">
+                                            Keep company name confidential
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <!-- Form Actions -->
+                                <div class="d-flex justify-content-between">
+                                    <button type="button" class="btn btn-outline-secondary" id="save-draft">Save as Draft</button>
+                                    <div>
+                                        <button type="button" class="btn btn-outline-secondary me-2" id="preview-job">Preview</button>
+                                        <button type="submit" class="btn btn-primary" id="publish-job">Publish Job</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Firebase SDK (using compatibility version for module support) -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="../../js/auth.js" type="module"></script>
+    <script src="../../js/dashboard.js" type="module"></script>
+    <script src="../../js/data-persistence.js" type="module"></script>
+    
+    <script type="module">
+        // Import Firebase configuration and auth
+        import { db, auth } from '../../js/firebase-config.js';
+        import { saveFormData, loadFormData } from '../../js/data-persistence.js';
+        
+        // Mobile sidebar toggle
+        document.querySelector('.btn-toggle-sidebar')?.addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.add('show');
+        });
+        
+        document.querySelector('.btn-close-sidebar')?.addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.remove('show');
+        });
+        
+        // Job posting functionality
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                // Get current user
+                const user = firebase.auth().currentUser;
+                if (!user) {
+                    console.warn('User not authenticated');
+                    return;
+                }
+                
+                // Get company info
+                const companyRef = firebase.firestore().collection('companies').doc(user.uid);
+                const companyDoc = await companyRef.get();
+                
+                if (companyDoc.exists) {
+                    const companyData = companyDoc.data();
+                    document.getElementById('company-name-header').textContent = companyData.name || 'Company Name';
+                }
+                
+                // Load form data if it exists in localStorage
+                loadFormData('job-posting-form');
+                
+                // Auto-save form data
+                const formElements = document.querySelectorAll('#job-posting-form input, #job-posting-form select, #job-posting-form textarea');
+                formElements.forEach(element => {
+                    element.addEventListener('change', function() {
+                        saveFormData('job-posting-form');
+                    });
+                });
+                
+                // Handle save as draft
+                document.getElementById('save-draft')?.addEventListener('click', async function() {
+                    try {
+                        const jobData = getJobFormData();
+                        jobData.status = 'draft';
+                        jobData.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+                        jobData.updatedAt = firebase.firestore.FieldValue.serverTimestamp();
+                        
+                        // Save to Firestore
+                        const jobRef = firebase.firestore().collection('jobs').doc();
+                        await jobRef.set(jobData);
+                        
+                        alert('Job saved as draft!');
+                        
+                        // Clear form data from localStorage
+                        localStorage.removeItem('form_job-posting-form');
+                        
+                        // Redirect to job listings
+                        window.location.href = 'job-postings.html';
+                    } catch (error) {
+                        console.error('Error saving draft:', error);
+                        alert('Error saving draft: ' + error.message);
+                    }
+                });
+                
+                // Handle publish job
+                document.getElementById('job-posting-form')?.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    try {
+                        // Validate required fields
+                        const requiredFields = document.querySelectorAll('#job-posting-form [required]');
+                        let isValid = true;
+                        
+                        requiredFields.forEach(field => {
+                            if (!field.value.trim()) {
+                                field.classList.add('is-invalid');
+                                isValid = false;
+                            } else {
+                                field.classList.remove('is-invalid');
+                            }
+                        });
+                        
+                        if (!isValid) {
+                            alert('Please fill in all required fields.');
+                            return;
+                        }
+                        
+                        // Get form data
+                        const jobData = getJobFormData();
+                        jobData.status = 'published';
+                        jobData.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+                        jobData.updatedAt = firebase.firestore.FieldValue.serverTimestamp();
+                        
+                        // Save to Firestore
+                        const jobRef = firebase.firestore().collection('jobs').doc();
+                        await jobRef.set(jobData);
+                        
+                        alert('Job published successfully!');
+                        
+                        // Clear form data from localStorage
+                        localStorage.removeItem('form_job-posting-form');
+                        
+                        // Redirect to job listings
+                        window.location.href = 'job-postings.html';
+                    } catch (error) {
+                        console.error('Error publishing job:', error);
+                        alert('Error publishing job: ' + error.message);
+                    }
+                });
+                
+                // Handle preview job
+                document.getElementById('preview-job')?.addEventListener('click', function() {
+                    alert('Preview functionality will be implemented in a future update.');
+                });
+                
+                // Helper function to get form data
+                function getJobFormData() {
+                    return {
+                        companyId: user.uid,
+                        title: document.getElementById('job-title').value,
+                        type: document.getElementById('job-type').value,
+                        category: document.getElementById('job-category').value,
+                        location: document.getElementById('job-location').value,
+                        workArrangement: document.getElementById('work-arrangement').value,
+                        salaryMin: document.getElementById('salary-min').value || null,
+                        salaryMax: document.getElementById('salary-max').value || null,
+                        salaryNegotiable: document.getElementById('salary-negotiable').checked,
+                        applicationDeadline: document.getElementById('application-deadline').value || null,
+                        summary: document.getElementById('job-summary').value,
+                        responsibilities: document.getElementById('job-responsibilities').value,
+                        qualifications: document.getElementById('job-qualifications').value,
+                        benefits: document.getElementById('job-benefits').value || null,
+                        experienceLevel: document.getElementById('experience-level').value,
+                        educationLevel: document.getElementById('education-level').value || null,
+                        requiredSkills: document.getElementById('required-skills').value || null,
+                        travelPercentage: document.getElementById('travel-percentage').value || null,
+                        applicationInstructions: document.getElementById('application-instructions').value || null,
+                        requireResume: document.getElementById('require-resume').checked,
+                        requireCoverLetter: document.getElementById('require-cover-letter').checked,
+                        featured: document.getElementById('job-featured').checked,
+                        confidential: document.getElementById('job-confidential').checked
+                    };
+                }
+                
+            } catch (error) {
+                console.error('Error initializing job posting page:', error);
+            }
+        });
+    </script>
+</body>
+</html>
