@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Settings | Employer Dashboard | 1099 REPS</title>
+    <meta name="description" content="Manage your account settings and preferences.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../../images/favicon/favicon.png">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../css/modern.css">
+    <link rel="stylesheet" href="../../css/dashboard.css">
+    <link rel="stylesheet" href="../../css/employer-dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../../index.html" class="logo">
+                    <img src="../../images/logo.png" alt="1099 REPS Logo" height="40" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML+='<span class=\'logo-text\'>1099 REPS</span>';">
+                </a>
+                <button class="btn-close-sidebar d-lg-none" title="Close sidebar">
+                    <i class="bi bi-x-lg"></i>
+                    <span class="visually-hidden">Close sidebar</span>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <i class="bi bi-grid-1x2"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="job-postings.html" class="nav-link">
+                            <i class="bi bi-briefcase"></i>
+                            <span>Job Postings</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="candidates.html" class="nav-link">
+                            <i class="bi bi-people"></i>
+                            <span>Candidates</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="messages.html" class="nav-link">
+                            <i class="bi bi-chat-dots"></i>
+                            <span>Messages</span>
+                            <span class="badge bg-primary rounded-pill ms-auto">3</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="company-profile.html" class="nav-link">
+                            <i class="bi bi-building"></i>
+                            <span>Company Profile</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="settings.html" class="nav-link active">
+                            <i class="bi bi-gear"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <a href="/auth/logout.html" id="logout-btn" class="btn btn-outline-light w-100">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Navigation -->
+            <header class="top-nav">
+                <button class="btn-toggle-sidebar d-lg-none" title="Toggle sidebar">
+                    <i class="bi bi-list"></i>
+                    <span class="visually-hidden">Toggle sidebar</span>
+                </button>
+                
+                <div class="search-bar d-none d-md-flex">
+                    <i class="bi bi-search"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+                
+                <div class="top-nav-right">
+                    <div class="dropdown">
+                        <button class="btn btn-link dropdown-toggle" type="button" id="notificationsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-bell"></i>
+                            <span class="badge bg-danger">2</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationsDropdown">
+                            <li><h6 class="dropdown-header">Notifications</h6></li>
+                            <li><a class="dropdown-item" href="#">New application received</a></li>
+                            <li><a class="dropdown-item" href="#">Interview scheduled</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">View all notifications</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="dropdown user-dropdown">
+                        <button class="btn btn-link dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="user-avatar bg-light rounded-circle d-flex align-items-center justify-content-center">
+                                <img src="../../images/team/john-smith.jpg" alt="User Avatar" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML+='<i class=\'bi bi-person text-secondary\'></i>';">
+                            </div>
+                            <span class="d-none d-md-inline">Company Name</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="#">My Profile</a></li>
+                            <li><a class="dropdown-item" href="company-profile.html">Company Profile</a></li>
+                            <li><a class="dropdown-item" href="settings.html">Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/auth/logout.html" id="dropdown-logout">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="content-wrapper">
+                <div class="container-fluid">
+                    <!-- Page Header -->
+                    <div class="page-header">
+                        <h1>Settings</h1>
+                        <p class="text-muted">Manage your account settings and preferences</p>
+                    </div>
+                    
+                    <!-- Settings Tabs -->
+                    <div class="card">
+                        <div class="card-body">
+                            <ul class="nav nav-tabs" id="settingsTabs" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="account-tab" data-bs-toggle="tab" data-bs-target="#account" type="button" role="tab" aria-controls="account" aria-selected="true">Account</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="notifications-tab" data-bs-toggle="tab" data-bs-target="#notifications" type="button" role="tab" aria-controls="notifications" aria-selected="false">Notifications</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="security-tab" data-bs-toggle="tab" data-bs-target="#security" type="button" role="tab" aria-controls="security" aria-selected="false">Security</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="billing-tab" data-bs-toggle="tab" data-bs-target="#billing" type="button" role="tab" aria-controls="billing" aria-selected="false">Billing</button>
+                                </li>
+                            </ul>
+                            
+                            <div class="tab-content p-3" id="settingsTabsContent">
+                                <!-- Account Settings -->
+                                <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
+                                    <h5 class="mb-4">Account Settings</h5>
+                                    
+                                    <form id="account-settings-form">
+                                        <div class="mb-3">
+                                            <label for="account-email" class="form-label">Email Address</label>
+                                            <input type="email" class="form-control" id="account-email" value="user@example.com" disabled>
+                                            <div class="form-text">To change your email, please contact support.</div>
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <label for="account-name" class="form-label">Admin Name</label>
+                                            <input type="text" class="form-control" id="account-name" placeholder="Your name">
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <label for="account-phone" class="form-label">Phone Number</label>
+                                            <input type="tel" class="form-control" id="account-phone" placeholder="(555) 123-4567">
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <label for="account-timezone" class="form-label">Timezone</label>
+                                            <select class="form-select" id="account-timezone">
+                                                <option value="UTC-8">Pacific Time (UTC-8)</option>
+                                                <option value="UTC-7">Mountain Time (UTC-7)</option>
+                                                <option value="UTC-6">Central Time (UTC-6)</option>
+                                                <option value="UTC-5" selected>Eastern Time (UTC-5)</option>
+                                                <option value="UTC-4">Atlantic Time (UTC-4)</option>
+                                                <option value="UTC+0">Greenwich Mean Time (UTC+0)</option>
+                                                <option value="UTC+1">Central European Time (UTC+1)</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <label for="account-language" class="form-label">Language</label>
+                                            <select class="form-select" id="account-language">
+                                                <option value="en" selected>English</option>
+                                                <option value="es">Spanish</option>
+                                                <option value="fr">French</option>
+                                                <option value="de">German</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                    </form>
+                                </div>
+                                
+                                <!-- Notification Settings -->
+                                <div class="tab-pane fade" id="notifications" role="tabpanel" aria-labelledby="notifications-tab">
+                                    <h5 class="mb-4">Notification Settings</h5>
+                                    
+                                    <form id="notification-settings-form">
+                                        <div class="mb-4">
+                                            <h6>Email Notifications</h6>
+                                            
+                                            <div class="form-check form-switch mb-2">
+                                                <input class="form-check-input" type="checkbox" id="notify-applications" checked>
+                                                <label class="form-check-label" for="notify-applications">New applications</label>
+                                            </div>
+                                            
+                                            <div class="form-check form-switch mb-2">
+                                                <input class="form-check-input" type="checkbox" id="notify-messages" checked>
+                                                <label class="form-check-label" for="notify-messages">New messages</label>
+                                            </div>
+                                            
+                                            <div class="form-check form-switch mb-2">
+                                                <input class="form-check-input" type="checkbox" id="notify-interviews" checked>
+                                                <label class="form-check-label" for="notify-interviews">Interview reminders</label>
+                                            </div>
+                                            
+                                            <div class="form-check form-switch mb-2">
+                                                <input class="form-check-input" type="checkbox" id="notify-updates">
+                                                <label class="form-check-label" for="notify-updates">Platform updates</label>
+                                            </div>
+                                            
+                                            <div class="form-check form-switch mb-2">
+                                                <input class="form-check-input" type="checkbox" id="notify-marketing">
+                                                <label class="form-check-label" for="notify-marketing">Marketing emails</label>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mb-4">
+                                            <h6>SMS Notifications</h6>
+                                            
+                                            <div class="form-check form-switch mb-2">
+                                                <input class="form-check-input" type="checkbox" id="sms-applications">
+                                                <label class="form-check-label" for="sms-applications">New applications</label>
+                                            </div>
+                                            
+                                            <div class="form-check form-switch mb-2">
+                                                <input class="form-check-input" type="checkbox" id="sms-messages">
+                                                <label class="form-check-label" for="sms-messages">New messages</label>
+                                            </div>
+                                            
+                                            <div class="form-check form-switch mb-2">
+                                                <input class="form-check-input" type="checkbox" id="sms-interviews">
+                                                <label class="form-check-label" for="sms-interviews">Interview reminders</label>
+                                            </div>
+                                        </div>
+                                        
+                                        <button type="submit" class="btn btn-primary">Save Preferences</button>
+                                    </form>
+                                </div>
+                                
+                                <!-- Security Settings -->
+                                <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
+                                    <h5 class="mb-4">Security Settings</h5>
+                                    
+                                    <form id="password-change-form" class="mb-5">
+                                        <h6>Change Password</h6>
+                                        
+                                        <div class="mb-3">
+                                            <label for="current-password" class="form-label">Current Password</label>
+                                            <input type="password" class="form-control" id="current-password">
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <label for="new-password" class="form-label">New Password</label>
+                                            <input type="password" class="form-control" id="new-password">
+                                            <div class="form-text">Password must be at least 8 characters and include a number and special character.</div>
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <label for="confirm-password" class="form-label">Confirm New Password</label>
+                                            <input type="password" class="form-control" id="confirm-password">
+                                        </div>
+                                        
+                                        <button type="submit" class="btn btn-primary">Update Password</button>
+                                    </form>
+                                    
+                                    <div class="mb-5">
+                                        <h6>Two-Factor Authentication</h6>
+                                        <p class="text-muted">Add an extra layer of security to your account.</p>
+                                        
+                                        <div class="form-check form-switch mb-3">
+                                            <input class="form-check-input" type="checkbox" id="enable-2fa">
+                                            <label class="form-check-label" for="enable-2fa">Enable Two-Factor Authentication</label>
+                                        </div>
+                                        
+                                        <button type="button" class="btn btn-outline-primary" id="setup-2fa" disabled>Set Up Two-Factor</button>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6>Login Sessions</h6>
+                                        <p class="text-muted">Manage your active sessions across devices.</p>
+                                        
+                                        <div class="list-group mb-3">
+                                            <div class="list-group-item">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <h6 class="mb-1">Current Session</h6>
+                                                    <small class="text-success">Active Now</small>
+                                                </div>
+                                                <p class="mb-1">Chrome on macOS • New York, USA</p>
+                                                <small class="text-muted">Started April 15, 2025 at 10:30 AM</small>
+                                            </div>
+                                            <div class="list-group-item">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <h6 class="mb-1">Safari on iPhone</h6>
+                                                    <small class="text-muted">2 days ago</small>
+                                                </div>
+                                                <p class="mb-1">iOS 18 • New York, USA</p>
+                                                <small class="text-muted">Last active April 13, 2025</small>
+                                            </div>
+                                        </div>
+                                        
+                                        <button type="button" class="btn btn-danger">Log Out All Other Devices</button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Billing Settings -->
+                                <div class="tab-pane fade" id="billing" role="tabpanel" aria-labelledby="billing-tab">
+                                    <h5 class="mb-4">Billing & Subscription</h5>
+                                    
+                                    <div class="card mb-4 border-primary">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <h6 class="card-title mb-0">Current Plan</h6>
+                                                <span class="badge bg-primary">Active</span>
+                                            </div>
+                                            <h5>Premium Plan</h5>
+                                            <p class="text-muted">Unlimited job postings, advanced candidate filtering, and priority support.</p>
+                                            <div class="d-flex align-items-baseline">
+                                                <h4 class="me-2">$99.00</h4>
+                                                <span class="text-muted">/ month</span>
+                                            </div>
+                                            <p class="text-muted small">Next billing date: May 15, 2025</p>
+                                            <div class="mt-3">
+                                                <button class="btn btn-outline-primary">Upgrade Plan</button>
+                                                <button class="btn btn-outline-secondary ms-2">Cancel Subscription</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <h6>Payment Method</h6>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <div class="me-3">
+                                                <i class="bi bi-credit-card fs-3"></i>
+                                            </div>
+                                            <div>
+                                                <h6 class="mb-0">Visa ending in 4242</h6>
+                                                <small class="text-muted">Expires 12/25</small>
+                                            </div>
+                                            <div class="ms-auto">
+                                                <button class="btn btn-sm btn-outline-secondary">Edit</button>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-outline-primary">Add Payment Method</button>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6>Billing History</h6>
+                                        <div class="table-responsive">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Date</th>
+                                                        <th>Description</th>
+                                                        <th>Amount</th>
+                                                        <th>Status</th>
+                                                        <th>Invoice</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Apr 15, 2025</td>
+                                                        <td>Premium Plan - Monthly</td>
+                                                        <td>$99.00</td>
+                                                        <td><span class="badge bg-success">Paid</span></td>
+                                                        <td><a href="#" class="btn btn-sm btn-link"><i class="bi bi-download"></i></a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Mar 15, 2025</td>
+                                                        <td>Premium Plan - Monthly</td>
+                                                        <td>$99.00</td>
+                                                        <td><span class="badge bg-success">Paid</span></td>
+                                                        <td><a href="#" class="btn btn-sm btn-link"><i class="bi bi-download"></i></a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Feb 15, 2025</td>
+                                                        <td>Premium Plan - Monthly</td>
+                                                        <td>$99.00</td>
+                                                        <td><span class="badge bg-success">Paid</span></td>
+                                                        <td><a href="#" class="btn btn-sm btn-link"><i class="bi bi-download"></i></a></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Firebase SDK (using compatibility version for module support) -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="../../js/auth.js" type="module"></script>
+    <script src="../../js/dashboard.js" type="module"></script>
+    <script src="../../js/data-persistence.js" type="module"></script>
+    
+    <script type="module">
+        // Import Firebase configuration and auth
+        import { db, auth } from '../../js/firebase-config.js';
+        
+        // Mobile sidebar toggle
+        document.querySelector('.btn-toggle-sidebar')?.addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.add('show');
+        });
+        
+        document.querySelector('.btn-close-sidebar')?.addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.remove('show');
+        });
+        
+        // Settings functionality
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                // Get current user
+                const user = firebase.auth().currentUser;
+                if (!user) {
+                    console.warn('User not authenticated');
+                    return;
+                }
+                
+                // Load user settings from Firestore
+                const userRef = firebase.firestore().collection('users').doc(user.uid);
+                const userDoc = await userRef.get();
+                
+                if (userDoc.exists) {
+                    const userData = userDoc.data();
+                    
+                    // Populate account settings
+                    document.getElementById('account-email').value = user.email || '';
+                    document.getElementById('account-name').value = userData.name || '';
+                    document.getElementById('account-phone').value = userData.phone || '';
+                    
+                    if (userData.timezone) {
+                        document.getElementById('account-timezone').value = userData.timezone;
+                    }
+                    
+                    if (userData.language) {
+                        document.getElementById('account-language').value = userData.language;
+                    }
+                    
+                    // Populate notification settings
+                    if (userData.notifications) {
+                        document.getElementById('notify-applications').checked = userData.notifications.applications !== false;
+                        document.getElementById('notify-messages').checked = userData.notifications.messages !== false;
+                        document.getElementById('notify-interviews').checked = userData.notifications.interviews !== false;
+                        document.getElementById('notify-updates').checked = userData.notifications.updates === true;
+                        document.getElementById('notify-marketing').checked = userData.notifications.marketing === true;
+                        
+                        document.getElementById('sms-applications').checked = userData.notifications.smsApplications === true;
+                        document.getElementById('sms-messages').checked = userData.notifications.smsMessages === true;
+                        document.getElementById('sms-interviews').checked = userData.notifications.smsInterviews === true;
+                    }
+                    
+                    // Set up two-factor authentication toggle
+                    document.getElementById('enable-2fa').checked = userData.twoFactorEnabled === true;
+                    document.getElementById('setup-2fa').disabled = !document.getElementById('enable-2fa').checked;
+                }
+                
+                // Handle account settings form submission
+                document.getElementById('account-settings-form')?.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    try {
+                        const name = document.getElementById('account-name').value;
+                        const phone = document.getElementById('account-phone').value;
+                        const timezone = document.getElementById('account-timezone').value;
+                        const language = document.getElementById('account-language').value;
+                        
+                        // Save to Firestore
+                        await userRef.update({
+                            name: name,
+                            phone: phone,
+                            timezone: timezone,
+                            language: language,
+                            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+                        
+                        alert('Account settings updated successfully!');
+                    } catch (error) {
+                        console.error('Error updating account settings:', error);
+                        alert('Error updating settings: ' + error.message);
+                    }
+                });
+                
+                // Handle notification settings form submission
+                document.getElementById('notification-settings-form')?.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    try {
+                        const notificationSettings = {
+                            applications: document.getElementById('notify-applications').checked,
+                            messages: document.getElementById('notify-messages').checked,
+                            interviews: document.getElementById('notify-interviews').checked,
+                            updates: document.getElementById('notify-updates').checked,
+                            marketing: document.getElementById('notify-marketing').checked,
+                            smsApplications: document.getElementById('sms-applications').checked,
+                            smsMessages: document.getElementById('sms-messages').checked,
+                            smsInterviews: document.getElementById('sms-interviews').checked
+                        };
+                        
+                        // Save to Firestore
+                        await userRef.update({
+                            'notifications': notificationSettings,
+                            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+                        
+                        alert('Notification preferences updated successfully!');
+                    } catch (error) {
+                        console.error('Error updating notification settings:', error);
+                        alert('Error updating settings: ' + error.message);
+                    }
+                });
+                
+                // Handle password change form submission
+                document.getElementById('password-change-form')?.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    try {
+                        const currentPassword = document.getElementById('current-password').value;
+                        const newPassword = document.getElementById('new-password').value;
+                        const confirmPassword = document.getElementById('confirm-password').value;
+                        
+                        // Validate passwords
+                        if (newPassword !== confirmPassword) {
+                            alert('New passwords do not match!');
+                            return;
+                        }
+                        
+                        if (newPassword.length < 8) {
+                            alert('Password must be at least 8 characters long!');
+                            return;
+                        }
+                        
+                        // Re-authenticate user
+                        const credential = firebase.auth.EmailAuthProvider.credential(
+                            user.email,
+                            currentPassword
+                        );
+                        
+                        await user.reauthenticateWithCredential(credential);
+                        
+                        // Update password
+                        await user.updatePassword(newPassword);
+                        
+                        // Clear form
+                        document.getElementById('current-password').value = '';
+                        document.getElementById('new-password').value = '';
+                        document.getElementById('confirm-password').value = '';
+                        
+                        alert('Password updated successfully!');
+                    } catch (error) {
+                        console.error('Error updating password:', error);
+                        
+                        if (error.code === 'auth/wrong-password') {
+                            alert('Current password is incorrect!');
+                        } else {
+                            alert('Error updating password: ' + error.message);
+                        }
+                    }
+                });
+                
+                // Handle 2FA toggle
+                document.getElementById('enable-2fa')?.addEventListener('change', function() {
+                    document.getElementById('setup-2fa').disabled = !this.checked;
+                    
+                    if (this.checked) {
+                        alert('Two-factor authentication setup will be available in a future update.');
+                    }
+                });
+                
+            } catch (error) {
+                console.error('Error loading settings:', error);
+            }
+        });
+    </script>
+</body>
+</html>

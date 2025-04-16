@@ -1,10 +1,12 @@
 /**
  * 1099REPS Signup Form Handler
  * Handles signup form submission and validation for both reps and companies
+ * Includes data persistence to ensure user input is saved and retrieved properly
  */
 
 // Import necessary functions
 import { signUp, USER_TYPES } from './auth.js';
+import { enableFormPersistence, saveFormField, loadFormData, clearFormData } from './data-persistence.js';
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM content loaded - initializing signup forms');
@@ -12,6 +14,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Get signup forms
     const repSignupForm = document.getElementById('rep-signup-form');
     const companySignupForm = document.getElementById('company-signup-form');
+    
+    // Enable form persistence for both forms
+    if (repSignupForm) {
+        enableFormPersistence('rep-signup-form');
+    }
+    
+    if (companySignupForm) {
+        enableFormPersistence('company-signup-form');
+    }
     
     // Direct access to form fields for validation
     const repEmailInput = document.getElementById('rep-email');
@@ -140,43 +151,31 @@ async function handleRepSignupSubmit(event) {
         termsAccepted: document.getElementById('rep-terms')?.checked || false
     };
     
-    console.log(`[DEBUG] Email value in userData object: ${userData.email}`);
-
-    // Double-check email validity before validation
-    if (!userData.email) {
-        console.error('Email is empty in userData object');
-        displayErrorMessage('rep-email', 'Email is required');
-        return; // Stop submission if email is empty
-    }
-
-    // Validate ALL form inputs
+    // Save form data to localStorage in case submission fails
+    Object.keys(userData).forEach(key => {
+        if (key !== 'password' && key !== 'confirmPassword') {
+            saveFormField(formId, key, userData[key]);
+        }
+    });
+    
+    // Validate form data
     if (!validateRepSignupForm(userData)) {
         console.log('Form validation failed');
-        return; // Stop submission if validation fails
+        return;
     }
-    
-    // If validation passes, proceed with signup
-    console.log('Form validation passed, attempting signup');
-    console.log(`[DEBUG] Email value before showing loading state: ${userData.email}`);
     
     // Show loading state
     toggleLoadingState(true, 'rep');
-    console.log(`[DEBUG] Email value before calling signUp: ${userData.email}`);
     
     try {
-        // Final validation check before API call
-        if (!userData.email) {
-            throw new Error('Email validation failed: empty email address');
-        }
-        
         // Attempt to sign up user
-        await signUp(userData, USER_TYPES.REP);
+        const userCredential = await signUp(userData, USER_TYPES.REP);
+        console.log('Signup successful, user created:', userCredential.user.uid);
         
         // Handle successful signup
-        handleSuccessfulSignup();
+        handleSuccessfulSignup(formId, userData, USER_TYPES.REP);
     } catch (error) {
         // Handle signup error
-        console.error('Signup error:', error);
         handleSignupError(error);
     } finally {
         // Hide loading state
@@ -191,6 +190,9 @@ async function handleRepSignupSubmit(event) {
 async function handleCompanySignupSubmit(event) {
     event.preventDefault();
     console.log('Company signup form submitted');
+    
+    const form = event.target;
+    const formId = form.id;
     
     // IMPORTANT: Get and store the email value immediately
     const emailInput = document.getElementById('company-email');
@@ -215,8 +217,20 @@ async function handleCompanySignupSubmit(event) {
         confirmPassword: document.getElementById('company-confirm-password')?.value || '',
         location: document.getElementById('company-location')?.value.trim() || '',
         website: document.getElementById('company-website')?.value.trim() || '',
-        termsAccepted: document.getElementById('company-terms')?.checked || false
+        termsAccepted: document.getElementById('company-terms')?.checked || false,
+        // Add additional fields for better company profile data
+        displayName: document.getElementById('company-name')?.value.trim() || '',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        profileComplete: false
     };
+    
+    // Save form data to localStorage in case submission fails
+    Object.keys(userData).forEach(key => {
+        if (key !== 'password' && key !== 'confirmPassword') {
+            saveFormField(formId, key, userData[key]);
+        }
+    });
     
     console.log(`[DEBUG] Company email value in userData object: ${userData.email}`);
 
@@ -249,7 +263,7 @@ async function handleCompanySignupSubmit(event) {
         await signUp(userData, USER_TYPES.COMPANY);
         
         // Handle successful signup
-        handleSuccessfulSignup();
+        handleSuccessfulSignup(formId, userData, USER_TYPES.COMPANY);
     } catch (error) {
         // Handle signup error
         console.error('Company signup error:', error);
@@ -580,10 +594,30 @@ function toggleLoadingState(isLoading, formType) {
 
 /**
  * Handle successful signup
+ * @param {string} formId - ID of the form that was submitted
+ * @param {Object} userData - User data that was submitted
+ * @param {string} userType - Type of user (rep or company)
  */
-function handleSuccessfulSignup() {
-    // Redirect to onboarding page
-    window.location.href = 'onboarding/index.html';
+function handleSuccessfulSignup(formId, userData, userType) {
+    // Clear form data from localStorage since signup was successful
+    clearFormData(formId);
+    
+    // Store basic user data in localStorage for use across the application
+    localStorage.setItem('user_type', userType);
+    localStorage.setItem('user_data', JSON.stringify({
+        email: userData.email,
+        userType: userType,
+        createdAt: new Date().toISOString()
+    }));
+    
+    console.log(`Signup successful for ${userType}. Redirecting to onboarding...`);
+    
+    // Redirect to appropriate dashboard based on user type
+    if (userType === USER_TYPES.COMPANY) {
+        window.location.href = '/employer/dashboard/index.html';
+    } else {
+        window.location.href = '/dashboard/index.html';
+    }
 }
 
 /**

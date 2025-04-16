@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Company Profile | Employer Dashboard | 1099 REPS</title>
+    <meta name="description" content="Manage your company profile and information for medical sales representatives.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../../images/favicon/favicon.png">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../css/modern.css">
+    <link rel="stylesheet" href="../../css/dashboard.css">
+    <link rel="stylesheet" href="../../css/employer-dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../../index.html" class="logo">
+                    <img src="../../images/logo.png" alt="1099 REPS Logo" height="40" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML+='<span class=\'logo-text\'>1099 REPS</span>';">
+                </a>
+                <button class="btn-close-sidebar d-lg-none" title="Close sidebar">
+                    <i class="bi bi-x-lg"></i>
+                    <span class="visually-hidden">Close sidebar</span>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <i class="bi bi-grid-1x2"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="job-postings.html" class="nav-link">
+                            <i class="bi bi-briefcase"></i>
+                            <span>Job Postings</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="candidates.html" class="nav-link">
+                            <i class="bi bi-people"></i>
+                            <span>Candidates</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="messages.html" class="nav-link">
+                            <i class="bi bi-chat-dots"></i>
+                            <span>Messages</span>
+                            <span class="badge bg-primary rounded-pill ms-auto">3</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="company-profile.html" class="nav-link active">
+                            <i class="bi bi-building"></i>
+                            <span>Company Profile</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="settings.html" class="nav-link">
+                            <i class="bi bi-gear"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <a href="/auth/logout.html" id="logout-btn" class="btn btn-outline-light w-100">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Navigation -->
+            <header class="top-nav">
+                <button class="btn-toggle-sidebar d-lg-none" title="Toggle sidebar">
+                    <i class="bi bi-list"></i>
+                    <span class="visually-hidden">Toggle sidebar</span>
+                </button>
+                
+                <div class="search-bar d-none d-md-flex">
+                    <i class="bi bi-search"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+                
+                <div class="top-nav-right">
+                    <div class="dropdown">
+                        <button class="btn btn-link dropdown-toggle" type="button" id="notificationsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-bell"></i>
+                            <span class="badge bg-danger">2</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationsDropdown">
+                            <li><h6 class="dropdown-header">Notifications</h6></li>
+                            <li><a class="dropdown-item" href="#">New application received</a></li>
+                            <li><a class="dropdown-item" href="#">Interview scheduled</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">View all notifications</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="dropdown user-dropdown">
+                        <button class="btn btn-link dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="user-avatar bg-light rounded-circle d-flex align-items-center justify-content-center">
+                                <img src="../../images/team/john-smith.jpg" alt="User Avatar" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML+='<i class=\'bi bi-person text-secondary\'></i>';">
+                            </div>
+                            <span class="d-none d-md-inline" id="company-name-header">Company Name</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="#">My Profile</a></li>
+                            <li><a class="dropdown-item" href="company-profile.html">Company Profile</a></li>
+                            <li><a class="dropdown-item" href="settings.html">Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/auth/logout.html" id="dropdown-logout">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="content-wrapper">
+                <div class="container-fluid">
+                    <!-- Page Header -->
+                    <div class="page-header">
+                        <h1>Company Profile</h1>
+                        <p class="text-muted">Manage your company information and online presence</p>
+                    </div>
+                    
+                    <!-- Company Profile Form -->
+                    <div class="row">
+                        <div class="col-lg-4 mb-4">
+                            <!-- Company Logo & Cover -->
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h5 class="card-title">Company Logo</h5>
+                                    <div class="text-center mb-4">
+                                        <div class="avatar avatar-xl mx-auto mb-3 bg-light rounded-circle d-flex align-items-center justify-content-center">
+                                            <img src="../../images/team/john-smith.jpg" alt="Company Logo" id="company-logo-preview" class="img-fluid rounded-circle" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML+='<i class=\'bi bi-building text-secondary\' style=\'font-size: 3rem;\'></i>';">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="company-logo" class="form-label visually-hidden">Upload Logo</label>
+                                            <input class="form-control form-control-sm" id="company-logo" type="file" accept="image/*">
+                                        </div>
+                                        <small class="text-muted">Recommended size: 400x400px, max 2MB</small>
+                                    </div>
+                                    
+                                    <h5 class="card-title">Cover Image</h5>
+                                    <div class="mb-4">
+                                        <div class="cover-image-container mb-3 bg-light rounded" style="height: 150px; overflow: hidden;">
+                                            <img src="../../images/backgrounds/medical-bg.jpg" alt="Cover Image" id="cover-image-preview" class="img-fluid w-100 h-100 object-fit-cover" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML+='<div class=\'d-flex align-items-center justify-content-center h-100\'><i class=\'bi bi-image text-secondary\' style=\'font-size: 3rem;\'></i></div>';">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="cover-image" class="form-label visually-hidden">Upload Cover</label>
+                                            <input class="form-control form-control-sm" id="cover-image" type="file" accept="image/*">
+                                        </div>
+                                        <small class="text-muted">Recommended size: 1200x300px, max 5MB</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Social Media Links -->
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Social Media</h5>
+                                    <div class="mb-3">
+                                        <label for="website" class="form-label">Website</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="bi bi-globe"></i></span>
+                                            <input type="url" class="form-control" id="website" placeholder="https://www.example.com">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="linkedin" class="form-label">LinkedIn</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="bi bi-linkedin"></i></span>
+                                            <input type="url" class="form-control" id="linkedin" placeholder="https://www.linkedin.com/company/example">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="twitter" class="form-label">Twitter</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="bi bi-twitter-x"></i></span>
+                                            <input type="url" class="form-control" id="twitter" placeholder="https://twitter.com/example">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="facebook" class="form-label">Facebook</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="bi bi-facebook"></i></span>
+                                            <input type="url" class="form-control" id="facebook" placeholder="https://www.facebook.com/example">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-8">
+                            <!-- Company Information -->
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h5 class="card-title">Company Information</h5>
+                                    <form id="company-info-form">
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="company-name" class="form-label">Company Name</label>
+                                                <input type="text" class="form-control" id="company-name" placeholder="Enter company name">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="industry" class="form-label">Industry</label>
+                                                <select class="form-select" id="industry">
+                                                    <option value="">Select Industry</option>
+                                                    <option value="medical_devices">Medical Devices</option>
+                                                    <option value="pharmaceuticals">Pharmaceuticals</option>
+                                                    <option value="biotechnology">Biotechnology</option>
+                                                    <option value="healthcare_it">Healthcare IT</option>
+                                                    <option value="diagnostics">Diagnostics</option>
+                                                    <option value="hospital_supplies">Hospital Supplies</option>
+                                                    <option value="other">Other</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="company-size" class="form-label">Company Size</label>
+                                                <select class="form-select" id="company-size">
+                                                    <option value="">Select Size</option>
+                                                    <option value="1-10">1-10 employees</option>
+                                                    <option value="11-50">11-50 employees</option>
+                                                    <option value="51-200">51-200 employees</option>
+                                                    <option value="201-500">201-500 employees</option>
+                                                    <option value="501-1000">501-1000 employees</option>
+                                                    <option value="1001+">1001+ employees</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="founded-year" class="form-label">Founded Year</label>
+                                                <input type="number" class="form-control" id="founded-year" placeholder="e.g., 2005" min="1900" max="2099">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <label for="company-description" class="form-label">Company Description</label>
+                                            <textarea class="form-control" id="company-description" rows="5" placeholder="Tell potential candidates about your company..."></textarea>
+                                            <div class="form-text">This description will be visible to candidates when they view your job postings.</div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            
+                            <!-- Contact Information -->
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h5 class="card-title">Contact Information</h5>
+                                    <form id="contact-info-form">
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="contact-email" class="form-label">Email Address</label>
+                                                <input type="email" class="form-control" id="contact-email" placeholder="careers@example.com">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="contact-phone" class="form-label">Phone Number</label>
+                                                <input type="tel" class="form-control" id="contact-phone" placeholder="(555) 123-4567">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <label for="headquarters" class="form-label">Headquarters</label>
+                                            <input type="text" class="form-control" id="headquarters" placeholder="City, State, Country">
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <label for="address" class="form-label">Full Address</label>
+                                            <textarea class="form-control" id="address" rows="3" placeholder="Enter your company's full address"></textarea>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            
+                            <!-- Benefits & Culture -->
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h5 class="card-title">Benefits & Company Culture</h5>
+                                    <form id="benefits-culture-form">
+                                        <div class="mb-3">
+                                            <label for="benefits" class="form-label">Benefits Offered</label>
+                                            <textarea class="form-control" id="benefits" rows="3" placeholder="List the benefits your company offers to employees..."></textarea>
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <label for="culture" class="form-label">Company Culture</label>
+                                            <textarea class="form-control" id="culture" rows="3" placeholder="Describe your company culture and values..."></textarea>
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <label class="form-label">Work Environment</label>
+                                            <div class="d-flex flex-wrap gap-3">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="remote-work">
+                                                    <label class="form-check-label" for="remote-work">Remote Work</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="flexible-hours">
+                                                    <label class="form-check-label" for="flexible-hours">Flexible Hours</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="casual-dress">
+                                                    <label class="form-check-label" for="casual-dress">Casual Dress</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="pet-friendly">
+                                                    <label class="form-check-label" for="pet-friendly">Pet Friendly</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            
+                            <!-- Save Button -->
+                            <div class="text-end mb-4">
+                                <button type="button" class="btn btn-outline-secondary me-2">Cancel</button>
+                                <button type="button" class="btn btn-primary" id="save-profile">Save Changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Firebase SDK (using compatibility version for module support) -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-storage-compat.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="../../js/auth.js" type="module"></script>
+    <script src="../../js/dashboard.js" type="module"></script>
+    <script src="../../js/data-persistence.js" type="module"></script>
+    
+    <script type="module">
+        // Import Firebase configuration and auth
+        import { db, auth, storage } from '../../js/firebase-config.js';
+        import { saveFormData, loadFormData } from '../../js/data-persistence.js';
+        
+        // Mobile sidebar toggle
+        document.querySelector('.btn-toggle-sidebar')?.addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.add('show');
+        });
+        
+        document.querySelector('.btn-close-sidebar')?.addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.remove('show');
+        });
+        
+        // Company profile functionality
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                // Get current user
+                const user = firebase.auth().currentUser;
+                if (!user) {
+                    console.warn('User not authenticated');
+                    return;
+                }
+                
+                // Load company data from Firestore
+                const companyRef = firebase.firestore().collection('companies').doc(user.uid);
+                const companyDoc = await companyRef.get();
+                
+                if (companyDoc.exists) {
+                    const companyData = companyDoc.data();
+                    
+                    // Populate form fields with company data
+                    document.getElementById('company-name').value = companyData.name || '';
+                    document.getElementById('company-name-header').textContent = companyData.name || 'Company Name';
+                    document.getElementById('industry').value = companyData.industry || '';
+                    document.getElementById('company-size').value = companyData.size || '';
+                    document.getElementById('founded-year').value = companyData.foundedYear || '';
+                    document.getElementById('company-description').value = companyData.description || '';
+                    document.getElementById('contact-email').value = companyData.contactEmail || '';
+                    document.getElementById('contact-phone').value = companyData.contactPhone || '';
+                    document.getElementById('headquarters').value = companyData.headquarters || '';
+                    document.getElementById('address').value = companyData.address || '';
+                    document.getElementById('benefits').value = companyData.benefits || '';
+                    document.getElementById('culture').value = companyData.culture || '';
+                    document.getElementById('website').value = companyData.website || '';
+                    document.getElementById('linkedin').value = companyData.linkedin || '';
+                    document.getElementById('twitter').value = companyData.twitter || '';
+                    document.getElementById('facebook').value = companyData.facebook || '';
+                    
+                    // Set checkboxes
+                    if (companyData.workEnvironment) {
+                        document.getElementById('remote-work').checked = companyData.workEnvironment.includes('remote');
+                        document.getElementById('flexible-hours').checked = companyData.workEnvironment.includes('flexible');
+                        document.getElementById('casual-dress').checked = companyData.workEnvironment.includes('casual');
+                        document.getElementById('pet-friendly').checked = companyData.workEnvironment.includes('pet-friendly');
+                    }
+                    
+                    // Load company logo if exists
+                    if (companyData.logoUrl) {
+                        document.getElementById('company-logo-preview').src = companyData.logoUrl;
+                    }
+                    
+                    // Load cover image if exists
+                    if (companyData.coverUrl) {
+                        document.getElementById('cover-image-preview').src = companyData.coverUrl;
+                    }
+                }
+                
+                // Handle logo upload preview
+                document.getElementById('company-logo')?.addEventListener('change', function(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            document.getElementById('company-logo-preview').src = e.target.result;
+                        }
+                        reader.readAsDataURL(file);
+                    }
+                });
+                
+                // Handle cover image upload preview
+                document.getElementById('cover-image')?.addEventListener('change', function(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            document.getElementById('cover-image-preview').src = e.target.result;
+                        }
+                        reader.readAsDataURL(file);
+                    }
+                });
+                
+                // Handle save button
+                document.getElementById('save-profile')?.addEventListener('click', async function() {
+                    try {
+                        const saveBtn = this;
+                        saveBtn.disabled = true;
+                        saveBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...';
+                        
+                        // Get form values
+                        const companyName = document.getElementById('company-name').value;
+                        const industry = document.getElementById('industry').value;
+                        const companySize = document.getElementById('company-size').value;
+                        const foundedYear = document.getElementById('founded-year').value;
+                        const description = document.getElementById('company-description').value;
+                        const contactEmail = document.getElementById('contact-email').value;
+                        const contactPhone = document.getElementById('contact-phone').value;
+                        const headquarters = document.getElementById('headquarters').value;
+                        const address = document.getElementById('address').value;
+                        const benefits = document.getElementById('benefits').value;
+                        const culture = document.getElementById('culture').value;
+                        const website = document.getElementById('website').value;
+                        const linkedin = document.getElementById('linkedin').value;
+                        const twitter = document.getElementById('twitter').value;
+                        const facebook = document.getElementById('facebook').value;
+                        
+                        // Get work environment checkboxes
+                        const workEnvironment = [];
+                        if (document.getElementById('remote-work').checked) workEnvironment.push('remote');
+                        if (document.getElementById('flexible-hours').checked) workEnvironment.push('flexible');
+                        if (document.getElementById('casual-dress').checked) workEnvironment.push('casual');
+                        if (document.getElementById('pet-friendly').checked) workEnvironment.push('pet-friendly');
+                        
+                        // Upload logo if changed
+                        let logoUrl = null;
+                        const logoFile = document.getElementById('company-logo').files[0];
+                        if (logoFile) {
+                            const logoRef = firebase.storage().ref(`companies/${user.uid}/logo`);
+                            await logoRef.put(logoFile);
+                            logoUrl = await logoRef.getDownloadURL();
+                        }
+                        
+                        // Upload cover image if changed
+                        let coverUrl = null;
+                        const coverFile = document.getElementById('cover-image').files[0];
+                        if (coverFile) {
+                            const coverRef = firebase.storage().ref(`companies/${user.uid}/cover`);
+                            await coverRef.put(coverFile);
+                            coverUrl = await coverRef.getDownloadURL();
+                        }
+                        
+                        // Prepare company data
+                        const companyData = {
+                            name: companyName,
+                            industry: industry,
+                            size: companySize,
+                            foundedYear: foundedYear,
+                            description: description,
+                            contactEmail: contactEmail,
+                            contactPhone: contactPhone,
+                            headquarters: headquarters,
+                            address: address,
+                            benefits: benefits,
+                            culture: culture,
+                            website: website,
+                            linkedin: linkedin,
+                            twitter: twitter,
+                            facebook: facebook,
+                            workEnvironment: workEnvironment,
+                            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                        };
+                        
+                        // Add logo and cover URLs if they were updated
+                        if (logoUrl) companyData.logoUrl = logoUrl;
+                        if (coverUrl) companyData.coverUrl = coverUrl;
+                        
+                        // Save to Firestore
+                        await firebase.firestore().collection('companies').doc(user.uid).set(companyData, { merge: true });
+                        
+                        // Update header
+                        document.getElementById('company-name-header').textContent = companyName;
+                        
+                        // Show success message
+                        alert('Company profile updated successfully!');
+                        
+                    } catch (error) {
+                        console.error('Error saving company profile:', error);
+                        alert('Error saving profile: ' + error.message);
+                    } finally {
+                        // Re-enable save button
+                        saveBtn.disabled = false;
+                        saveBtn.innerHTML = 'Save Changes';
+                    }
+                });
+                
+            } catch (error) {
+                console.error('Error loading company profile:', error);
+            }
+        });
+    </script>
+</body>
+</html>
