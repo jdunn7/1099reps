@@ -684,13 +684,24 @@ function getStatusBadgeColor(status) {
 
 /**
  * Sign out current user
- * @param {boolean} redirectToLogoutPage - Whether to redirect to the logout page
+ * @param {boolean} redirectToHomePage - Whether to redirect to the home page
  * @returns {Promise<boolean>} - True if sign out successful
  */
-export async function signOut(redirectToLogoutPage = true) {
+export async function signOut(redirectToHomePage = true) {
   try {
     console.log('Signing out user');
     
+    // Try to use the new auth-state.js handleLogout function
+    try {
+      const authStateModule = await import('./auth-state.js');
+      if (authStateModule && authStateModule.handleLogout) {
+        return await authStateModule.handleLogout();
+      }
+    } catch (importError) {
+      console.warn('Could not import auth-state.js, falling back to legacy signOut', importError);
+    }
+    
+    // Legacy signOut implementation
     // Clear all user data from localStorage
     localStorage.removeItem('user_authenticated');
     localStorage.removeItem('user_email');
@@ -702,18 +713,10 @@ export async function signOut(redirectToLogoutPage = true) {
     await auth.signOut();
     console.log('Firebase signOut completed');
     
-    // Check if we're already on the logout page to prevent redirect loops
-    const isOnLogoutPage = window.location.pathname.includes('/auth/logout.html');
-    
-    if (redirectToLogoutPage && !isOnLogoutPage) {
-      // Redirect to the logout page with a timestamp to prevent caching issues
-      const timestamp = new Date().getTime();
-      window.location.href = `/auth/logout.html?t=${timestamp}`;
-    } else if (!redirectToLogoutPage && !isOnLogoutPage) {
-      // If not redirecting to logout page and not already on it, go to homepage
+    if (redirectToHomePage) {
+      // Redirect to the home page
       window.location.href = '/index.html';
     }
-    // If already on logout page, do nothing (the page will handle the redirect)
     
     return true;
   } catch (error) {
@@ -726,8 +729,8 @@ export async function signOut(redirectToLogoutPage = true) {
     localStorage.removeItem('user_type');
     localStorage.removeItem('user_data');
     
-    // If there's an error and we're not on the logout page, try to redirect to homepage
-    if (!window.location.pathname.includes('/auth/logout.html')) {
+    // If there's an error, try to redirect to homepage
+    if (redirectToHomePage) {
       window.location.href = '/index.html';
     }
     
@@ -849,12 +852,56 @@ auth.onAuthStateChanged(user => {
 });
 
 /**
- * Update UI for authenticated user
+ * Update UI for authenticated user - Legacy function
  * @param {Object} user - Firebase user object
+ * @deprecated This function is kept for backward compatibility. Use auth-state.js instead.
  */
 async function updateUIForAuthenticatedUser(user) {
-  console.log('Updating UI for authenticated user:', user.uid);
+  console.log('Legacy updateUIForAuthenticatedUser called');
   
+  // Try to use the new auth-state.js updateUIForAuthenticatedUser function
+  try {
+    const authStateModule = await import('./auth-state.js');
+    if (authStateModule && authStateModule.updateUIForAuthenticatedUser) {
+      // Get user data from Firestore to determine user type
+      const userDoc = await db.collection('users').doc(user.uid).get();
+      let userType = USER_TYPES.REP; // Default to rep if not specified
+      let userData = {};
+      
+      if (userDoc.exists) {
+        userData = userDoc.data();
+        userType = userData.userType || USER_TYPES.REP;
+      } else {
+        // Create minimal user document if it doesn't exist
+        userData = {
+          userId: user.uid,
+          email: user.email,
+          userType: userType,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+        };
+        
+        await db.collection('users').doc(user.uid).set(userData);
+      }
+      
+      // Prepare user data for the new auth-state.js module
+      const userDataForState = {
+        uid: user.uid,
+        email: user.email,
+        userType: userType,
+        displayName: userData.displayName || user.displayName || '',
+        photoURL: userData.photoURL || user.photoURL || '',
+        lastLogin: new Date().toISOString()
+      };
+      
+      // Call the new module's function
+      return authStateModule.updateUIForAuthenticatedUser(userDataForState);
+    }
+  } catch (importError) {
+    console.warn('Could not import auth-state.js, falling back to legacy behavior', importError);
+  }
+  
+  // Legacy implementation
   // Get all nav elements that should be shown/hidden based on auth state
   const authNavItems = document.querySelectorAll('.auth-nav-item');
   const unauthNavItems = document.querySelectorAll('.unauth-nav-item');
@@ -882,6 +929,9 @@ async function updateUIForAuthenticatedUser(user) {
         lastLogin: new Date().toISOString()
       }));
       
+      // Set user as authenticated
+      localStorage.setItem('user_authenticated', 'true');
+      
       console.log('User type stored:', userType);
     } else {
       console.warn('User document not found in Firestore');
@@ -893,6 +943,18 @@ async function updateUIForAuthenticatedUser(user) {
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
         lastLogin: firebase.firestore.FieldValue.serverTimestamp()
       });
+      
+      // Store minimal user data
+      localStorage.setItem('user_type', userType);
+      localStorage.setItem('user_data', JSON.stringify({
+        uid: user.uid,
+        email: user.email,
+        userType: userType,
+        lastLogin: new Date().toISOString()
+      }));
+      
+      // Set user as authenticated
+      localStorage.setItem('user_authenticated', 'true');
     }
     
     // If on a dashboard page, redirect to the appropriate dashboard if needed
@@ -916,30 +978,45 @@ async function updateUIForAuthenticatedUser(user) {
 }
 
 /**
- * Update UI for unauthenticated user
+ * Update UI for unauthenticated user - Legacy function
+ * @deprecated This function is kept for backward compatibility. Use auth-state.js instead.
  */
 function updateUIForUnauthenticatedUser() {
-  console.log('Updating UI for unauthenticated user');
+  console.log('Legacy updateUIForUnauthenticatedUser called');
   
-  // Clear user data from localStorage
+  // Clear user data from localStorage - basic cleanup only
+  // Full cleanup is handled by auth-state.js
   localStorage.removeItem('user_type');
-  localStorage.removeItem('user_data');
   
-  // Get all nav elements that should be shown/hidden based on auth state
-  const authNavItems = document.querySelectorAll('.auth-nav-item');
-  const unauthNavItems = document.querySelectorAll('.unauth-nav-item');
-  
-  // Hide auth nav items, show unauth nav items
-  authNavItems.forEach(item => item.style.display = 'none');
-  unauthNavItems.forEach(item => item.style.display = 'block');
-  
-  // If on a protected page, redirect to login
-  const isProtectedPage = document.querySelector('.protected-page') || 
-                         window.location.pathname.includes('/dashboard/') || 
-                         window.location.pathname.includes('/employer/dashboard/');
-  
-  if (isProtectedPage) {
-    window.location.href = '/login.html?redirect=' + encodeURIComponent(window.location.pathname);
+  // Try to import and use the new auth-state.js functions
+  try {
+    import('./auth-state.js')
+      .then(authState => {
+        authState.updateUIForUnauthenticatedUser();
+      })
+      .catch(importError => {
+        console.warn('Could not import auth-state.js, falling back to legacy behavior', importError);
+        
+        // Legacy UI update (minimal version)
+        const authNavItems = document.querySelectorAll('.auth-nav-item');
+        const unauthNavItems = document.querySelectorAll('.unauth-nav-item');
+        
+        // Hide auth nav items, show unauth nav items
+        authNavItems.forEach(item => item.style.display = 'none');
+        unauthNavItems.forEach(item => item.style.display = 'block');
+        
+        // Protected page redirect is now handled by auth-state.js
+        // This is a minimal fallback
+        const isProtectedPage = document.querySelector('.protected-page') || 
+                              window.location.pathname.includes('/dashboard/') || 
+                              window.location.pathname.includes('/employer/dashboard/');
+        
+        if (isProtectedPage) {
+          window.location.href = '/login.html?redirect=' + encodeURIComponent(window.location.pathname);
+        }
+      });
+  } catch (error) {
+    console.error('Error in legacy updateUIForUnauthenticatedUser:', error);
   }
 }
 

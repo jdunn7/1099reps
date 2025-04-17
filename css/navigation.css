@@ -1,0 +1,94 @@
+/**
+ * 1099REPS Navigation Styles
+ * Styles for the site-wide navigation components
+ */
+
+/* User Avatar Styles */
+.user-avatar {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 0.5rem;
+  background-color: #f0f0f0;
+  vertical-align: middle;
+}
+
+.user-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Avatar with initials fallback */
+.avatar-initials {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #4a6cf7;
+  color: white;
+  font-weight: 600;
+}
+
+.avatar-initials::after {
+  content: attr(data-initials);
+  font-size: 14px;
+}
+
+/* Auth-specific navigation items */
+.auth-nav-item {
+  display: none;
+}
+
+/* User dropdown menu */
+.user-menu {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+}
+
+.user-display-name {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Dropdown menu styles */
+.dropdown-menu {
+  padding: 0.5rem 0;
+  border: none;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+}
+
+.dropdown-item {
+  padding: 0.5rem 1.5rem;
+  font-size: 0.9rem;
+}
+
+.dropdown-item i {
+  width: 1.25rem;
+  text-align: center;
+}
+
+.dropdown-divider {
+  margin: 0.25rem 0;
+}
+
+/* Button items in navigation */
+.button-item {
+  margin-left: 0.5rem;
+}
+
+@media (max-width: 992px) {
+  .button-item {
+    margin: 0.5rem 0;
+  }
+  
+  .user-menu {
+    padding: 0.5rem 0;
+  }
+}
