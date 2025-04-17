@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Manage Your Interviews | 1099 REPS</title>
+    <meta name="description" content="Schedule, manage, and prepare for your medical sales job interviews with 1099 REPS.">
+    <meta name="keywords" content="1099 medical sales interviews, medical representative interviews, sales rep interviews">
+    <meta name="author" content="1099 REPS">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Manage Your Interviews | 1099 REPS">
+    <meta property="og:description" content="Schedule, manage, and prepare for your medical sales job interviews.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://1099reps.com/interviews/index.html">
+    
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Manage Your Interviews | 1099 REPS">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../images/favicon/favicon.png">
+    <link rel="shortcut icon" href="../images/favicon/favicon.ico">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/modern.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <img src="../images/logo.svg" alt="1099 REPS Logo">
+                    <span>1099 REPS</span>
+                </div>
+            </div>
+            <div class="sidebar-menu">
+                <a href="../dashboard/index.html" class="menu-item">
+                    <i class="bi bi-grid-1x2-fill"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="../dashboard/profile.html" class="menu-item">
+                    <i class="bi bi-person-fill"></i>
+                    <span>My Profile</span>
+                </a>
+                <a href="../job-search/index.html" class="menu-item">
+                    <i class="bi bi-briefcase-fill"></i>
+                    <span>Find Jobs</span>
+                </a>
+                <a href="../applications/index.html" class="menu-item">
+                    <i class="bi bi-file-earmark-text-fill"></i>
+                    <span>Applications</span>
+                </a>
+                
+                <div class="menu-category">Communication</div>
+                
+                <a href="../messages/index.html" class="menu-item">
+                    <i class="bi bi-chat-left-text-fill"></i>
+                    <span>Messages</span>
+                </a>
+                <a href="../interviews/index.html" class="menu-item active">
+                    <i class="bi bi-calendar-check-fill"></i>
+                    <span>Interviews</span>
+                </a>
+                
+                <div class="menu-category">Resources</div>
+                
+                <a href="../resources/index.html" class="menu-item">
+                    <i class="bi bi-journal-text"></i>
+                    <span>Resources</span>
+                </a>
+                <a href="../settings/index.html" class="menu-item">
+                    <i class="bi bi-gear-fill"></i>
+                    <span>Settings</span>
+                </a>
+                <a href="../help/index.html" class="menu-item">
+                    <i class="bi bi-question-circle-fill"></i>
+                    <span>Help Center</span>
+                </a>
+                <a href="../auth/logout.html" class="menu-item">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Header with Search and Date -->
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="search-bar">
+                        <i class="bi bi-search"></i>
+                        <input type="text" placeholder="Search interviews...">
+                    </div>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="date-time">
+                        <div class="time" id="current-time">12:00 PM</div>
+                        <div class="date" id="current-date">WED | 17 APR</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Interviews Header -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h1 class="page-title">My Interviews</h1>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#scheduleInterviewModal">
+                            <i class="bi bi-plus-lg me-2"></i>Schedule Interview
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Interview Filters -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-3">
+                                    <select class="form-select" id="status-filter">
+                                        <option value="all">All Statuses</option>
+                                        <option value="upcoming">Upcoming</option>
+                                        <option value="completed">Completed</option>
+                                        <option value="canceled">Canceled</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <select class="form-select" id="time-filter">
+                                        <option value="all">All Time</option>
+                                        <option value="today">Today</option>
+                                        <option value="week">This Week</option>
+                                        <option value="month">This Month</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
+                                        <input type="date" class="form-control" id="date-filter">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <button class="btn btn-outline-primary w-100" id="apply-filters">Apply Filters</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Upcoming Interviews -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h2 class="section-title">Upcoming Interviews</h2>
+                    
+                    <div class="card mb-4 interview-card">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-md-2 text-center">
+                                    <div class="interview-date">
+                                        <div class="month">APR</div>
+                                        <div class="day">20</div>
+                                        <div class="time">10:00 AM</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5 class="mb-1">Medical Device Sales Rep</h5>
+                                    <p class="mb-0 text-muted">MedTech Innovations</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="interview-type">
+                                        <span class="badge bg-primary"><i class="bi bi-camera-video me-1"></i>Video Interview</span>
+                                        <p class="mb-0 mt-2"><i class="bi bi-people me-1"></i>Panel Interview</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 text-md-end">
+                                    <button class="btn btn-sm btn-outline-primary mb-2 w-100"><i class="bi bi-pencil me-1"></i>Prepare</button>
+                                    <button class="btn btn-sm btn-success w-100"><i class="bi bi-link-45deg me-1"></i>Join Meeting</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card mb-4 interview-card">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-md-2 text-center">
+                                    <div class="interview-date">
+                                        <div class="month">APR</div>
+                                        <div class="day">25</div>
+                                        <div class="time">2:30 PM</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5 class="mb-1">Pharmaceutical Sales Representative</h5>
+                                    <p class="mb-0 text-muted">HealthCare Solutions</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="interview-type">
+                                        <span class="badge bg-success"><i class="bi bi-geo-alt me-1"></i>In-Person</span>
+                                        <p class="mb-0 mt-2"><i class="bi bi-person me-1"></i>1-on-1 Interview</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 text-md-end">
+                                    <button class="btn btn-sm btn-outline-primary mb-2 w-100"><i class="bi bi-pencil me-1"></i>Prepare</button>
+                                    <button class="btn btn-sm btn-outline-secondary w-100"><i class="bi bi-map me-1"></i>View Location</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-3">
+                        <button class="btn btn-link text-primary">View More Upcoming Interviews</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Past Interviews -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h2 class="section-title">Past Interviews</h2>
+                    
+                    <div class="card mb-4 interview-card past-interview">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-md-2 text-center">
+                                    <div class="interview-date">
+                                        <div class="month">APR</div>
+                                        <div class="day">10</div>
+                                        <div class="time">11:00 AM</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5 class="mb-1">Biotech Sales Specialist</h5>
+                                    <p class="mb-0 text-muted">BioAdvance Inc.</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="interview-type">
+                                        <span class="badge bg-primary"><i class="bi bi-camera-video me-1"></i>Video Interview</span>
+                                        <p class="mb-0 mt-2"><i class="bi bi-person me-1"></i>1-on-1 Interview</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 text-md-end">
+                                    <button class="btn btn-sm btn-outline-primary mb-2 w-100"><i class="bi bi-journal-text me-1"></i>View Notes</button>
+                                    <button class="btn btn-sm btn-outline-secondary w-100"><i class="bi bi-envelope me-1"></i>Send Follow-up</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card mb-4 interview-card past-interview">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-md-2 text-center">
+                                    <div class="interview-date">
+                                        <div class="month">MAR</div>
+                                        <div class="day">28</div>
+                                        <div class="time">3:00 PM</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5 class="mb-1">Medical Equipment Sales Rep</h5>
+                                    <p class="mb-0 text-muted">MedEquip Solutions</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="interview-type">
+                                        <span class="badge bg-success"><i class="bi bi-geo-alt me-1"></i>In-Person</span>
+                                        <p class="mb-0 mt-2"><i class="bi bi-people me-1"></i>Panel Interview</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 text-md-end">
+                                    <button class="btn btn-sm btn-outline-primary mb-2 w-100"><i class="bi bi-journal-text me-1"></i>View Notes</button>
+                                    <button class="btn btn-sm btn-outline-secondary w-100"><i class="bi bi-envelope me-1"></i>Send Follow-up</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-3">
+                        <button class="btn btn-link text-primary">View More Past Interviews</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Interview Preparation Resources -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h2 class="section-title">Interview Preparation Resources</h2>
+                    
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <div class="resource-icon mb-3">
+                                        <i class="bi bi-journal-text"></i>
+                                    </div>
+                                    <h5 class="card-title">Common Interview Questions</h5>
+                                    <p class="card-text">Prepare for your medical sales interview with our comprehensive list of common questions and sample answers.</p>
+                                    <a href="#" class="btn btn-outline-primary">View Resource</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <div class="resource-icon mb-3">
+                                        <i class="bi bi-camera-video"></i>
+                                    </div>
+                                    <h5 class="card-title">Mock Interview Videos</h5>
+                                    <p class="card-text">Watch expert-led mock interviews for medical sales positions to learn effective techniques and strategies.</p>
+                                    <a href="#" class="btn btn-outline-primary">Watch Videos</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <div class="resource-icon mb-3">
+                                        <i class="bi bi-check2-square"></i>
+                                    </div>
+                                    <h5 class="card-title">Interview Checklist</h5>
+                                    <p class="card-text">Ensure you're fully prepared with our comprehensive pre-interview checklist for medical sales professionals.</p>
+                                    <a href="#" class="btn btn-outline-primary">Download Checklist</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Schedule Interview Modal -->
+    <div class="modal fade" id="scheduleInterviewModal" tabindex="-1" aria-labelledby="scheduleInterviewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="scheduleInterviewModalLabel">Schedule New Interview</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="schedule-interview-form">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="company-name" class="form-label">Company Name</label>
+                                <input type="text" class="form-control" id="company-name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="position-title" class="form-label">Position Title</label>
+                                <input type="text" class="form-control" id="position-title" required>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="interview-date" class="form-label">Date</label>
+                                <input type="date" class="form-control" id="interview-date" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="interview-time" class="form-label">Time</label>
+                                <input type="time" class="form-control" id="interview-time" required>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="interview-type" class="form-label">Interview Type</label>
+                                <select class="form-select" id="interview-type" required>
+                                    <option value="">Select Type</option>
+                                    <option value="video">Video Interview</option>
+                                    <option value="phone">Phone Interview</option>
+                                    <option value="in-person">In-Person Interview</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="interview-format" class="form-label">Interview Format</label>
+                                <select class="form-select" id="interview-format" required>
+                                    <option value="">Select Format</option>
+                                    <option value="one-on-one">1-on-1 Interview</option>
+                                    <option value="panel">Panel Interview</option>
+                                    <option value="group">Group Interview</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3" id="location-details" style="display: none;">
+                            <label for="interview-location" class="form-label">Location</label>
+                            <input type="text" class="form-control" id="interview-location" placeholder="Enter address">
+                        </div>
+                        
+                        <div class="mb-3" id="video-details" style="display: none;">
+                            <label for="meeting-link" class="form-label">Meeting Link</label>
+                            <input type="url" class="form-control" id="meeting-link" placeholder="Enter Zoom, Teams, or other meeting URL">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="interview-notes" class="form-label">Notes</label>
+                            <textarea class="form-control" id="interview-notes" rows="3" placeholder="Add any preparation notes or details about the interview"></textarea>
+                        </div>
+                        
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="set-reminder" checked>
+                            <label class="form-check-label" for="set-reminder">Set reminder notification</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="save-interview">Schedule Interview</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        // Update date and time
+        function updateDateTime() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const formattedHours = hours % 12 || 12;
+            const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+            
+            const timeDisplay = document.getElementById('current-time');
+            if (timeDisplay) {
+                timeDisplay.textContent = `${formattedHours}:${formattedMinutes} ${ampm}`;
+            }
+            
+            const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+            const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+            const day = days[now.getDay()];
+            const date = now.getDate();
+            const month = months[now.getMonth()];
+            
+            const dateDisplay = document.getElementById('current-date');
+            if (dateDisplay) {
+                dateDisplay.textContent = `${day} | ${date} ${month}`;
+            }
+        }
+        
+        // Show/hide location or video details based on interview type
+        document.getElementById('interview-type').addEventListener('change', function() {
+            const locDetails = document.getElementById('location-details');
+            const vidDetails = document.getElementById('video-details');
+            
+            if (this.value === 'in-person') {
+                locDetails.style.display = 'block';
+                vidDetails.style.display = 'none';
+            } else if (this.value === 'video') {
+                locDetails.style.display = 'none';
+                vidDetails.style.display = 'block';
+            } else {
+                locDetails.style.display = 'none';
+                vidDetails.style.display = 'none';
+            }
+        });
+        
+        // Handle filter application
+        document.getElementById('apply-filters').addEventListener('click', function() {
+            // In a real implementation, this would filter the interviews
+            alert('Filter functionality would be implemented in a production environment.');
+        });
+        
+        // Handle interview scheduling
+        document.getElementById('save-interview').addEventListener('click', function() {
+            const form = document.getElementById('schedule-interview-form');
+            if (form.checkValidity()) {
+                // In a real implementation, this would save the interview
+                alert('Interview scheduled successfully!');
+                // Close modal
+                const modal = bootstrap.Modal.getInstance(document.getElementById('scheduleInterviewModal'));
+                modal.hide();
+            } else {
+                form.reportValidity();
+            }
+        });
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update date and time initially and then every minute
+            updateDateTime();
+            setInterval(updateDateTime, 60000);
+            
+            // Firebase authentication state listener would go here
+            // This would check if the user is logged in and redirect if not
+            
+            // In a real implementation, this would load the user's interviews from a database
+        });
+    </script>
+</body>
+</html>
