@@ -76,13 +76,17 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            max-width: 200px;
+            max-width: 100%;
             color: #6c757d;
+            font-size: 0.9rem;
+            line-height: 1.2;
         }
         
         .message-item .time {
             font-size: 0.75rem;
             color: #adb5bd;
+            white-space: nowrap;
+            margin-left: 5px;
         }
         
         .message-item .unread-badge {
@@ -91,6 +95,8 @@
             border-radius: 50%;
             background-color: #4640DE;
             display: inline-block;
+            margin-right: 8px;
+            flex-shrink: 0;
         }
         
         .chat-container {
@@ -173,6 +179,16 @@
                 height: auto;
                 max-height: calc(100vh - 400px);
             }
+        }
+        
+        /* Popup success styles */
+        .popup-success-hidden {
+            display: none;
+        }
+        
+        .popup-success-heading {
+            color: #28a745;
+            margin-bottom: 15px;
         }
     </style>
 </head>
@@ -259,8 +275,8 @@
                 <div class="col-12">
                     <div class="d-flex justify-content-between align-items-center">
                         <h1 class="page-title">Messages</h1>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newMessageModal">
-                            <i class="bi bi-plus-lg me-2"></i>New Message
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newMessageModal" aria-label="Create new message">
+                            <i class="bi bi-plus-lg me-2" aria-hidden="true"></i>New Message
                         </button>
                     </div>
                 </div>
@@ -285,8 +301,8 @@
                                                 <div class="time">10:30 AM</div>
                                             </div>
                                             <div class="d-flex align-items-center">
-                                                <div class="unread-badge me-2"></div>
-                                                <div class="message-preview">Thanks for your application! We'd like to schedule an interview...</div>
+                                                <div class="unread-badge"></div>
+                                                <div class="message-preview">Thanks for your applicat...</div>
                                             </div>
                                         </div>
                                     </div>
@@ -303,7 +319,7 @@
                                                 <h6 class="mb-0 text-truncate">HealthCare Solutions</h6>
                                                 <div class="time">Yesterday</div>
                                             </div>
-                                            <div class="message-preview">We've reviewed your resume and would like to know more about your experience with...</div>
+                                            <div class="message-preview">We've reviewed your re...</div>
                                         </div>
                                     </div>
                                 </div>
@@ -320,8 +336,8 @@
                                                 <div class="time">Apr 15</div>
                                             </div>
                                             <div class="d-flex align-items-center">
-                                                <div class="unread-badge me-2"></div>
-                                                <div class="message-preview">Following up on our conversation about the territory coverage...</div>
+                                                <div class="unread-badge"></div>
+                                                <div class="message-preview">Following up on our con...</div>
                                             </div>
                                         </div>
                                     </div>
@@ -338,7 +354,7 @@
                                                 <h6 class="mb-0 text-truncate">MedEquip Solutions</h6>
                                                 <div class="time">Apr 12</div>
                                             </div>
-                                            <div class="message-preview">Thank you for your interest in our company. We have several openings that...</div>
+                                            <div class="message-preview">Thank you for your inter...</div>
                                         </div>
                                     </div>
                                 </div>
@@ -354,7 +370,7 @@
                                                 <h6 class="mb-0 text-truncate">PharmaTech Inc.</h6>
                                                 <div class="time">Apr 10</div>
                                             </div>
-                                            <div class="message-preview">We're pleased to inform you that your application has been received...</div>
+                                            <div class="message-preview">We're pleased to inform ...</div>
                                         </div>
                                     </div>
                                 </div>
@@ -379,8 +395,8 @@
                                     </div>
                                     <div class="ms-auto">
                                         <div class="dropdown">
-                                            <button class="btn btn-sm btn-outline-secondary" type="button" id="chatOptionsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="bi bi-three-dots-vertical"></i>
+                                            <button class="btn btn-sm btn-outline-secondary" type="button" id="chatOptionsDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="Chat options" aria-label="Chat options">
+                                                <i class="bi bi-three-dots-vertical" aria-hidden="true"></i>
                                             </button>
                                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="chatOptionsDropdown">
                                                 <li><a class="dropdown-item" href="#"><i class="bi bi-telephone me-2"></i>Call</a></li>
@@ -456,12 +472,12 @@
                             <div class="chat-input">
                                 <form id="message-form">
                                     <div class="input-group">
-                                        <button class="btn btn-outline-secondary" type="button">
-                                            <i class="bi bi-paperclip"></i>
+                                        <button class="btn btn-outline-secondary" type="button" title="Attach file" aria-label="Attach file">
+                                            <i class="bi bi-paperclip" aria-hidden="true"></i>
                                         </button>
                                         <input type="text" class="form-control" placeholder="Type your message..." id="message-input">
-                                        <button class="btn btn-primary" type="submit">
-                                            <i class="bi bi-send-fill"></i>
+                                        <button class="btn btn-primary" type="submit" title="Send message" aria-label="Send message">
+                                            <i class="bi bi-send-fill" aria-hidden="true"></i>
                                         </button>
                                     </div>
                                 </form>
@@ -544,8 +560,8 @@
                     <p class="popup-footer">By subscribing, you agree to our <a href="../privacy-policy.html">Privacy Policy</a> and consent to receive marketing emails.</p>
                 </div>
                 
-                <div id="popup-success" style="display: none;">
-                    <h4 style="color: #28a745; margin-bottom: 15px;">Thank you for subscribing!</h4>
+                <div id="popup-success" class="popup-success-hidden">
+                    <h4 class="popup-success-heading">Thank you for subscribing!</h4>
                     <p>We've sent a confirmation email with your discount code. Check your inbox!</p>
                 </div>
             </div>
